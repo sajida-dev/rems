@@ -1,4 +1,6 @@
-<?php include_once "db_connection.php"; ?>
+<?php include_once "db_connection.php";
+session_start();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,6 +9,8 @@
     <title>Uptown</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700,800,900&display=swap" rel="stylesheet">
 
@@ -31,7 +35,6 @@
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="index.php">Uptown</a>
@@ -47,6 +50,18 @@
                     <li class="nav-item"><a href="services.php" class="nav-link">Services</a></li>
                     <li class="nav-item"><a href="properties.php" class="nav-link">Properties</a></li>
                     <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
+                    <?php if (!isset($_SESSION['id'])): ?>
+                        <li class="nav-item">
+                            <a href="login.php" class="btn btn-outline-primary nav-link">Login</a>
+                        </li>
+                        <li class="nav-item text-white">
+                            <a href="register.php" class="btn btn-primary nav-link">Register</a>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item text-white">
+                            <a href="logout.php" class="btn btn-primary nav-link">Logout</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>

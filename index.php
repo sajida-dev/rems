@@ -5,8 +5,8 @@ if ($conMessage):
   require_once "backend/select_properties.php";
   require_once "backend/select_agents.php";
 endif;
+require_once "components/notification.php";
 ?>
-
 <div class="hero-wrap ftco-degree-bg" style="background-image: url('images/bg_1.jpg');" data-stellar-background-ratio="0.5">
   <div class="overlay"></div>
   <div class="container">
@@ -15,7 +15,7 @@ endif;
         <div class="text text-center">
           <h1 class="mb-4">The Simplest <br>Way to Find Property</h1>
           <p style="font-size: 18px;">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts</p>
-          <form action="index.php#" class="search-location mt-md-5">
+          <form action="index.php" class="search-location mt-md-5">
             <div class="row justify-content-center">
               <div class="col-lg-10 align-items-end">
                 <div class="form-group">

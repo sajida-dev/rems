@@ -1,3 +1,4 @@
+<?php require_once "../../components/db_connection.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 
