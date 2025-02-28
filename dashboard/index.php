@@ -1,6 +1,9 @@
 <?php
 $title = "Dashboard";
-$page = "Dashboard";
+$page = "";
+$mainPage = "Dashboard";
+$mainPageUrl = "";
+$pageUrl = "";
 require_once "components/header.php";
 
 ?>

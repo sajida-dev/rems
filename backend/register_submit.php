@@ -57,10 +57,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
                 $_SESSION['id'] = $newUserId;
                 $_SESSION['username'] = $username;
                 $_SESSION['role'] = $role;
+                $_SESSION['email'] = $user['email'];
 
                 $msg = 'Registration successful, welcome' .  htmlspecialchars($username) . '!';
-                header("Location: index.php");
-                exit;
+                if ($user['role'] == 'agent'):
+                    header("location: /rems/dashboard");
+                    exit;
+                else:
+                    header("Location: index.php");
+                    exit;
+                endif;
             }
         } catch (PDOException $e) {
             $errors[] = "An error occurred while processing your request. Please try again later.";

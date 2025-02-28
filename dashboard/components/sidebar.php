@@ -26,42 +26,85 @@
                 </li>
 
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarLayouts">
+                    <a data-bs-toggle="collapse" href="#Customer">
                         <i class="fas fa-layer-group"></i>
                         <p>Customers</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="sidebarLayouts">
+                    <div class="collapse" id="Customer">
                         <ul class="nav nav-collapse">
                             <li>
                                 <a href="sidebar-style-2.php">
-                                    <span class="sub-item">Sidebar Style 2</span>
+                                    <span class="sub-item">Add Customer</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="icon-menu.php">
-                                    <span class="sub-item">Icon Menu</span>
+                                    <span class="sub-item">All Customer</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarLayouts">
+                    <a data-bs-toggle="collapse" href="#Agents">
                         <i class="fas fa-th-list"></i>
                         <p>Property Agents</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="sidebarLayouts">
+                    <div class="collapse" id="Agents">
                         <ul class="nav nav-collapse">
                             <li>
                                 <a href="sidebar-style-2.php">
-                                    <span class="sub-item">Sidebar Style 2</span>
+                                    <span class="sub-item">Add Agents</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="icon-menu.php">
-                                    <span class="sub-item">Icon Menu</span>
+                                    <span class="sub-item">All Agents</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#Categories">
+                        <i class="fas fa-th-list"></i>
+                        <p>Categories</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="Categories">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="categories/create.php">
+                                    <span class="sub-item">Add Categories</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="categories">
+                                    <span class="sub-item">All Categories</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#Properties">
+                        <i class="fas fa-th-list"></i>
+                        <p>Properties</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="Properties">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="sidebar-style-2.php">
+                                    <span class="sub-item">Add Properties</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="icon-menu.php">
+                                    <span class="sub-item">All Properties</span>
                                 </a>
                             </li>
                         </ul>

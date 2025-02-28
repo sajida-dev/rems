@@ -10,13 +10,13 @@
             <i class="icon-arrow-right"></i>
         </li>
         <li class="nav-item">
-            <a href="#">Pages</a>
+            <a href="#"><?php echo $mainPage; ?></a>
         </li>
         <li class="separator">
             <i class="icon-arrow-right"></i>
         </li>
         <li class="nav-item">
-            <a href="#">Starter Page</a>
+            <a href="#"><?php echo $page; ?></a>
         </li>
     </ul>
 </div>

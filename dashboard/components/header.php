@@ -1,10 +1,19 @@
-<?php require_once "../../components/db_connection.php"; ?>
+<?php
+// require_once "components/db_connection.php";
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['id']) && $_SESSION['role'] == 'agent' || $_SESSION['role'] == 'admin') {
+    header("location: login.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Dashboard</title>
+    <title><?php echo $title; ?></title>
     <meta
         content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
         name="viewport" />
@@ -64,5 +73,5 @@
 
             <div class="container">
                 <div class="page-inner">
-                    <?php require_once "components/page_header.php"; ?>
+                    <?php require_once "components/page-header.php"; ?>
                     <div class="row">

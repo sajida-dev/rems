@@ -103,7 +103,8 @@ CREATE TABLE approvals (
 INSERT INTO property_categories (name, description) VALUES
 ('Residential', 'Properties for living such as houses, apartments, and condos.'),
 ('Commercial', 'Office spaces, retail shops, and other commercial properties.'),
-('Industrial', 'Warehouses, factories, and industrial units.');
+('Industrial', 'Warehouses, factories, and industrial units.'),
+('Plot', 'Warehouses, factories, and industrial units.');
 
 -- Insert Dummy Data for Users
 INSERT INTO users (name, email, password_hash, role, contact, profile_pic, created_at)

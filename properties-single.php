@@ -30,15 +30,11 @@
 				<div class="bd-example bd-example-tabs">
 					<div class="d-flex justify-content-center">
 						<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-
 							<li class="nav-item">
-								<a class="nav-link active" id="pills-description-tab" data-toggle="pill" href="properties-single.php#pills-description" role="tab" aria-controls="pills-description" aria-expanded="true">Features</a>
+								<a class="nav-link active" id="pills-description-tab" data-toggle="pill" href="#pills-description" role="tab" aria-controls="pills-description" aria-expanded="true">Features</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill" href="properties-single.php#pills-manufacturer" role="tab" aria-controls="pills-manufacturer" aria-expanded="true">Description</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" id="pills-review-tab" data-toggle="pill" href="properties-single.php#pills-review" role="tab" aria-controls="pills-review" aria-expanded="true">Review</a>
+								<a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill" href="#pills-manufacturer" role="tab" aria-controls="pills-manufacturer" aria-expanded="true">Description</a>
 							</li>
 						</ul>
 					</div>
@@ -81,135 +77,7 @@
 							<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
 						</div>
 
-						<div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
-							<div class="row">
-								<div class="col-md-7">
-									<h3 class="head">23 Reviews</h3>
-									<div class="review d-flex">
-										<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
-										<div class="desc">
-											<h4>
-												<span class="text-left">Jacob Webb</span>
-												<span class="text-right">14 March 2018</span>
-											</h4>
-											<p class="star">
-												<span>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-												</span>
-												<span class="text-right"><a href="properties-single.php#" class="reply"><i class="icon-reply"></i></a></span>
-											</p>
-											<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-										</div>
-									</div>
-									<div class="review d-flex">
-										<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
-										<div class="desc">
-											<h4>
-												<span class="text-left">Jacob Webb</span>
-												<span class="text-right">14 March 2018</span>
-											</h4>
-											<p class="star">
-												<span>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-												</span>
-												<span class="text-right"><a href="properties-single.php#" class="reply"><i class="icon-reply"></i></a></span>
-											</p>
-											<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-										</div>
-									</div>
-									<div class="review d-flex">
-										<div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
-										<div class="desc">
-											<h4>
-												<span class="text-left">Jacob Webb</span>
-												<span class="text-right">14 March 2018</span>
-											</h4>
-											<p class="star">
-												<span>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-												</span>
-												<span class="text-right"><a href="properties-single.php#" class="reply"><i class="icon-reply"></i></a></span>
-											</p>
-											<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-5">
-									<div class="rating-wrap">
-										<h3 class="head">Give a Review</h3>
-										<div class="wrap">
-											<p class="star">
-												<span>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													(98%)
-												</span>
-												<span>20 Reviews</span>
-											</p>
-											<p class="star">
-												<span>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													(85%)
-												</span>
-												<span>10 Reviews</span>
-											</p>
-											<p class="star">
-												<span>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													(70%)
-												</span>
-												<span>5 Reviews</span>
-											</p>
-											<p class="star">
-												<span>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													(10%)
-												</span>
-												<span>0 Reviews</span>
-											</p>
-											<p class="star">
-												<span>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													<i class="ion-ios-star"></i>
-													(0%)
-												</span>
-												<span>0 Reviews</span>
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+
 					</div>
 				</div>
 			</div>
@@ -218,3 +86,19 @@
 </section>
 
 <?php include_once "components/footer.php" ?>
+
+<script>
+	$(document).ready(function() {
+		$('#pills-tab a').on('click', function(e) {
+			e.preventDefault();
+			var hash = this.hash;
+			$(this).tab('show');
+
+			if (history.pushState) {
+				history.pushState(null, null, hash);
+			} else {
+				window.location.hash = hash;
+			}
+		});
+	});
+</script>

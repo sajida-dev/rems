@@ -4,8 +4,10 @@ if ($conMessage):
   $limitHomePage = true;
   require_once "backend/select_properties.php";
   require_once "backend/select_agents.php";
+  require_once "backend/search_filter.php";
 endif;
 require_once "components/notification.php";
+
 ?>
 <div class="hero-wrap ftco-degree-bg" style="background-image: url('images/bg_1.jpg');" data-stellar-background-ratio="0.5">
   <div class="overlay"></div>
@@ -15,18 +17,32 @@ require_once "components/notification.php";
         <div class="text text-center">
           <h1 class="mb-4">The Simplest <br>Way to Find Property</h1>
           <p style="font-size: 18px;">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts</p>
-          <form action="index.php" class="search-location mt-md-5">
+          <form action="pro.php" method="POST" class="search-location mt-md-5">
             <div class="row justify-content-center">
               <div class="col-lg-10 align-items-end">
                 <div class="form-group">
-                  <div class="form-field">
-                    <input type="text" class="form-control" placeholder="Search location">
-                    <button><span class="ion-ios-search"></span></button>
+                  <div class="form-field d-flex">
+                    <input type="text" name="search" class="form-control" placeholder="Search location, price, or area">
+                    <button type="submit" class="btn btn-primary ml-2">
+                      <span class="ion-ios-search"></span>
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </form>
+          <!-- <form action="properties.php" method="GET" class="search-location mt-md-5">
+            <div class="row justify-content-center">
+              <div class="col-lg-10 align-items-end">
+                <div class="form-group">
+                  <div class="form-field">
+                    <input type="text" class="form-control" name="search" placeholder="Search location">
+                    <button type="submit"><span class="ion-ios-search"></span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form> -->
         </div>
       </div>
     </div>
