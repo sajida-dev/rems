@@ -1,53 +1,31 @@
-<?php
-$title = "Dashboard";
-$page = "";
-$mainPage = "Dashboard";
-$mainPageUrl = "";
-$pageUrl = "";
-require_once "components/header.php";
-
-?>
-
-<div class="col-md-12">
-    <div class="card">
-        <div class="card-header">
-            <div class="card-title">Form Elements</div>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6 col-lg-12">
-                    <div class="form-group">
-                        <label for="email2">Email Address</label>
-                        <input
-                            type="email"
-                            class="form-control"
-                            id="email2"
-                            placeholder="Enter Email" />
-                        <small id="emailHelp2" class="form-text text-muted">We'll never share your email with anyone
-                            else.</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input
-                            type="password"
-                            class="form-control"
-                            id="password"
-                            placeholder="Password" />
-                    </div>
-
-                </div>
-
+<div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">
+                    <span class="fw-mediumbold">Add</span>
+                    <span class="fw-light"> Category</span>
+                </h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </div>
-        <div class="card-action">
-            <button class="btn btn-success">Submit</button>
-            <button class="btn btn-danger">Cancel</button>
+            <div class="modal-body">
+                <div id="formErrors" class="alert alert-danger d-none"></div>
+                <form id="addCategoryForm">
+                    <div class="form-group form-group-default">
+                        <input id="categoryName" type="text" class="form-control" placeholder="Enter category name" required />
+                    </div>
+                    <div class="form-group form-group-default">
+                        <textarea id="categoryDescription" class="form-control" placeholder="Enter description" required></textarea>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" id="addRowButton" class="btn btn-primary">Add</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
-</div>
-
-</div>
-</div>
-
-<?php require_once "components/footer.php"; ?>

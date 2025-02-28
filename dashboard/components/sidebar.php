@@ -39,7 +39,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="icon-menu.php">
+                                <a href="all-customers.php">
                                     <span class="sub-item">All Customer</span>
                                 </a>
                             </li>
@@ -76,12 +76,12 @@
                     <div class="collapse" id="Categories">
                         <ul class="nav nav-collapse">
                             <li>
-                                <a href="categories/create.php">
+                                <a href="new-category.php">
                                     <span class="sub-item">Add Categories</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="categories">
+                                <a href="all-categories.php">
                                     <span class="sub-item">All Categories</span>
                                 </a>
                             </li>
