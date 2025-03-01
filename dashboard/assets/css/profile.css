@@ -153,7 +153,7 @@ body {
     display: block;
     font-size: 12px;
     color: #333;
-    background: white;
+    background: grey;
     border-radius: 25px;
     border: 1px solid grey;
     margin: 0 auto 10px auto;
@@ -208,3 +208,4 @@ body {
     background: #C5C5F1;
     text-decoration: none;
 }
+

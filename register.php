@@ -67,7 +67,7 @@ if (isset($_SESSION['id'])) {
                                         ?>
                                         <form action="" method="POST">
                                             <div class="form-group">
-                                                <label for="username">Username</label>
+                                                <label for="username">Full Name</label>
                                                 <input type="text" class="form-control" id="username" placeholder="Enter Username" name="username">
                                             </div>
                                             <div class="form-group">

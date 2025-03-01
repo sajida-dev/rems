@@ -28,11 +28,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
                     $_SESSION['id'] = $user['id'];
                     $_SESSION['username'] = $user['name'];
                     $_SESSION['role'] = $user['role'];
-                    $_SESSION['email'] = $user['email'];
 
                     $_SESSION['success_msg'] = "Login successful. Welcome back, " . htmlspecialchars($user['name']) . "!";
 
-                    if ($user['role'] == 'agent'):
+                    if ($_SESSION['role'] == 'agent'):
                         header("location: /rems/dashboard");
                         exit;
                     else:

@@ -22,6 +22,26 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE agent(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    agent_id INT NOT NULL,
+    agency VARCHAR(100) NULL,
+    experience INT NULL,
+    bio TEXT  NULL;
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    FOREIGN KEY (agent_id) REFERENCES users(id) ON DELETE SET NULL,
+);
+
+CREATE TABLE specializations_agent_categories(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    agent_id INT NOT NULL,
+    category_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (agent_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (category_id) REFERENCES Categories(id) ON DELETE SET NULL,
+);
+
+
 
 -- 4. Amenities Table
 CREATE TABLE amenities (

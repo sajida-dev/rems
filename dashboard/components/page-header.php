@@ -18,5 +18,11 @@
         <li class="nav-item">
             <a href="#"><?php echo $page; ?></a>
         </li>
+
     </ul>
+
 </div>
+
+<?php
+require_once "components/notification.php";
+?>

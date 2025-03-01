@@ -10,7 +10,8 @@
                 </div>
                 <div class="u-text">
                     <h4><?php echo $_SESSION['username'] ?></h4>
-                    <p class="text-muted"><?php echo $_SESSION['email'] ?></p>
+                    <p class="text-muted"><?php #echo $_SESSION['email'];
+                                            ?></p>
                     <a
                         href="profile.php"
                         class="btn btn-xs btn-secondary btn-sm">View Profile</a>

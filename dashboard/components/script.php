@@ -33,3 +33,19 @@
 
 <!-- Kaiadmin JS -->
 <script src="assets/js/kaiadmin.min.js"></script>
+<script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+<!-- Datatables -->
+<script src="assets/js/plugin/datatables/datatables.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/js/bootstrap-notify.min.js"></script> -->
+
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
+<script>
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+    setTimeout(function() {
+        $('.alert').fadeOut(1000);
+
+    }, 3000);
+</script>

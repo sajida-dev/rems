@@ -45,5 +45,7 @@
                 $(this).parent().addClass('active');
             }
         });
+
+
     });
 </script>

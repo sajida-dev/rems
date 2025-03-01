@@ -2,8 +2,13 @@
 <?php
 
 if (isset($_SESSION['id'])) {
-  header("Location: index.php");
-  exit;
+  if ($_SESSION['role'] == 'agent' || $_SESSION['role'] == 'admin'):
+    header('location: dashboard/index.php');
+    exit;
+  else:
+    header("Location: index.php");
+    exit;
+  endif;
 }
 
 ?>
@@ -87,9 +92,11 @@ if (isset($_SESSION['id'])) {
                   </div>
                 </div>
                 <div class="card-action">
-                  <button class="btn btn-success" type="submit" name="login">Login</button>
+                  <button class="btn btn-sm btn-success" type="submit" name="login">Login</button>
+                  <span class="container"><a href="register.php"> Register Here</a></span>
                 </div>
               </form>
+
             </div>
           </div>
         </div>
@@ -100,7 +107,7 @@ if (isset($_SESSION['id'])) {
 
   </div>
   <!--   Core JS Files   -->
-  <script src="dashboard/assets/js/core/jquery-3.7.1.min.js"></script>
+  <script src=" dashboard/assets/js/core/jquery-3.7.1.min.js"></script>
   <script src="dashboard/assets/js/core/popper.min.js"></script>
   <script src="dashboard/assets/js/core/bootstrap.min.js"></script>
 

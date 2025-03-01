@@ -6,7 +6,7 @@ if ($conMessage):
   require_once "backend/select_agents.php";
   require_once "backend/search_filter.php";
 endif;
-require_once "components/notification.php";
+// require_once "components/notification.php";
 
 ?>
 <div class="hero-wrap ftco-degree-bg" style="background-image: url('images/bg_1.jpg');" data-stellar-background-ratio="0.5">

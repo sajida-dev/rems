@@ -5,38 +5,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/profile.css">
-    <script src="assets/js/core/jquery-3.7.1.min.js"></script>
-    <script src="assets/js/profile.js"></script> v v vc cb bn
+    <link rel="stylesheet" href="assets/css/personalProfile.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="assets/js/profile.js"></script>
     <title>Profile</title>
 </head>
 
 <body>
-    <!-- MultiStep Form -->
     <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-6 col-md-offset-3 ">
             <form id="msform">
-                <!-- progressbar -->
                 <ul id="progressbar">
                     <li class="active">Personal Details</li>
-                    <li>Social Profiles</li>
+                    <li>Professional Profiles</li>
                     <li>Account Setup</li>
                 </ul>
-                <!-- fieldsets -->
                 <fieldset>
                     <h2 class="fs-title">Personal Details</h2>
-                    <h3 class="fs-subtitle">Tell us something more about you</h3>
-                    <input type="text" name="fname" placeholder="First Name" />
-                    <input type="text" name="lname" placeholder="Last Name" />
-                    <input type="text" name="phone" placeholder="Phone" />
+                    <h3 class="fs-subtitle">Tell us about yourself</h3>
+                    <div class="custom-row">
+                        <div class="custom-col custom-col-left">
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" placeholder="Email" class="form-control" value="<?php echo htmlspecialchars($agent['email'] ?? ''); ?>" required />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="phone" id="phone" placeholder="+923001235678" class="form-control" maxlength="12" value="<?php echo htmlspecialchars($agent['phone'] ?? ''); ?>" required />
+                            </div>
+                            <div class="form-group">
+                                <textarea name="bio" id="bio" placeholder="Write something about yourself..." rows="4" class="form-control"><?php echo htmlspecialchars($agent['bio'] ?? ''); ?></textarea>
+                            </div>
+
+                        </div>
+                        <div class="custom-col custom-col-right">
+                            <?php if (!empty($agent['profile_pic'])): ?>
+                                <img src="<?php echo htmlspecialchars($agent['profile_pic']); ?>" alt="Profile Avatar" class="avatar img-fluid" id="avatarPreview" />
+                            <?php else: ?>
+                                <img src="assets/img/profile.jpg" alt="Default Avatar" class="custom-avatar img-fluid" id="avatarPreview" />
+                            <?php endif; ?>
+                            <input type="file" name="profile_pic" id="profile_pic" accept="image/*" style="display: none;" />
+                        </div>
+
+                    </div>
                     <input type="button" name="next" class="next action-button" value="Next" />
                 </fieldset>
+
                 <fieldset>
-                    <h2 class="fs-title">Social Profiles</h2>
-                    <h3 class="fs-subtitle">Your presence on the social network</h3>
-                    <input type="text" name="twitter" placeholder="Twitter" />
-                    <input type="text" name="facebook" placeholder="Facebook" />
-                    <input type="text" name="gplus" placeholder="Google Plus" />
+                    <h2 class="fs-title">Professional Details</h2>
+                    <h3 class="fs-subtitle">Your work profile</h3>
+                    <input type="text" name="agency" placeholder="Agency Name" value="<?php echo htmlspecialchars($agent['agency'] ?? ''); ?>" />
+                    <input type="number" name="experience" placeholder="Years of Experience" min="0" value="<?php echo htmlspecialchars($agent['experience'] ?? ''); ?>" />
+                    <div class="form-group " style="text-align: left;">
+                        <label class="custom-form-label">Select Specializations</label>
+                        <div class="custom-selectgroup">
+                            <label class="custom-selectgroup-item">
+                                <input type="checkbox" name="specializations[]" value="Residential">
+                                <span>Residential</span>
+                            </label>
+                            <label class="custom-selectgroup-item">
+                                <input type="checkbox" name="specializations[]" value="Commercial">
+                                <span>Commercial</span>
+                            </label>
+                            <label class="custom-selectgroup-item">
+                                <input type="checkbox" name="specializations[]" value="Industrial">
+                                <span>Industrial</span>
+                            </label>
+                            <label class="custom-selectgroup-item">
+                                <input type="checkbox" name="specializations[]" value="Land">
+                                <span>Land</span>
+                            </label>
+                            <label class="custom-selectgroup-item">
+                                <input type="checkbox" name="specializations[]" value="Luxury">
+                                <span>Luxury</span>
+                            </label>
+                        </div>
+                    </div>
+
                     <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                     <input type="button" name="next" class="next action-button" value="Next" />
                 </fieldset>
@@ -52,8 +96,8 @@
             </form>
 
         </div>
-        <div class="col-md-3"></div>
     </div>
+
     <!-- /.MultiStep Form -->
 </body>
 
