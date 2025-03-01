@@ -1,14 +1,14 @@
 <?php
 // require_once "components/db_connection.php";
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoryName']) && isset($_POST['categoryDescription'])) {
-    $categoryName = trim($_POST['categoryName']);
-    $categoryDescription = trim($_POST['categoryDescription']);
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['amenitiesName']) && isset($_POST['amenitiesDescription'])) {
+    $amenitiesName = trim($_POST['amenitiesName']);
+    $amenitiesDescription = trim($_POST['amenitiesDescription']);
     $errors = array();
 
-    if (empty($categoryName)) {
-        $errors[] = "Category name is required.";
+    if (empty($amenitiesName)) {
+        $errors[] = "Amenities name is required.";
     }
-    if (empty($categoryDescription)) {
+    if (empty($amenitiesDescription)) {
         $errors[] = "Description is required.";
     }
 
@@ -16,20 +16,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoryName']) && iss
         $_SESSION['error_msg'] = implode("<br>", $errors);
     } else {
         try {
-            $stmt = $conn->prepare("INSERT INTO property_categories (name, description, created_at) VALUES (:name, :description, NOW())");
-            $stmt->bindParam(':name', $categoryName);
-            $stmt->bindParam(':description', $categoryDescription);
+            $stmt = $conn->prepare("INSERT INTO amenities (name, description, created_at) VALUES (:name, :description, NOW())");
+            $stmt->bindParam(':name', $amenitiesName);
+            $stmt->bindParam(':description', $amenitiesDescription);
             $stmt->execute();
-            $_SESSION['msg'] = 'Cateogory add successfully.';
-            echo "<script>window.location.href = 'all-categories.php';</script>";
+            $_SESSION['msg'] = 'Amenities add successfully.';
+            echo "<script>window.location.href = 'all-amenities.php';</script>";
             exit;
         } catch (PDOException $e) {
             $_SESSION['msg'] = "Database error: " . $e->getMessage();
-            echo "<script>window.location.href = 'all-categories.php';</script>";
+            echo "<script>window.location.href = 'all-amenities.php';</script>";
             exit;
         }
     }
 }
 
-$stmt = $conn->query("SELECT * FROM property_categories ORDER BY created_at DESC");
-$categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$stmt = $conn->query("SELECT * FROM amenities ORDER BY created_at DESC");
+$amenities = $stmt->fetchAll(PDO::FETCH_ASSOC);

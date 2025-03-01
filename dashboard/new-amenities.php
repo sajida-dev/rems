@@ -5,7 +5,7 @@
                 <div class="modal-header border-0">
                     <h5 class="modal-title">
                         <span class="fw-mediumbold">Add</span>
-                        <span class="fw-light"> Category</span>
+                        <span class="fw-light"> Amenity</span>
                     </h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -15,10 +15,10 @@
                     <div id="formErrors" class="alert alert-danger d-none"></div>
 
                     <div class="form-group form-group-default">
-                        <input id="categoryName" name="categoryName" value="<?php echo htmlspecialchars($category['categoryName'] ?? ''); ?>" type="text" class="form-control" placeholder="Enter category name" required />
+                        <input id="amenitiesName" name="amenitiesName" value="<?php echo htmlspecialchars($amenities['amenitiesName'] ?? ''); ?>" type="text" class="form-control" placeholder="Enter amenities name" required />
                     </div>
                     <div class="form-group form-group-default">
-                        <textarea id="categoryDescription" name="categoryDescription" value="<?php echo htmlspecialchars($category['categoryDescription'] ?? ''); ?>" class="form-control" placeholder="Enter description" required></textarea>
+                        <textarea id="amenitiesDescription" name="amenitiesDescription" value="<?php echo htmlspecialchars($amenities['amenitiesDescription'] ?? ''); ?>" class="form-control" placeholder="Enter description" required></textarea>
                     </div>
 
 

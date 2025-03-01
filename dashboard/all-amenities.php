@@ -1,20 +1,20 @@
 <?php
-$title = "Category";
+$title = "Amenities";
 $page = "All";
-$mainPage = "Category";
+$mainPage = "Amenities";
 require_once "components/header.php";
-require_once "new-category.php";
-require_once "backend/add-category.php"; ?>
+require_once "new-amenities.php";
+require_once "backend/add-amenities.php"; ?>
 
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
             <div class="d-flex align-items-center">
-                <h4 class="card-title"> Categories</h4>
+                <h4 class="card-title"> Amenities</h4>
                 <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
                     data-bs-target="#addRowModal">
                     <i class="fa fa-plus"></i>
-                    Add Category
+                    Add Amenity
                 </button>
             </div>
         </div>
@@ -22,7 +22,7 @@ require_once "backend/add-category.php"; ?>
             <!-- Modal -->
 
             <div class="table-responsive">
-                <table id="categoryTable" class="display table table-striped table-hover">
+                <table id="amenitiesTable" class="display table table-striped table-hover">
                     <thead>
                         <tr>
                             <th>Sr.</th>
@@ -40,19 +40,18 @@ require_once "backend/add-category.php"; ?>
                         </tr>
                     </tfoot>
                     <tbody>
-                        <?php foreach ($categories as $cat): ?>
+                        <?php foreach ($amenities as $ame): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($cat['id']); ?></td>
-                                <td><?php echo htmlspecialchars($cat['name']); ?></td>
-                                <td><?php echo htmlspecialchars($cat['description']); ?></td>
+                                <td><?php echo htmlspecialchars($ame['id']); ?></td>
+                                <td><?php echo htmlspecialchars($ame['name']); ?></td>
+                                <td><?php echo htmlspecialchars($ame['description']); ?></td>
                                 <td>
                                     <div class="form-button-action">
-                                        <a href="update-category.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-primary btn-lg ">
+                                        <a href="update-amenities.php?id=<?php echo htmlspecialchars($ame['id']); ?>" class="btn btn-link btn-primary btn-lg ">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <!-- data-bs-toggle="modal"
-                                            data-bs-target="#updateCategory" -->
-                                        <a href="delete-category.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-danger">
+
+                                        <a href="delete-amenities.php?id=<?php echo htmlspecialchars($ame['id']); ?>" class="btn btn-link btn-danger">
                                             <i class="fa fa-times"></i>
                                         </a>
                                     </div>
@@ -73,7 +72,7 @@ require_once "backend/add-category.php"; ?>
 
 <script>
     $(document).ready(function() {
-        $("#categoryTable").DataTable({
+        $("#amenitiesTable").DataTable({
             pageLength: 10
         });
     });
