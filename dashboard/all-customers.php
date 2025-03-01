@@ -1,64 +1,64 @@
 <?php
-$title = "Dashboard";
-$page = "";
-$mainPage = "Dashboard";
+$title = "Category";
+$page = "All";
+$mainPage = "Category";
 require_once "components/header.php";
-
-?>
-
+require_once "new-category.php";
+require_once "backend/add-category.php"; ?>
 
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
             <div class="d-flex align-items-center">
-                <h4 class="card-title">Add Row</h4>
+                <h4 class="card-title"> Categories</h4>
                 <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
                     data-bs-target="#addRowModal">
                     <i class="fa fa-plus"></i>
-                    Add Row
+                    Add Category
                 </button>
             </div>
         </div>
         <div class="card-body">
             <!-- Modal -->
-            <?php require_once "new-category.php"; ?>
 
             <div class="table-responsive">
-                <table id="add-row" class="display table table-striped table-hover">
+                <table id="categoryTable" class="display table table-striped table-hover">
                     <thead>
                         <tr>
+                            <th>Sr.</th>
                             <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
+                            <th>Description</th>
                             <th style="width: 10%">Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
+                            <th>Sr.</th>
                             <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Action</th>
+                            <th>Description</th>
+                            <th style="width: 10%">Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>
-                                <div class="form-button-action">
-                                    <button type="button" data-bs-toggle="tooltip" title=""
-                                        class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger"
-                                        data-original-title="Remove">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                        <?php foreach ($categories as $cat): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($cat['id']); ?></td>
+                                <td><?php echo htmlspecialchars($cat['name']); ?></td>
+                                <td><?php echo htmlspecialchars($cat['description']); ?></td>
+                                <td>
+                                    <div class="form-button-action">
+                                        <a href="update-category.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-primary btn-lg ">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <!-- data-bs-toggle="modal"
+                                            data-bs-target="#updateCategory" -->
+                                        <a href="delete-category.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-danger">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -70,25 +70,11 @@ require_once "components/header.php";
 <?php require_once "components/footer.php"; ?>
 
 
+
 <script>
     $(document).ready(function() {
-        $("#add-row").DataTable({
-            pageLength: 5,
-        });
-
-        var action =
-            '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
-
-        $("#addRowButton").click(function() {
-            $("#add-row")
-                .dataTable()
-                .fnAddData([
-                    $("#addName").val(),
-                    $("#addPosition").val(),
-                    $("#addOffice").val(),
-                    action,
-                ]);
-            $("#addRowModal").modal("hide");
+        $("#categoryTable").DataTable({
+            pageLength: 10
         });
     });
 </script>
