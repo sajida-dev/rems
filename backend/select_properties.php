@@ -1,11 +1,10 @@
 <?php
 try {
     $limit = 6;
-    if (isset($limitHomePage)):
+
+    if ($limitHomePage):
         $limit = 3;
     endif;
-
-
 
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     if ($page < 1) {
@@ -25,6 +24,7 @@ try {
     $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
     $stmt->execute();
     $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     $message = true;
 } catch (PDOException $e) {
     $message = "Error fetching properties: " . $e->getMessage();

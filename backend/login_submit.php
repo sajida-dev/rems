@@ -1,43 +1,48 @@
 <?php
+session_start();
 $msg = "";
 $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
-    $name = trim($_POST['name'] ?? '');
+    // Retrieve form values
+    $email = trim($_POST['email'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
-    if (empty($name)) {
-        $errors[] = "Username is required.";
+    // Validate email and password
+    if (empty($email)) {
+        $errors[] = "Email is required.";
     }
     if (empty($password)) {
         $errors[] = "Password is required.";
     }
 
+    // If no errors, attempt login
     if (empty($errors)) {
         try {
-            $stmt = $conn->prepare("SELECT * FROM users WHERE name = :name LIMIT 1");
-            $stmt->bindParam(':name', $name);
+            // Prepare a statement to fetch the user by email
+            $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
+            $stmt->bindParam(':email', $email);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user) {
+                // Verify the password
                 if (password_verify($password, $user['password_hash'])) {
-                    if (session_status() === PHP_SESSION_NONE) {
-                        session_start();
-                    }
+                    // Set session variables
                     $_SESSION['id'] = $user['id'];
-                    $_SESSION['username'] = $user['name'];
+                    $_SESSION['email'] = $user['email'];
                     $_SESSION['role'] = $user['role'];
 
-                    $_SESSION['success_msg'] = "Login successful. Welcome back, " . htmlspecialchars($user['name']) . "!";
+                    $_SESSION['msg'] = "Login successful. Welcome back, " . htmlspecialchars($user['name']) . "!";
 
-                    if ($_SESSION['role'] == 'agent'):
-                        header("location: /rems/dashboard");
+                    // Redirect based on role
+                    if ($user['role'] === 2) {
+                        header("Location: /rems/dashboard");
                         exit;
-                    else:
+                    } else {
                         header("Location: index.php");
                         exit;
-                    endif;
+                    }
                 } else {
                     $errors[] = "Invalid password.";
                 }

@@ -63,6 +63,7 @@ if (isset($_SESSION['id'])) {
         <div class="row justify-content-center align-items-center">
           <div class="col-lg-4 ">
             <div class="card">
+
               <form action="" method="POST">
                 <div class="card-header">
                   <div class="card-title">Login Form</div>
@@ -73,30 +74,20 @@ if (isset($_SESSION['id'])) {
                   ?>
                 </div>
                 <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-12 col-lg-12">
-                      <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name">
-                      </div>
-                    </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" placeholder="Enter Email" name="email">
                   </div>
-                  <div class="row">
-                    <div class="col-md-12 col-lg-12">
-                      <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password">
-
-                      </div>
-                    </div>
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password">
                   </div>
                 </div>
                 <div class="card-action">
                   <button class="btn btn-sm btn-success" type="submit" name="login">Login</button>
-                  <span class="container"><a href="register.php"> Register Here</a></span>
+                  <span class="container"><a href="register.php">Register Here</a></span>
                 </div>
               </form>
-
             </div>
           </div>
         </div>

@@ -10,7 +10,7 @@
                 <li class="nav-item active">
                     <a
                         data-bs-toggle="collapse"
-                        href="#dashboard"
+                        href="index.php"
                         class="collapsed"
                         aria-expanded="false">
                         <i class="fas fa-home"></i>
@@ -24,8 +24,39 @@
                     </span>
                     <h4 class="text-section">Components</h4>
                 </li>
-
                 <li class="nav-item">
+                    <a href="all-categories.php">
+                        <i class="fas fa-desktop"></i>
+                        <p>Category</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="all-properties.php">
+                        <i class="fas fa-desktop"></i>
+                        <p>Properties</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="all-amenities.php">
+                        <i class="fas fa-desktop"></i>
+                        <p>Amenities</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="all-customers.php">
+                        <i class="fas fa-desktop"></i>
+                        <p>Customer</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="all-agents.php">
+                        <i class="fas fa-desktop"></i>
+                        <p>Agents</p>
+                        <span class="badge badge-success">4</span>
+                    </a>
+                </li>
+
+                <!-- <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#Customer">
                         <i class="fas fa-layer-group"></i>
                         <p>Customers</p>
@@ -109,7 +140,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> -->
 
 
                 <li class="nav-item">

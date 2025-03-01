@@ -1,19 +1,24 @@
 <?php
-
 $msg = "";
 $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
-    $username = trim($_POST['username'] ?? '');
-    $role     = isset($_POST['role']) ? intval($_POST['role']) : 0;
+
+    $name = trim($_POST['name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $role = isset($_POST['role']) ? intval($_POST['role']) : 0;
     $password = trim($_POST['password'] ?? '');
 
-    if (empty($username)) {
-        $errors[] = "Username is required.";
-    } elseif (strlen($username) < 3) {
-        $errors[] = "Username must be at least 3 characters long.";
-    } elseif (!preg_match("/^[a-zA-Z0-9_]+$/", $username)) {
-        $errors[] = "Username can only contain letters, numbers, and underscores.";
+    if (empty($name)) {
+        $errors[] = "Name is required.";
+    } elseif (strlen($name) < 2) {
+        $errors[] = "Name must be at least 2 characters long.";
+    }
+
+    if (empty($email)) {
+        $errors[] = "Email is required.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Invalid email format.";
     }
 
     $allowedRoles = [1, 2];
@@ -23,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
         $errors[] = "Invalid role selected.";
     }
 
+
     if (empty($password)) {
         $errors[] = "Password is required.";
     } elseif (strlen($password) < 6) {
@@ -31,22 +37,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
 
     if (empty($errors)) {
         try {
-            $stmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE name = :username");
-            $stmt->bindParam(':username', $username);
+            $stmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
+            $stmt->bindParam(':email', $email);
             $stmt->execute();
             if ($stmt->fetchColumn() > 0) {
-                $errors[] = "Username already exists. Please choose another.";
+                $errors[] = "Email already exists. Please choose another.";
             } else {
-                $email = strtolower(str_replace(' ', '', $username)) . '@example.com';
                 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-                $contact = '';
 
-                $stmt = $conn->prepare("INSERT INTO users (name, email, role, password_hash, contact, created_at) VALUES (:username, :email, :role, :password_hash, :contact, NOW())");
-                $stmt->bindParam(':username', $username);
+                $stmt = $conn->prepare("INSERT INTO users (name, email, password_hash, role, created_at) VALUES (:name, :email, :password_hash, :role, NOW())");
+                $stmt->bindParam(':name', $name);
                 $stmt->bindParam(':email', $email);
-                $stmt->bindParam(':role', $role);
                 $stmt->bindParam(':password_hash', $passwordHash);
-                $stmt->bindParam(':contact', $contact);
+                $stmt->bindParam(':role', $role);
                 $stmt->execute();
 
                 $newUserId = $conn->lastInsertId();
@@ -55,12 +58,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
                 }
 
                 $_SESSION['id'] = $newUserId;
-                $_SESSION['username'] = $username;
+                $_SESSION['name'] = $name;
                 $_SESSION['role'] = $role;
+                $_SESSION['email'] = $email;
 
-                $msg = 'Registration successful, welcome' .  htmlspecialchars($username) . '!';
-                if ($_SESSION['role'] == 'agent'):
-                    header("location: /rems/dashboard/profile.php");
+                $msg = 'Registration successful, welcome ' . htmlspecialchars($name) . '!';
+                if ($roleString == 2):
+                    header("Location: /rems/dashboard/profile.php");
                     exit;
                 else:
                     header("Location: index.php");

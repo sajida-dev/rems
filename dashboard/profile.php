@@ -27,7 +27,7 @@
                     <div class="custom-row">
                         <div class="custom-col custom-col-left">
                             <div class="form-group">
-                                <input type="email" name="email" id="email" placeholder="Email" class="form-control" value="<?php echo htmlspecialchars($agent['email'] ?? ''); ?>" required />
+                                <input type="text" name="name" id="name" placeholder="Enter Full Name" class="form-control" value="<?php echo htmlspecialchars($agent['name'] ?? ''); ?>" required />
                             </div>
                             <div class="form-group">
                                 <input type="text" name="phone" id="phone" placeholder="+923001235678" class="form-control" maxlength="12" value="<?php echo htmlspecialchars($agent['phone'] ?? ''); ?>" required />

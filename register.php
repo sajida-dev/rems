@@ -67,24 +67,26 @@ if (isset($_SESSION['id'])) {
                                         ?>
                                         <form action="" method="POST">
                                             <div class="form-group">
-                                                <label for="username">Full Name</label>
-                                                <input type="text" class="form-control" id="username" placeholder="Enter Username" name="username">
+                                                <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
                                             </div>
                                             <div class="form-group">
-                                                <label for="role">Role</label>
                                                 <select name="role" id="role" class="form-control">
+                                                    <option value="">Select Role</option>
                                                     <option value="2">Property Agent</option>
                                                     <option value="1">End User</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label for="password">Password</label>
+                                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                                            </div>
+                                            <div class="form-group">
                                                 <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password">
                                             </div>
                                             <div class="card-action">
                                                 <button class="btn btn-success" type="submit" name="register">Register</button>
                                             </div>
                                         </form>
+
                                     </div>
                                 </div>
                             </div>

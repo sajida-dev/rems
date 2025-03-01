@@ -1,5 +1,3 @@
--- create a db schema to include payments details that property agents save / update after registration on profile page that is requirement given from clients and then 
-
 -- 1. Create the Database
 CREATE DATABASE real_estate_db;
 USE real_estate_db;
@@ -21,30 +19,30 @@ CREATE TABLE users (
     role ENUM('end-user', 'agent', 'admin') NOT NULL,
     profile_pic VARCHAR(255) NULL,
     status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
-    contact VARCHAR(15),
+    contact VARCHAR(15) ,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE agent(
+-- 3A. Agent Table (Additional info for agents)
+CREATE TABLE agent (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    agent_id INT NOT NULL,
+    agent_id INT,  -- allow NULL for ON DELETE SET NULL
     agency VARCHAR(100) NULL,
     experience INT NULL,
-    bio TEXT  NULL;
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    FOREIGN KEY (agent_id) REFERENCES users(id) ON DELETE SET NULL,
+    bio TEXT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (agent_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
-CREATE TABLE specializations_agent_categories(
+-- 3B. Specializations - Agent Categories Mapping Table
+CREATE TABLE specializations_agent_categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    agent_id INT NOT NULL,
-    category_id INT NOT NULL,
+    agent_id INT,  -- allow NULL for ON DELETE SET NULL
+    category_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (agent_id) REFERENCES users(id) ON DELETE SET NULL,
-    FOREIGN KEY (category_id) REFERENCES property_categories(id) ON DELETE SET NULL,
+    FOREIGN KEY (category_id) REFERENCES property_categories(id) ON DELETE SET NULL
 );
-
-
 
 -- 4. Amenities Table
 CREATE TABLE amenities (
@@ -63,7 +61,7 @@ CREATE TABLE properties (
     location VARCHAR(255) NOT NULL,         
     rent_price DECIMAL(10,2) NOT NULL,       
     old_price DECIMAL(10,2),                 
-    bedrooms INT,                         
+    bedrooms INT,                          
     bathrooms INT,                         
     area INT,                              
     image_url VARCHAR(255),                
@@ -74,16 +72,16 @@ CREATE TABLE properties (
     FOREIGN KEY (agent_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
+-- 5A. Uploads Table
 CREATE TABLE uploads (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    image_url VARCHAR(255),    
-    FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE,
+    property_id INT,
+    image_url VARCHAR(255),
+    FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE
 );
-
 
 -- 6. Property_Amenities Mapping Table (Many-to-Many Relationship)
 CREATE TABLE property_amenities (
-    id INT AUTO_INCREMENT PRIMARY KEY,
     property_id INT,
     amenity_id INT,
     PRIMARY KEY (property_id, amenity_id),
@@ -115,31 +113,27 @@ CREATE TABLE payments (
 );
 
 
--- -----------------------------------------------
--- Inserting Dummy Data for Testing and Validation
--- -----------------------------------------------
 
--- Insert Dummy Data for Property Categories
 INSERT INTO property_categories (name, description) VALUES
 ('Residential', 'Properties for living such as houses, apartments, and condos.'),
 ('Commercial', 'Office spaces, retail shops, and other commercial properties.'),
 ('Industrial', 'Warehouses, factories, and industrial units.'),
-('Plot', 'Warehouses, factories, and industrial units.');
+('Plot', 'Plots of land available for purchase.');
 
--- Insert Dummy Data for Users
+
 INSERT INTO users (name, email, password_hash, role, contact, profile_pic, created_at)
 VALUES
 ('James Stallon', 'agent1@example.com', 'hashedpassword1', 'agent', '1234567890', 'images/team-1.jpg', NOW()),
 ('John Doe', 'john@example.com', 'hashedpassword2', 'end-user', '1234567890', 'images/team-2.jpg', NOW()),
 ('Jane Smith', 'jane@example.com', 'hashedpassword3', 'agent', '1234567890', 'images/team-3.jpg', NOW()),
 ('Admin User', 'admin@example.com', 'hashedpassword4', 'admin', NULL, 'images/team-4.jpg', NOW()),
-('James Stallon', 'agent5@example.com', 'hashedpassword5', 'agent', '1234567890', 'images/team-5.jpg', NOW()),
-('James Stallon', 'agent6@example.com', 'hashedpassword6', 'agent', '1234567890', 'images/team-6.jpg', NOW()),
-('James Stallon', 'agent7@example.com', 'hashedpassword7', 'agent', '1234567890', 'images/team-7.jpg', NOW()),
-('James Stallon', 'agent8@example.com', 'hashedpassword8', 'agent', '1234567890', 'images/team-8.jpg', NOW());
+('Michael Scott', 'agent5@example.com', 'hashedpassword5', 'agent', '1234567890', 'images/team-5.jpg', NOW()),
+('Dwight Schrute', 'agent6@example.com', 'hashedpassword6', 'agent', '1234567890', 'images/team-6.jpg', NOW()),
+('Pam Beesly', 'agent7@example.com', 'hashedpassword7', 'agent', '1234567890', 'images/team-7.jpg', NOW()),
+('Jim Halpert', 'agent8@example.com', 'hashedpassword8', 'agent', '1234567890', 'images/team-8.jpg', NOW());
 
 
--- Insert Dummy Data for Amenities
+
 INSERT INTO amenities (name, description) VALUES
 ('Pool', 'Swimming pool available for residents.'),
 ('Gym', 'On-site gym facility with modern equipment.'),
@@ -161,36 +155,47 @@ INSERT INTO properties (
     image_url, 
     agent_id
 ) VALUES
-(1, 'The Blue Sky Home', 'Spacious 3BHK property with modern amenities and a beautiful view.', 'Oakland', 3050, 800000, 3, 2, 1878, 'images/work-2.jpg', 2),
-(1, 'Luxury Apartment', 'Spacious 3BHK apartment with sea view.', 'Downtown', 3050, 800000, 3, 2, 1878, 'images/work-3.jpg', 2),
-(1, 'Cozy Studio', 'Affordable studio apartment ideal for singles.', 'Suburb', 3050, 800000, 3, 2, 1878, 'images/work-4.jpg', 2),
-(1, 'The Blue Sky Home', 'Spacious 3BHK property with modern amenities and a beautiful view.', 'Oakland', 3050, 800000, 3, 2, 1878, 'images/work-5.jpg', 2),
-(1, 'The Blue Sky Home', 'Spacious 3BHK property with modern amenities and a beautiful view.', 'Oakland', 3050, 800000, 3, 2, 1878, 'images/work-6.jpg', 2),
-(1, 'The Blue Sky Home', 'Spacious 3BHK property with modern amenities and a beautiful view.', 'Oakland', 3050, 800000, 3, 2, 1878, 'images/work-4.jpg', 2),
-(1, 'The Blue Sky Home', 'Spacious 3BHK property with modern amenities and a beautiful view.', 'Oakland', 3050, 800000, 3, 2, 1878, 'images/work-5.jpg', 2),
-(1, 'The Blue Sky Home', 'Spacious 3BHK property with modern amenities and a beautiful view.', 'Oakland', 3050, 800000, 3, 2, 1878, 'images/work-6.jpg', 2);
+(1, 'The Blue Sky Home', 'Spacious 3BHK property with modern amenities and a beautiful view.', 'Oakland', 3050.00, 800000.00, 3, 2, 1878, 'images/work-2.jpg', 1),
+(1, 'Luxury Apartment', 'Elegant apartment with sea view and modern amenities.', 'Downtown', 4500.00, 950000.00, 3, 2, 2100, 'images/work-3.jpg', 3),
+(1, 'Cozy Studio', 'Affordable studio ideal for singles.', 'Suburb', 1500.00, 350000.00, 1, 1, 750, 'images/work-4.jpg', 5),
+(1, 'Modern Villa', 'Luxury villa with pool and garden.', 'Beverly Hills', 8000.00, 2000000.00, 5, 4, 3500, 'images/work-5.jpg', 7);
 
 
--- Map Amenities to Properties
--- For property 1: Assign Pool, Gym, and Parking
+-- For property 1: Assign Pool, Gym, and Parking (amenity ids 1, 2, 3)
 INSERT INTO property_amenities (property_id, amenity_id) VALUES
 (1, 1),
 (1, 2),
 (1, 3);
 
--- For property 2: Assign Security and Balcony
+-- For property 2: Assign Security and Balcony (amenity ids 4, 5)
 INSERT INTO property_amenities (property_id, amenity_id) VALUES
 (2, 4),
 (2, 5);
 
--- Insert Dummy Data for Transactions
+
 INSERT INTO transactions (user_id, property_id, transaction_type, status) VALUES
-(1, 1, 'buy', 'completed'),
-(1, 2, 'hire', 'pending');
+(2, 1, 'buy', 'completed'),
+(2, 2, 'hire', 'pending');
 
--- Insert Dummy Data for Payments
+
 INSERT INTO payments (transaction_id, amount, payment_method, status) VALUES
-(1, 150000, 'bank_transfer', 'completed'),
-(2, 5000, 'paypal', 'pending');
+(1, 150000.00, 'bank_transfer', 'completed'),
+(2, 5000.00, 'paypal', 'pending');
 
+
+
+INSERT INTO agent (agent_id, agency, experience, bio, created_at)
+VALUES
+(1, 'Dream Homes Real Estate', 5, 'Passionate about helping clients find their dream homes.', NOW()),
+(3, 'Urban Living Realty', 3, 'Specializes in modern apartments and urban residences.', NOW()),
+(5, 'Country Homes Realty', 7, 'Expert in countryside properties and luxury estates.', NOW()),
+(7, 'Elite Properties', 10, 'Experienced agent with a focus on luxury and commercial properties.', NOW());
+
+
+INSERT INTO specializations_agent_categories (agent_id, category_id, created_at)
+VALUES
+(1, 1, NOW()),
+(3, 1, NOW()),
+(5, 2, NOW()),
+(7, 1, NOW());
 

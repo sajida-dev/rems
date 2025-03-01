@@ -9,8 +9,8 @@
                         class="avatar-img rounded" />
                 </div>
                 <div class="u-text">
-                    <h4><?php echo $_SESSION['username'] ?></h4>
-                    <p class="text-muted"><?php #echo $_SESSION['email'];
+                    <h4><?php echo $_SESSION['name'] ?? "" ?></h4>
+                    <p class="text-muted"><?php echo $_SESSION['email'];
                                             ?></p>
                     <a
                         href="profile.php"
@@ -20,7 +20,7 @@
         </li>
         <li>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">My Profile</a>
+            <a class="dropdown-item" href="profile.php">My Profile</a>
             <a class="dropdown-item" href="#">My Balance</a>
             <a class="dropdown-item" href="#">Inbox</a>
             <div class="dropdown-divider"></div>

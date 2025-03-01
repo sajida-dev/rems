@@ -56,7 +56,7 @@
                     </div>
                     <span class="profile-username">
                         <span class="op-7">Hi,</span>
-                        <span class="fw-bold"><?php echo $_SESSION['username'] ?></span>
+                        <span class="fw-bold"><?php echo $_SESSION['name'] ?></span>
                     </span>
                 </a>
                 <?php require_once "dropdown-user.php"; ?>
