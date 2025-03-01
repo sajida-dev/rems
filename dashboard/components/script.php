@@ -48,4 +48,8 @@
         $('.alert').fadeOut(1000);
 
     }, 3000);
+
+    function closeModel() {
+        window.location.href = 'all-customers.php';
+    }
 </script>

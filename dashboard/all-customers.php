@@ -12,7 +12,7 @@ require_once "backend/add-customer.php"; ?>
             <div class="d-flex align-items-center">
                 <h4 class="card-title"> Customers</h4>
                 <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
-                    data-bs-target="#addRowModal">
+                    data-bs-target="#addCustomer">
                     <i class="fa fa-plus"></i>
                     Add Customer
                 </button>
@@ -28,6 +28,7 @@ require_once "backend/add-customer.php"; ?>
                             <th>Sr.</th>
                             <th>Name</th>
                             <th>email</th>
+                            <th>contact</th>
                             <th style="width: 10%">Action</th>
                         </tr>
                     </thead>
@@ -35,12 +36,13 @@ require_once "backend/add-customer.php"; ?>
                         <tr>
                             <th>Sr.</th>
                             <th>Name</th>
-                            <th>Description</th>
+                            <th>email</th>
+                            <th>contact</th>
                             <th style="width: 10%">Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        <?php foreach ($categories as $cat): ?>
+                        <?php foreach ($customers as $cat): ?>
                             <tr>
                                 <td>
                                     <div class="avatar avatar-lg">
@@ -49,15 +51,16 @@ require_once "backend/add-customer.php"; ?>
                                 </td>
                                 <td><?php echo htmlspecialchars($cat['name']); ?></td>
                                 <td><?php echo htmlspecialchars($cat['email']); ?></td>
+                                <td><?php echo htmlspecialchars($cat['contact'] ?? "NILL"); ?></td>
                                 <td>
                                     <div class="form-button-action">
-                                        <a href="update-category.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-primary btn-lg ">
+                                        <a href="update-customer.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-primary btn-lg ">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <a href="view-agent.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-secondary btn-lg ">
-                                            <i class="fa fa-view"></i>
+                                        <a href="view-customer.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-secondary btn-lg ">
+                                            <i class="fa fa-eye"></i>
                                         </a>
-                                        <a href="delete-category.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-danger">
+                                        <a href="delete-customer.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-danger">
                                             <i class="fa fa-times"></i>
                                         </a>
                                     </div>

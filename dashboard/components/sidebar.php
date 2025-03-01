@@ -26,131 +26,44 @@
                 </li>
                 <li class="nav-item">
                     <a href="all-categories.php">
-                        <i class="fas fa-desktop"></i>
+                        <i class="fas fa-layer-group"></i>
                         <p>Category</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="all-properties.php">
-                        <i class="fas fa-desktop"></i>
+                        <i class="fas fa-home"></i>
                         <p>Properties</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="all-amenities.php">
-                        <i class="fas fa-desktop"></i>
+                        <i class="fas fa-concierge-bell"></i>
                         <p>Amenities</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="all-customers.php">
-                        <i class="fas fa-desktop"></i>
+                        <i class="fas fa-users"></i>
                         <p>Customer</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="all-agents.php">
-                        <i class="fas fa-desktop"></i>
+                        <i class="fas fa-user-tie"></i>
                         <p>Agents</p>
                         <span class="badge badge-success">4</span>
                     </a>
                 </li>
 
+
                 <!-- <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#Customer">
-                        <i class="fas fa-layer-group"></i>
-                        <p>Customers</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse" id="Customer">
-                        <ul class="nav nav-collapse">
-                            <li>
-                                <a href="sidebar-style-2.php">
-                                    <span class="sub-item">Add Customer</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="all-customers.php">
-                                    <span class="sub-item">All Customer</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#Agents">
-                        <i class="fas fa-th-list"></i>
-                        <p>Property Agents</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse" id="Agents">
-                        <ul class="nav nav-collapse">
-                            <li>
-                                <a href="sidebar-style-2.php">
-                                    <span class="sub-item">Add Agents</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="icon-menu.php">
-                                    <span class="sub-item">All Agents</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#Categories">
-                        <i class="fas fa-th-list"></i>
-                        <p>Categories</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse" id="Categories">
-                        <ul class="nav nav-collapse">
-                            <li>
-                                <a href="new-category.php">
-                                    <span class="sub-item">Add Categories</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="all-categories.php">
-                                    <span class="sub-item">All Categories</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#Properties">
-                        <i class="fas fa-th-list"></i>
-                        <p>Properties</p>
-                        <span class="caret"></span>
-                    </a>
-                    <div class="collapse" id="Properties">
-                        <ul class="nav nav-collapse">
-                            <li>
-                                <a href="sidebar-style-2.php">
-                                    <span class="sub-item">Add Properties</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="icon-menu.php">
-                                    <span class="sub-item">All Properties</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li> -->
-
-
-                <li class="nav-item">
                     <a href="widgets.php">
                         <i class="fas fa-desktop"></i>
                         <p>Widgets</p>
-                        <span class="badge badge-success">4</span>
                     </a>
-                </li>
-                <li class="nav-item">
+                </li> -->
+                <!-- <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#submenu">
                         <i class="fas fa-bars"></i>
                         <p>Menu Levels</p>
@@ -200,7 +113,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>

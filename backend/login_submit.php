@@ -1,5 +1,4 @@
 <?php
-session_start();
 $msg = "";
 $errors = [];
 
@@ -37,10 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
 
                     // Redirect based on role
                     if ($user['role'] === 2) {
-                        header("Location: /rems/dashboard");
+                        echo "<script>window.location.href = '/rems/dashboard';</script>";
                         exit;
                     } else {
-                        header("Location: index.php");
+                        echo "<script>window.location.href = 'index.php';</script>";
                         exit;
                     }
                 } else {

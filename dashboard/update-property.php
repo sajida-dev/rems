@@ -21,7 +21,7 @@ $category = $stmt->fetch(PDO::FETCH_ASSOC);
                         <span class="fw-mediumbold">Update</span>
                         <span class="fw-light"> Category</span>
                     </h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <button type="button" onclick="closeModel()" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -39,7 +39,7 @@ $category = $stmt->fetch(PDO::FETCH_ASSOC);
                 </div>
                 <div class="modal-footer border-0">
                     <button type="submit" name="save" id="submit" class="btn btn-primary">Update</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" onclick="closeModel()" data-bs-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>

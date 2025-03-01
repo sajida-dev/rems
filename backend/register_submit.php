@@ -27,6 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
     } elseif (!in_array($role, $allowedRoles)) {
         $errors[] = "Invalid role selected.";
     }
+    $status = 1;
+    if ($role == 1):
+        $status = 2;
+    endif;
 
 
     if (empty($password)) {
@@ -45,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
             } else {
                 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-                $stmt = $conn->prepare("INSERT INTO users (name, email, password_hash, role, created_at) VALUES (:name, :email, :password_hash, :role, NOW())");
+                $stmt = $conn->prepare("INSERT INTO users (name, email, password_hash, role, status, created_at) VALUES (:name, :email, :password_hash, :role, $status, NOW())");
                 $stmt->bindParam(':name', $name);
                 $stmt->bindParam(':email', $email);
                 $stmt->bindParam(':password_hash', $passwordHash);
@@ -63,11 +67,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
                 $_SESSION['email'] = $email;
 
                 $msg = 'Registration successful, welcome ' . htmlspecialchars($name) . '!';
-                if ($roleString == 2):
-                    header("Location: /rems/dashboard/profile.php");
+                if ($role == 2):
+                    echo "<script>window.location.href = '/rems/dashboard/profile.php';</script>";
                     exit;
                 else:
-                    header("Location: index.php");
+                    echo "<script>window.location.href = 'index.php';</script>";
                     exit;
                 endif;
             }
