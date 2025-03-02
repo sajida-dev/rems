@@ -64,3 +64,40 @@
      border-color: rgba(219, 56, 211, 0.75);
      border-radius: 50px;
  }
+
+ /* ----------------------------------------------------------------------- */
+
+
+ .avatar,
+ .custom-avatar {
+     width: 150px;
+     height: 150px;
+     border-radius: 50%;
+     object-fit: cover;
+     cursor: pointer;
+ }
+
+ /* Specializations buttons */
+ .custom-selectgroup {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 10px;
+ }
+
+ .custom-selectgroup-item {
+     border: 1px solid #ccc;
+     border-radius: 20px;
+     padding: 2px;
+     cursor: pointer;
+     transition: background 0.2s;
+ }
+
+ .custom-selectgroup-item input {
+     display: none;
+ }
+
+ .custom-selectgroup-item.selected {
+     background: #007bff;
+     color: #fff;
+     border-color: #007bff;
+ }

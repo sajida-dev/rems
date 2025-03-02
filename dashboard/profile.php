@@ -1,3 +1,9 @@
+<?php
+require_once "components/db_connection.php";
+$stmtCat = $conn->query("SELECT id, name FROM property_categories ORDER BY name ASC");
+$categories = $stmtCat->fetchAll(PDO::FETCH_ASSOC);
+require_once "backend/save-profile.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,14 +19,18 @@
 </head>
 
 <body>
+
+
     <div class="row">
-        <div class="col-md-6 col-md-offset-3 ">
-            <form id="msform">
+        <div class="col-md-6 col-md-offset-3">
+            <form id="msform" action="" method="POST" enctype="multipart/form-data">
+                <!-- Progressbar -->
                 <ul id="progressbar">
                     <li class="active">Personal Details</li>
-                    <li>Professional Profiles</li>
+                    <li>Professional Details</li>
                     <li>Account Setup</li>
                 </ul>
+                <!-- Fieldset 1: Personal Details -->
                 <fieldset>
                     <h2 class="fs-title">Personal Details</h2>
                     <h3 class="fs-subtitle">Tell us about yourself</h3>
@@ -35,7 +45,6 @@
                             <div class="form-group">
                                 <textarea name="bio" id="bio" placeholder="Write something about yourself..." rows="4" class="form-control"><?php echo htmlspecialchars($agent['bio'] ?? ''); ?></textarea>
                             </div>
-
                         </div>
                         <div class="custom-col custom-col-right">
                             <?php if (!empty($agent['profile_pic'])): ?>
@@ -43,60 +52,55 @@
                             <?php else: ?>
                                 <img src="assets/img/profile.jpg" alt="Default Avatar" class="custom-avatar img-fluid" id="avatarPreview" />
                             <?php endif; ?>
+                            <!-- Hidden file input triggered by clicking the avatar -->
                             <input type="file" name="profile_pic" id="profile_pic" accept="image/*" style="display: none;" />
                         </div>
-
                     </div>
                     <input type="button" name="next" class="next action-button" value="Next" />
                 </fieldset>
-
+                <!-- Fieldset 2: Professional Details -->
                 <fieldset>
                     <h2 class="fs-title">Professional Details</h2>
                     <h3 class="fs-subtitle">Your work profile</h3>
-                    <input type="text" name="agency" placeholder="Agency Name" value="<?php echo htmlspecialchars($agent['agency'] ?? ''); ?>" />
-                    <input type="number" name="experience" placeholder="Years of Experience" min="0" value="<?php echo htmlspecialchars($agent['experience'] ?? ''); ?>" />
-
-
+                    <div class="form-group">
+                        <input type="text" name="agency" placeholder="Agency Name" class="form-control" required value="<?php echo htmlspecialchars($agent['agency'] ?? ''); ?>" />
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="experience" placeholder="Years of Experience" class="form-control" min="0" required value="<?php echo htmlspecialchars($agent['experience'] ?? ''); ?>" />
+                    </div>
                     <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                     <input type="button" name="next" class="next action-button" value="Next" />
                 </fieldset>
+                <!-- Fieldset 3:  Setup Specializations -->
                 <fieldset>
-                    <h2 class="fs-title">Create your account</h2>
-                    <h3 class="fs-subtitle">Fill in your credentials</h3>
-                    <div class="form-group " style="text-align: left;">
-                        <label class="custom-form-label">Select Specializations</label>
+                    <h2 class="fs-title">Specializations Setup</h2>
+                    <h3 class="fs-subtitle"> select specializations</h3>
+
+                    <div class="form-group" style="margin:50px 5px;">
                         <div class="custom-selectgroup">
-                            <label class="custom-selectgroup-item">
-                                <input type="checkbox" name="specializations[]" value="Residential">
-                                <span>Residential</span>
-                            </label>
-                            <label class="custom-selectgroup-item">
-                                <input type="checkbox" name="specializations[]" value="Commercial">
-                                <span>Commercial</span>
-                            </label>
-                            <label class="custom-selectgroup-item">
-                                <input type="checkbox" name="specializations[]" value="Industrial">
-                                <span>Industrial</span>
-                            </label>
-                            <label class="custom-selectgroup-item">
-                                <input type="checkbox" name="specializations[]" value="Land">
-                                <span>Land</span>
-                            </label>
-                            <label class="custom-selectgroup-item">
-                                <input type="checkbox" name="specializations[]" value="Luxury">
-                                <span>Luxury</span>
-                            </label>
+                            <?php foreach ($categories as $spec): ?>
+                                <label class="custom-selectgroup-item ">
+                                    <input type="checkbox" name="specializations[]" value="<?php echo htmlspecialchars($spec['id']); ?>">
+                                    <span><?php echo htmlspecialchars($spec['name']); ?></span>
+                                </label>
+                            <?php endforeach; ?>
                         </div>
                     </div>
+
+                    <input type="hidden" name="current_profile_pic" value="<?php echo htmlspecialchars($agent['profile_pic'] ?? ''); ?>" />
                     <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                     <input type="submit" name="submit" class="submit action-button" value="Submit" />
                 </fieldset>
             </form>
-
         </div>
     </div>
 
-    <!-- /.MultiStep Form -->
+    <script>
+        $('#avatarPreview').on('click', function() {
+            $('#profile_pic').click();
+        });
+    </script>
+
 </body>
 
 </html>
