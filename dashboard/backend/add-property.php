@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"):
     $bedrooms = intval($_POST['bedrooms'] ?? 0);
     $bathrooms = intval($_POST['bathrooms'] ?? 0);
     $area = intval($_POST['area'] ?? 0);
-    $agent_id = intval($_POST['agent_id'] ?? 0);
+    $agent_id = intval($_SESSION['id'] ?? 0);
 
     $errors = [];
     if (empty($title)) $errors[] = "Title is required.";
@@ -32,39 +32,93 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"):
         $errors[] = "At least one amenity must be selected.";
     }
 
-    $uploadedFiles = [];
-    if (isset($_FILES['images']) && count($_FILES['images']['name']) > 0) {
-        for ($i = 0; $i < count($_FILES['images']['name']); $i++) {
-            if ($_FILES['images']['error'][$i] === 0) {
-                $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
-                $fileInfo = pathinfo($_FILES['images']['name'][$i]);
-                $ext = strtolower($fileInfo['extension']);
-                if (!in_array($ext, $allowedExts)) {
-                    $errors[] = "Invalid file type for image: " . $_FILES['images']['name'][$i];
-                } else {
-                    $newFileName = uniqid("property_", true) . '.' . $ext;
-                    $uploadDir = "uploads/properties/";
-                    if (!is_dir($uploadDir)) {
-                        mkdir($uploadDir, 0777, true);
-                    }
-                    $targetFile = $uploadDir . $newFileName;
-                    if (move_uploaded_file($_FILES['images']['tmp_name'][$i], $targetFile)) {
-                        $uploadedFiles[] = $targetFile;
-                    } else {
-                        $errors[] = "Failed to upload image: " . $_FILES['images']['name'][$i];
-                    }
-                }
+    // $uploadedFiles = [];
+    // if (isset($_FILES['images']) && count($_FILES['images']['name']) > 0) {
+    //     for ($i = 0; $i < count($_FILES['images']['name']); $i++) {
+    //         if ($_FILES['images']['error'][$i] === 0) {
+    //             $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
+    //             $fileInfo = pathinfo($_FILES['images']['name'][$i]);
+    //             $ext = strtolower($fileInfo['extension']);
+    //             if (!in_array($ext, $allowedExts)) {
+    //                 $errors[] = "Invalid file type for image: " . $_FILES['images']['name'][$i];
+    //             } else {
+    //                 $newFileName = uniqid("property_", true) . '.' . $ext;
+    //                 $uploadDir = "uploads/properties/";
+    //                 if (!is_dir($uploadDir)) {
+    //                     mkdir($uploadDir, 0777, true);
+    //                 }
+    //                 $targetFile = $uploadDir . $newFileName;
+    //                 if (move_uploaded_file($_FILES['images']['tmp_name'][$i], $targetFile)) {
+    //                     $uploadedFiles[] = $targetFile;
+    //                 } else {
+    //                     $errors[] = "Failed to upload image: " . $_FILES['images']['name'][$i];
+    //                 }
+    //             }
+    //         } else {
+    //             $errors[] = "Error uploading image: " . $_FILES['images']['name'][$i];
+    //         }
+    //     }
+    // } else {
+    //     $errors[] = "Main image is required.";
+    // }
+
+
+    $mainImage = "";
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
+        $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
+        $fileInfo = pathinfo($_FILES['image']['name']);
+        $ext = strtolower($fileInfo['extension']);
+        if (!in_array($ext, $allowedExts)) {
+            $errors[] = "Invalid file type for main image.";
+        } else {
+            $newFileName = uniqid("property_", true) . '.' . $ext;
+            $uploadDir = "uploads/properties/";
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+            $targetFile = $uploadDir . $newFileName;
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
+                $mainImage = $targetFile;
             } else {
-                $errors[] = "Error uploading image: " . $_FILES['images']['name'][$i];
+                $errors[] = "Failed to upload main image.";
             }
         }
     } else {
         $errors[] = "Main image is required.";
     }
 
+    $galleryFiles = [];
+    if (isset($_FILES['gallery']) && count($_FILES['gallery']['name']) > 0 && $_FILES['gallery']['name'][0] != "") {
+        for ($i = 0; $i < count($_FILES['gallery']['name']); $i++) {
+            if ($_FILES['gallery']['error'][$i] === 0) {
+                $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
+                $fileInfo = pathinfo($_FILES['gallery']['name'][$i]);
+                $ext = strtolower($fileInfo['extension']);
+                if (!in_array($ext, $allowedExts)) {
+                    $errors[] = "Invalid file type for gallery image: " . $_FILES['gallery']['name'][$i];
+                } else {
+                    $newFileName = uniqid("gallery_", true) . '.' . $ext;
+                    $uploadDir = "uploads/properties/";
+                    if (!is_dir($uploadDir)) {
+                        mkdir($uploadDir, 0777, true);
+                    }
+                    $targetFile = $uploadDir . $newFileName;
+                    if (move_uploaded_file($_FILES['gallery']['tmp_name'][$i], $targetFile)) {
+                        $galleryFiles[] = $targetFile;
+                    } else {
+                        $errors[] = "Failed to upload gallery image: " . $_FILES['gallery']['name'][$i];
+                    }
+                }
+            } else {
+                $errors[] = "Error uploading gallery image: " . $_FILES['gallery']['name'][$i];
+            }
+        }
+    }
+
+
     if (!empty($errors)) {
         $_SESSION['msg'] = implode("<br>", $errors);
-        echo "<script>window.location.href = 'add-property.php';</script>";
+        echo "<script>window.location.href = 'new-property.php';</script>";
         exit;
     }
 
@@ -79,17 +133,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"):
         $stmt->bindParam(':bedrooms', $bedrooms, PDO::PARAM_INT);
         $stmt->bindParam(':bathrooms', $bathrooms, PDO::PARAM_INT);
         $stmt->bindParam(':area', $area, PDO::PARAM_INT);
-        $stmt->bindParam(':image_url', $image_url);
+        $stmt->bindParam(':image_url', $mainImage);
         $stmt->bindParam(':agent_id', $agent_id, PDO::PARAM_INT);
         $stmt->execute();
 
         $propertyId = $conn->lastInsertId();
 
-        $stmtUpload = $conn->prepare("INSERT INTO uploads (property_id, image_url) VALUES (:property_id, :image_url)");
-        foreach ($uploadedFiles as $imgFile) {
-            $stmtUpload->bindParam(':property_id', $propertyId, PDO::PARAM_INT);
-            $stmtUpload->bindParam(':image_url', $imgFile);
-            $stmtUpload->execute();
+        // $stmtUpload = $conn->prepare("INSERT INTO uploads (property_id, image_url) VALUES (:property_id, :image_url)");
+        // foreach ($uploadedFiles as $imgFile) {
+        //     $stmtUpload->bindParam(':property_id', $propertyId, PDO::PARAM_INT);
+        //     $stmtUpload->bindParam(':image_url', $imgFile);
+        //     $stmtUpload->execute();
+        // }
+
+        if (!empty($galleryFiles)) {
+            $stmtGallery = $conn->prepare("INSERT INTO uploads (property_id, image_url) VALUES (:property_id, :image_url)");
+            foreach ($galleryFiles as $imgFile) {
+                $stmtGallery->bindParam(':property_id', $propertyId, PDO::PARAM_INT);
+                $stmtGallery->bindParam(':image_url', $imgFile);
+                $stmtGallery->execute();
+            }
         }
 
         $stmtAmenity = $conn->prepare("INSERT INTO property_amenities (property_id, amenity_id) VALUES (:property_id, :amenity_id)");
@@ -103,8 +166,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"):
         echo "<script>window.location.href = 'all-properties.php';</script>";
         exit;
     } catch (PDOException $e) {
-        $_SESSION['error'] = "Database error: " . $e->getMessage();
-        echo "<script>window.location.href = 'add-property.php';</script>";
+        $_SESSION['msg'] = "Database error: " . $e->getMessage();
+        echo "<script>window.location.href = 'new-property.php';</script>";
         exit;
     }
 endif;

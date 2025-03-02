@@ -3,22 +3,37 @@ require_once "components/db_connection.php";
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($id <= 0) {
-    $_SESSION["msg"] = "Invalid or missing ID.";
+    $_SESSION["msg"] = "Invalid or missing property ID.";
+    echo "<script>window.location.href = 'all-properties.php';</script>";
+    exit;
 }
 
 try {
-    $stmt = $conn->prepare("DELETE FROM property_categories WHERE id = :id");
-    $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-    $stmt->execute();
+    $conn->beginTransaction();
 
-    if ($stmt->rowCount() > 0) {
-        $_SESSION["msg"] = "Category deleted successfully.";
+    $stmtAmenities = $conn->prepare("DELETE FROM property_amenities WHERE property_id = :id");
+    $stmtAmenities->bindParam(":id", $id, PDO::PARAM_INT);
+    $stmtAmenities->execute();
+
+    $stmtImages = $conn->prepare("DELETE FROM uploads WHERE property_id = :id");
+    $stmtImages->bindParam(":id", $id, PDO::PARAM_INT);
+    $stmtImages->execute();
+
+    $stmtProperty = $conn->prepare("DELETE FROM properties WHERE id = :id");
+    $stmtProperty->bindParam(":id", $id, PDO::PARAM_INT);
+    $stmtProperty->execute();
+
+    if ($stmtProperty->rowCount() > 0) {
+        $conn->commit();
+        $_SESSION["msg"] = "Property and associated data deleted successfully.";
     } else {
-        $_SESSION["msg"] = "No record found with the provided ID.";
+        $conn->rollBack();
+        $_SESSION["msg"] = "No property found with the provided ID or unable to delete.";
     }
 } catch (PDOException $e) {
-    $_SESSION["msg"] = "Error deleting record: " . $e->getMessage();
+    $conn->rollBack();
+    $_SESSION["msg"] = "Error deleting property: " . $e->getMessage();
 }
 
-echo "<script>window.location.href = 'all-categories.php';</script>";
+echo "<script>window.location.href = 'all-properties.php';</script>";
 exit;

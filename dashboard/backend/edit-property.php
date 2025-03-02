@@ -2,7 +2,7 @@
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['property_id'])) {
 
-    if (is_array($_POST['delete_images'])) {
+    if (isset($_POST['delete_images']) && is_array($_POST['delete_images'])) {
         require_once "backend/delete-property-images.php";
         exit;
     }
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['property_id'])) {
     }
 
     if (!empty($errors)) {
-        $_SESSION['error'] = implode("<br>", $errors);
+        $_SESSION['msg'] = implode("<br>", $errors);
         echo "<script>window.location.href = 'edit-property.php?id={$propertyId}';</script>";
         exit;
     }
@@ -119,12 +119,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['property_id'])) {
                 $stmtUpload->execute();
             }
         }
+        if (isset($_POST['amenities']) && is_array($_POST['amenities'])) {
+            // echo "amenities test";
+            // print_r($_POST['amanities']);
+            // exit;
+            $stmtDeleteAmenities = $conn->prepare("DELETE FROM property_amenities WHERE property_id = :property_id");
+            $stmtDeleteAmenities->bindParam(':property_id', $propertyId, PDO::PARAM_INT);
+            $stmtDeleteAmenities->execute();
+
+            $stmtInsertAmenities = $conn->prepare("INSERT INTO property_amenities (property_id, amenity_id) VALUES (:property_id, :amenity_id)");
+            foreach ($_POST['amenities'] as $amenityId) {
+                $stmtInsertAmenities->bindParam(':property_id', $propertyId, PDO::PARAM_INT);
+                $stmtInsertAmenities->bindParam(':amenity_id', $amenityId, PDO::PARAM_INT);
+                $stmtInsertAmenities->execute();
+            }
+        }
 
         $_SESSION['msg'] = "Property updated successfully.";
         echo "<script>window.location.href = 'all-properties.php';</script>";
         exit;
     } catch (PDOException $e) {
-        $_SESSION['error'] = "Database error: " . $e->getMessage();
+        $_SESSION['msg'] = "Database error: " . $e->getMessage();
         echo "<script>window.location.href = 'edit-property.php?id={$propertyId}';</script>";
         exit;
     }
@@ -132,7 +147,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['property_id'])) {
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 if ($id <= 0) {
-    die("Invalid property id.");
+    $_SESSION['msg'] = ("Invalid property id.");
+    exit;
 }
 
 $stmt = $conn->prepare("SELECT * FROM properties WHERE id = :id");
@@ -140,7 +156,8 @@ $stmt->bindParam(":id", $id, PDO::PARAM_INT);
 $stmt->execute();
 $property = $stmt->fetch(PDO::FETCH_ASSOC);
 if (!$property) {
-    die("Property not found.");
+    $_SESSION['msg'] = ("Property not found.");
+    exit;
 }
 
 $stmtCat = $conn->query("SELECT id, name FROM property_categories ORDER BY name ASC");
@@ -156,8 +173,8 @@ $stmtAmenity = $conn->query("SELECT * FROM amenities  ORDER BY name ASC");
 $amenities = $stmtAmenity->fetchAll(PDO::FETCH_ASSOC);
 
 
-$stmtSelectedAmenities = $conn->prepare("SELECT amenity_id FROM property_amenities WHERE property_id = :property_id");
-$stmtSelectedAmenities->bindParam(':property_id', $property_id, PDO::PARAM_INT);
+$stmtSelectedAmenities = $conn->prepare("SELECT amenity_id FROM property_amenities WHERE property_id = :id");
+$stmtSelectedAmenities->bindParam(':id', $id, PDO::PARAM_INT);
 $stmtSelectedAmenities->execute();
 $selectedAmenities = $stmtSelectedAmenities->fetchAll(PDO::FETCH_ASSOC);
 $selectedAmenitiesIds = array_column($selectedAmenities, 'amenity_id');

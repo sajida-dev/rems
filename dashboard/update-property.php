@@ -96,15 +96,15 @@ require_once "backend/edit-property.php";
                             <label for="images">Property Images <small>(select new images to update)</small></label>
                             <input type="file" name="images[]" id="images" class="form-control" accept="image/*" multiple>
                         </div>
-                        <!-- Hidden Field: Property ID -->
                         <input type="hidden" name="property_id" value="<?php echo htmlspecialchars($property['id'] ?? ''); ?>">
                         <div class="col-md-12">
+
                             <div class="form-group">
                                 <label class="form-label d-block">Select Amenities</label>
                                 <div class="selectgroup selectgroup-secondary selectgroup-pills">
                                     <?php foreach ($amenities as $amenity): ?>
                                         <label class="selectgroup-item">
-                                            <input type="checkbox" name="amenities[]" value="<?php echo htmlspecialchars($amenity['id']); ?>" class="selectgroup-input" <?php echo (in_array($amenity['id'], $selectedAmenitiesIds)) ? 'checked' : ''; ?> />
+                                            <input type="checkbox" name="amenities[]" value="<?php echo htmlspecialchars($amenity['id']); ?>" class="selectgroup-input" <?php echo (in_array($amenity['id'], $selectedAmenitiesIds)) ? 'checked' : ''; ?>>
                                             <span class="selectgroup-button">
                                                 <?php echo htmlspecialchars($amenity['name']); ?>
                                             </span>
@@ -121,7 +121,6 @@ require_once "backend/edit-property.php";
                                 <?php foreach ($images as $img): ?>
                                     <div class="col-6 col-sm-4 col-lg-3 border-2">
                                         <label class="imagecheck mb-4">
-                                            <!-- Use the image id as the checkbox value -->
                                             <input name="delete_images[]" type="checkbox" value="<?php echo htmlspecialchars($img['id']); ?>" class="imagecheck-input">
                                             <figure class="imagecheck-figure">
                                                 <img src="<?php echo htmlspecialchars($img['image_url']); ?>" alt="Property Image" class="imagecheck-image">
@@ -150,7 +149,6 @@ require_once "backend/edit-property.php";
 
 <script>
     $(document).ready(function() {
-        // $("#updateCategory").modal("show");
         $('input.imagecheck-input').on('change', function() {
             if ($('input.imagecheck-input:checked').length > 0) {
                 $('#deleteSelected').show();

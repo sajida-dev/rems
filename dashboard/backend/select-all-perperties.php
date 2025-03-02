@@ -5,7 +5,7 @@ $sql = "SELECT p.id, p.title, p.location, p.rent_price, u.name AS agent_name
     LEFT JOIN users u ON p.agent_id = u.id
     ORDER BY p.created_at DESC";
 
-#update query if user is agent only show current agent properties
+# if user is agent only show current agent properties
 if ($_SESSION['role'] == 2):
     $id = $_SESSION['id'];
     $sql = "SELECT p.id, p.title, p.location, p.rent_price, u.name AS agent_name

@@ -3,7 +3,6 @@ $title = "All Agent";
 $page = "All";
 $mainPage = "Agent";
 require_once "components/header.php";
-require_once "new-agent.php";
 require_once "backend/add-agent.php"; ?>
 
 <div class="col-md-12">
@@ -11,11 +10,10 @@ require_once "backend/add-agent.php"; ?>
         <div class="card-header">
             <div class="d-flex align-items-center">
                 <h4 class="card-title"> Agent</h4>
-                <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
-                    data-bs-target="#addRowModal">
+                <a href="new-agent.php" class="btn btn-primary btn-round ms-auto">
                     <i class="fa fa-plus"></i>
                     Add Agent
-                </button>
+                </a>
             </div>
         </div>
         <div class="card-body">
@@ -53,8 +51,8 @@ require_once "backend/add-agent.php"; ?>
                                 </td>
                                 <td><?php echo htmlspecialchars($cat['name']); ?></td>
                                 <td><?php echo htmlspecialchars($cat['email']); ?></td>
-                                <td><?php echo htmlspecialchars($cat['agency']); ?></td>
-                                <td><?php echo htmlspecialchars($cat['experience']); ?></td>
+                                <td><?php echo htmlspecialchars($cat['agency'] ?? "NILL"); ?></td>
+                                <td><?php echo htmlspecialchars($cat['experience'] ?? "NILL"); ?></td>
                                 <td>
                                     <div class="form-button-action">
                                         <a href="update-agent.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-primary btn-sm ">

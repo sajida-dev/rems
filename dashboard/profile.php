@@ -55,6 +55,14 @@
                     <h3 class="fs-subtitle">Your work profile</h3>
                     <input type="text" name="agency" placeholder="Agency Name" value="<?php echo htmlspecialchars($agent['agency'] ?? ''); ?>" />
                     <input type="number" name="experience" placeholder="Years of Experience" min="0" value="<?php echo htmlspecialchars($agent['experience'] ?? ''); ?>" />
+
+
+                    <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                    <input type="button" name="next" class="next action-button" value="Next" />
+                </fieldset>
+                <fieldset>
+                    <h2 class="fs-title">Create your account</h2>
+                    <h3 class="fs-subtitle">Fill in your credentials</h3>
                     <div class="form-group " style="text-align: left;">
                         <label class="custom-form-label">Select Specializations</label>
                         <div class="custom-selectgroup">
@@ -80,16 +88,6 @@
                             </label>
                         </div>
                     </div>
-
-                    <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                    <input type="button" name="next" class="next action-button" value="Next" />
-                </fieldset>
-                <fieldset>
-                    <h2 class="fs-title">Create your account</h2>
-                    <h3 class="fs-subtitle">Fill in your credentials</h3>
-                    <input type="text" name="email" placeholder="Email" />
-                    <input type="password" name="pass" placeholder="Password" />
-                    <input type="password" name="cpass" placeholder="Confirm Password" />
                     <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                     <input type="submit" name="submit" class="submit action-button" value="Submit" />
                 </fieldset>

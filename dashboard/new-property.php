@@ -75,11 +75,27 @@ require_once "backend/add-property.php"; ?>
                             <label for="old_price">Old Price ($) <small>(optional)</small></label>
                             <input type="number" name="old_price" id="old_price" class="form-control" placeholder="Enter old price" step="0.01">
                         </div>
+                        <!-- Property Main Image -->
+                        <!-- <div class="form-group">
+                            <label for="image">Property Main Image</label>
+                            <input type="file" name="image" id="image" class="form-control" accept="image/*" <?php echo (isset($property['image_url']) ? '' : 'required'); ?>>
+                        </div> -->
 
                         <!-- Property Images -->
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="images">Property Images</label>
                             <input type="file" name="images[]" id="images" class="form-control" accept="image/*" multiple required>
+                        </div> -->
+
+                        <!-- Main Image -->
+                        <div class="form-group">
+                            <label for="image">Property Main Image</label>
+                            <input type="file" name="image" id="image" class="form-control" accept="image/*" required>
+                        </div>
+                        <!-- Gallery Images -->
+                        <div class="form-group">
+                            <label for="gallery">Property Gallery Images <small>(optional)</small></label>
+                            <input type="file" name="gallery[]" id="gallery" class="form-control" accept="image/*" multiple>
                         </div>
                     </div>
 
