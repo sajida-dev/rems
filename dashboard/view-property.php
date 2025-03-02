@@ -25,6 +25,7 @@ require_once "backend/detail-property.php";
         height: 300px;
         background-size: cover;
         background-position: center;
+        overflow: hidden;
     }
 
     .property-details {
@@ -110,43 +111,52 @@ require_once "backend/detail-property.php";
     }
 </style>
 
-<div class="property-card">
-    <!-- Main Image -->
-    <div class="property-image" style="background-image: url('<?php echo htmlspecialchars($property['image_url']); ?>');"></div>
-    <div class="property-details">
-        <h2><?php echo htmlspecialchars($property['title']); ?></h2>
-        <p class="property-location"><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($property['location']); ?></p>
-        <p class="property-price">$<?php echo number_format($property['rent_price'], 2); ?> / mo</p>
-        <div class="property-features">
-            <span><i class="fas fa-bed"></i> <?php echo htmlspecialchars($property['bedrooms']); ?> Bedrooms</span>
-            <span><i class="fas fa-bath"></i> <?php echo htmlspecialchars($property['bathrooms']); ?> Bathrooms</span>
-            <span><i class="fas fa-ruler-combined"></i> <?php echo htmlspecialchars($property['area']); ?> sqft</span>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="fw-mediumbold"><?php echo htmlspecialchars($property['title']); ?></h5>
         </div>
-        <div class="property-description">
-            <p><?php echo htmlspecialchars($property['description']); ?></p>
-        </div>
-        <?php if (!empty($amenityList)): ?>
-            <div class="property-amenities">
-                <h5>Amenities</h5>
-                <ul>
-                    <?php foreach ($amenityList as $amenity): ?>
-                        <li><?php echo htmlspecialchars($amenity); ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php endif; ?>
-        <?php if (!empty($galleryImages)): ?>
-            <div class="property-gallery">
-                <h5>Gallery</h5>
-                <div class="gallery">
-                    <?php foreach ($galleryImages as $img): ?>
-                        <div class="gallery-item">
-                            <img src="<?php echo htmlspecialchars($img['image_url']); ?>" alt="<?php echo htmlspecialchars($property['title']); ?>">
+        <div class="card-body">
+            <div>
+                <!-- Main Image class="property-card" -->
+                <div class="property-image" style="background-image: url('<?php echo htmlspecialchars($property['image_url']); ?>');"></div>
+                <div class="property-details">
+                    <h2><?php echo htmlspecialchars($property['title']); ?></h2>
+                    <p class="property-location"><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($property['location']); ?></p>
+                    <p class="property-price">$<?php echo number_format($property['rent_price'], 2); ?> / mo</p>
+                    <div class="property-features">
+                        <span><i class="fas fa-bed"></i> <?php echo htmlspecialchars($property['bedrooms']); ?> Bedrooms</span>
+                        <span><i class="fas fa-bath"></i> <?php echo htmlspecialchars($property['bathrooms']); ?> Bathrooms</span>
+                        <span><i class="fas fa-ruler-combined"></i> <?php echo htmlspecialchars($property['area']); ?> sqft</span>
+                    </div>
+                    <div class="property-description">
+                        <p><?php echo htmlspecialchars($property['description']); ?></p>
+                    </div>
+                    <?php if (!empty($amenityList)): ?>
+                        <div class="property-amenities">
+                            <h5>Amenities</h5>
+                            <ul>
+                                <?php foreach ($amenityList as $amenity): ?>
+                                    <li><?php echo htmlspecialchars($amenity); ?></li>
+                                <?php endforeach; ?>
+                            </ul>
                         </div>
-                    <?php endforeach; ?>
+                    <?php endif; ?>
+                    <?php if (!empty($galleryImages)): ?>
+                        <div class="property-gallery">
+                            <h5>Gallery</h5>
+                            <div class="gallery">
+                                <?php foreach ($galleryImages as $img): ?>
+                                    <div class="gallery-item">
+                                        <img src="<?php echo htmlspecialchars($img['image_url']); ?>" alt="<?php echo htmlspecialchars($property['title']); ?>">
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
-        <?php endif; ?>
+        </div>
     </div>
 </div>
 <?php require_once "components/footer.php"; ?>

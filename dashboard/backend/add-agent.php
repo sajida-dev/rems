@@ -73,8 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
             $role = 2;
-            $stmt = $conn->prepare("INSERT INTO users (name, email, password_hash, role, profile_pic, contact, created_at) 
-                                    VALUES (:name, :email, :password_hash, :role, :profile_pic, :contact, NOW())");
+            $stmt = $conn->prepare("INSERT INTO users (name, email, password_hash, role, profile_pic, contact, created_at) VALUES (:name, :email, :password_hash, :role, :profile_pic, :contact, NOW())");
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password_hash', $passwordHash);
@@ -85,8 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $newUserId = $conn->lastInsertId();
 
-            $stmtAgent = $conn->prepare("INSERT INTO agent (agent_id, agency, experience, bio, created_at) 
-                                         VALUES (:agent_id, :agency, :experience, :bio, NOW())");
+            $stmtAgent = $conn->prepare("INSERT INTO agent (agent_id, agency, experience, bio, created_at)  VALUES (:agent_id, :agency, :experience, :bio, NOW())");
             $stmtAgent->bindParam(':agent_id', $newUserId, PDO::PARAM_INT);
             $stmtAgent->bindParam(':agency', $agency);
             $stmtAgent->bindParam(':experience', $experience, PDO::PARAM_INT);
@@ -95,8 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (!empty($categories)) {
                 foreach ($categories as $category_id) {
-                    $stmtCategory = $conn->prepare("INSERT INTO agent_categories (agent_id, category_id) 
-                                                    VALUES (:agent_id, :category_id)");
+                    $stmtCategory = $conn->prepare("INSERT INTO specializations_agent_categories (agent_id, category_id) VALUES (:agent_id, :category_id)");
                     $stmtCategory->bindParam(':agent_id', $newUserId);
                     $stmtCategory->bindParam(':category_id', $category_id);
                     $stmtCategory->execute();

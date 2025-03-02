@@ -23,13 +23,11 @@ if (!$property) {
     die("Property not found.");
 }
 
-// Convert amenity list string to array if needed
 $amenityList = [];
 if (!empty($property['amenity_list'])) {
     $amenityList = explode(', ', $property['amenity_list']);
 }
 
-// Optionally, fetch gallery images separately if you have multiple images stored in uploads table:
 $stmtImages = $conn->prepare("SELECT * FROM uploads WHERE property_id = :id");
 $stmtImages->bindParam(':id', $id, PDO::PARAM_INT);
 $stmtImages->execute();
