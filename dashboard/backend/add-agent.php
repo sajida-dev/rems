@@ -1,8 +1,6 @@
 <?php
 
-// Handle the form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Collect form data
     $name = trim($_POST['name']);
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
@@ -14,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $errors = [];
 
-    // Validate the fields
     if (empty($name)) {
         $errors[] = "Agent name is required.";
     }
@@ -41,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = "Bio is required.";
     }
 
-    // Check if email already exists
     if (empty($errors)) {
         $stmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
         $stmt->bindParam(':email', $email);
@@ -51,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Process file upload (Profile Picture)
     $profile_pic_path = null;
     if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] === 0) {
         $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
@@ -74,12 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // If no errors, proceed to insert data into the database
     if (empty($errors)) {
         try {
-            // Insert user data
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-            $role = 2;  // Assuming role 2 is for agents
+            $role = 2;
             $stmt = $conn->prepare("INSERT INTO users (name, email, password_hash, role, profile_pic, contact, created_at) 
                                     VALUES (:name, :email, :password_hash, :role, :profile_pic, :contact, NOW())");
             $stmt->bindParam(':name', $name);
@@ -92,7 +85,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $newUserId = $conn->lastInsertId();
 
-            // Insert agent-specific data
             $stmtAgent = $conn->prepare("INSERT INTO agent (agent_id, agency, experience, bio, created_at) 
                                          VALUES (:agent_id, :agency, :experience, :bio, NOW())");
             $stmtAgent->bindParam(':agent_id', $newUserId, PDO::PARAM_INT);
@@ -101,7 +93,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmtAgent->bindParam(':bio', $bio);
             $stmtAgent->execute();
 
-            // Optionally, handle the agent specialization categories
             if (!empty($categories)) {
                 foreach ($categories as $category_id) {
                     $stmtCategory = $conn->prepare("INSERT INTO agent_categories (agent_id, category_id) 
