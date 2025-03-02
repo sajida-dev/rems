@@ -3,7 +3,7 @@ $title = "Properties";
 $page = "All";
 $mainPage = "Properties";
 require_once "components/header.php";
-require_once "new-property.php";
+require_once "backend/select-all-perperties.php"
 ?>
 
 <div class="col-md-12">
@@ -11,11 +11,8 @@ require_once "new-property.php";
         <div class="card-header">
             <div class="d-flex align-items-center">
                 <h4 class="card-title"> Properties</h4>
-                <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
-                    data-bs-target="#addRowModal">
-                    <i class="fa fa-plus"></i>
-                    Add Property
-                </button>
+                <a href="new-property.php" class="btn btn-primary btn-round ms-auto"><i class="fa fa-plus"></i>
+                    Add Property</a>
             </div>
         </div>
         <div class="card-body">
@@ -44,9 +41,12 @@ require_once "new-property.php";
                         </tr>
                     </tfoot>
                     <tbody>
-                        <?php foreach ($properties as $property): ?>
+                        <?php
+                        $i = 1;
+                        foreach ($properties as $property):
+                        ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($property['id']); ?></td>
+                                <td><?php echo htmlspecialchars($i); ?></td>
                                 <td><?php echo htmlspecialchars($property['title']); ?></td>
                                 <td><?php echo htmlspecialchars($property['agent_name']); ?></td>
                                 <td><?php echo htmlspecialchars($property['location']); ?></td>
@@ -66,7 +66,9 @@ require_once "new-property.php";
                                     </div>
                                 </td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php
+                            $i++;
+                        endforeach; ?>
                     </tbody>
                 </table>
             </div>

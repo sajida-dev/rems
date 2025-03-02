@@ -44,6 +44,7 @@
         $('.alert').fadeOut(1000);
 
     }, 3000);
+    document.getElementById("formErrors").style.listStyle = 'none';
 
     function closeModel(new_url) {
         window.location.href = new_url;

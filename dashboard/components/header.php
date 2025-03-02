@@ -1,6 +1,16 @@
 <?php
 require_once "components/db_connection.php";
+
 if (session_status() === PHP_SESSION_NONE) {
+    $cookieLifetime = 86400 * 30;
+    session_set_cookie_params([
+        'lifetime' => $cookieLifetime,
+        'path'     => '/',
+        'domain'   => '',
+        'secure'   => false,
+        'httponly' => true,
+        'samesite' => 'strict'
+    ]);
     session_start();
 }
 

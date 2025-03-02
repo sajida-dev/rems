@@ -1,6 +1,7 @@
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $id = isset($_POST["id"]) ? intval($_POST["id"]) : 0;
     $categoryName = trim($_POST["categoryName"]);
     $categoryDescription = trim($_POST["categoryDescription"]);

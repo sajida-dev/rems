@@ -17,7 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"):
     $area = intval($_POST['area'] ?? 0);
     $agent_id = intval($_POST['agent_id'] ?? 0);
 
-    // Validate required fields (add more if needed)
     $errors = [];
     if (empty($title)) $errors[] = "Title is required.";
     if (empty($description)) $errors[] = "Description is required.";
@@ -27,6 +26,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"):
     if ($bedrooms <= 0) $errors[] = "Please specify the number of bedrooms.";
     if ($bathrooms <= 0) $errors[] = "Please specify the number of bathrooms.";
     if ($area <= 0) $errors[] = "Area must be a positive number.";
+
+    $amenities_selected = $_POST['amenities'] ?? [];
+    if (empty($amenities_selected)) {
+        $errors[] = "At least one amenity must be selected.";
+    }
 
     $uploadedFiles = [];
     if (isset($_FILES['images']) && count($_FILES['images']['name']) > 0) {
@@ -88,6 +92,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"):
             $stmtUpload->execute();
         }
 
+        $stmtAmenity = $conn->prepare("INSERT INTO property_amenities (property_id, amenity_id) VALUES (:property_id, :amenity_id)");
+        foreach ($amenities_selected as $amenity_id) {
+            $stmtAmenity->bindParam(':property_id', $propertyId, PDO::PARAM_INT);
+            $stmtAmenity->bindParam(':amenity_id', $amenity_id, PDO::PARAM_INT);
+            $stmtAmenity->execute();
+        }
+
         $_SESSION['msg'] = "Property added successfully.";
         echo "<script>window.location.href = 'all-properties.php';</script>";
         exit;
@@ -97,11 +108,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"):
         exit;
     }
 endif;
-$stmt = $conn->prepare("
-    SELECT p.id, p.title, p.location, p.rent_price, u.name AS agent_name
-    FROM properties p
-    LEFT JOIN users u ON p.agent_id = u.id
-    ORDER BY p.created_at DESC
-");
-$stmt->execute();
-$properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+$cat = $conn->prepare("SELECT `id`, `name` FROM `property_categories`;");
+$cat->execute();
+$categories = $cat->fetchAll(PDO::FETCH_ASSOC);
+
+
+$stmtAmenity = $conn->query("SELECT * FROM amenities ORDER BY name ASC");
+$amenities = $stmtAmenity->fetchAll(PDO::FETCH_ASSOC);
