@@ -4,8 +4,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// echo $_SESSION['role'];
-// exit;
 if (!isset($_SESSION['id']) || ($_SESSION['role'] != 2 && $_SESSION['role'] != 3)) {
     echo "<script>window.location.href = '../index.php';</script>";
     exit;

@@ -2,12 +2,12 @@
 
 $errors = [];
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])):
+    if (isset($_POST['customerName']) && isset($_POST['customerEmail']) && isset($_POST['customerPassword'])):
 
-        $name = trim($_POST['name']);
-        $email = trim($_POST['email']);
-        $password = trim($_POST['password']);
-        $contact = trim($_POST['contact'] ?? '');
+        $name = trim($_POST['customerName']);
+        $email = trim($_POST['customerEmail']);
+        $password = trim($_POST['customerPassword']);
+        $contact = trim($_POST['phone'] ?? '');
 
         if (empty($name)) {
             $errors[] = "Name is required.";
@@ -48,14 +48,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             } catch (PDOException $e) {
                 $_SESSION['msg'] = "Database error: " . $e->getMessage();
             }
+            echo "<script>window.location.href = 'all-customers.php';</script>";
+            exit;
         } else {
             foreach ($errors as $error) {
-                $msg .= htmlspecialchars($error) . '<br>';
+                $_SESSION['msg'] .= htmlspecialchars($error) . '<br>';
             }
         }
     endif;
-    echo "<script>window.location.href = 'all-customers.php';</script>";
-    exit;
 }
 
 $stmt = $conn->query("SELECT * FROM users WHERE role = 'end-user' ORDER BY created_at DESC");

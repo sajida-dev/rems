@@ -14,19 +14,20 @@
                 <div class="modal-body">
                     <div id="formErrors" class="alert alert-danger d-none"></div>
                     <div class="form-group form-group-default">
-                        <!-- <label for="customerName">Name</label> -->
                         <input id="customerName" name="customerName" type="text" class="form-control" placeholder="Enter customer name" required
                             value="<?php echo htmlspecialchars($customer['name'] ?? ""); ?>">
                     </div>
                     <div class="form-group form-group-default">
-                        <!-- <label for="customerEmail">Email</label> -->
                         <input id="customerEmail" name="customerEmail" type="email" class="form-control" placeholder="Enter email" required
                             value="<?php echo htmlspecialchars($customer['email'] ?? ""); ?>">
                     </div>
                     <div class="form-group form-group-default">
-                        <!-- <label for="customerContact">Contact</label> -->
-                        <input id="customerContact" name="customerContact" type="text" maxlength="12" class="form-control" placeholder="923001234567"
+                        <input id="phone" name="phone" type="number" maxlength="12" class="form-control" placeholder="923001234567"
                             value="<?php echo htmlspecialchars($customer['contact'] ?? ""); ?>">
+                    </div>
+                    <div class="form-group form-group-default">
+                        <input id="customerPassword" name="customerPassword" type="password" maxlength="12" class="form-control" placeholder="Enter Password"
+                            value="<?php echo htmlspecialchars($customer['password'] ?? ""); ?>">
                     </div>
                 </div>
                 <div class="modal-footer border-0">

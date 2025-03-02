@@ -28,7 +28,8 @@ require_once "backend/add-agent.php"; ?>
                             <th>Sr.</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Email</th>
+                            <th>Agency</th>
+                            <th>Experience</th>
                             <th style="width: 10%">Action</th>
                         </tr>
                     </thead>
@@ -36,12 +37,14 @@ require_once "backend/add-agent.php"; ?>
                         <tr>
                             <th>Sr.</th>
                             <th>Name</th>
-                            <th>Description</th>
+                            <th>Email</th>
+                            <th>Agency</th>
+                            <th>Experience</th>
                             <th style="width: 10%">Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        <?php foreach ($categories as $cat): ?>
+                        <?php foreach ($agents as $cat): ?>
                             <tr>
                                 <td>
                                     <div class="avatar avatar-lg">
@@ -54,13 +57,13 @@ require_once "backend/add-agent.php"; ?>
                                 <td><?php echo htmlspecialchars($cat['experience']); ?></td>
                                 <td>
                                     <div class="form-button-action">
-                                        <a href="update-agent.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-primary btn-lg ">
+                                        <a href="update-agent.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-primary btn-sm ">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <a href="view-agent.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-primary btn-lg ">
-                                            <i class="fa fa-edit"></i>
+                                        <a href="view-agent.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-primary btn-sm ">
+                                            <i class="fa fa-eye"></i>
                                         </a>
-                                        <a href="delete-agent.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-danger">
+                                        <a href="delete-agent.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-sm btn-danger">
                                             <i class="fa fa-times"></i>
                                         </a>
                                     </div>

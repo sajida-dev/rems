@@ -32,7 +32,7 @@ if (!$customer) {
                         <span class="fw-light"> Customer</span>
                     </h5>
                     <!-- data-bs-dismiss="modal" -->
-                    <button type="button" class="close" onclick="closeModel()" aria-label="Close">
+                    <button type="button" class="close" onclick="closeModel('all-customers.php')" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -57,7 +57,7 @@ if (!$customer) {
                 </div>
                 <div class="modal-footer border-0">
                     <button type="submit" name="save" id="submit" class="btn btn-primary">Update</button>
-                    <button type="button" class="btn btn-danger" onclick="closeModel()" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" onclick="closeModel('all-customers.php')" data-bs-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>

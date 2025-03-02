@@ -1,20 +1,20 @@
 <?php
-$title = "Category";
+$title = "Properties";
 $page = "All";
-$mainPage = "Category";
+$mainPage = "Properties";
 require_once "components/header.php";
-require_once "new-category.php";
-require_once "backend/add-category.php"; ?>
+require_once "new-property.php";
+?>
 
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
             <div class="d-flex align-items-center">
-                <h4 class="card-title"> Categories</h4>
+                <h4 class="card-title"> Properties</h4>
                 <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
                     data-bs-target="#addRowModal">
                     <i class="fa fa-plus"></i>
-                    Add Category
+                    Add Property
                 </button>
             </div>
         </div>
@@ -22,12 +22,14 @@ require_once "backend/add-category.php"; ?>
             <!-- Modal -->
 
             <div class="table-responsive">
-                <table id="categoryTable" class="display table table-striped table-hover">
+                <table id="propertyTable" class="display table table-striped table-hover">
                     <thead>
                         <tr>
                             <th>Sr.</th>
                             <th>Name</th>
-                            <th>Description</th>
+                            <th>Agent</th>
+                            <th>Location</th>
+                            <th>Price</th>
                             <th style="width: 10%">Action</th>
                         </tr>
                     </thead>
@@ -35,24 +37,30 @@ require_once "backend/add-category.php"; ?>
                         <tr>
                             <th>Sr.</th>
                             <th>Name</th>
-                            <th>Description</th>
+                            <th>Agent</th>
+                            <th>Location</th>
+                            <th>Price</th>
                             <th style="width: 10%">Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        <?php foreach ($categories as $cat): ?>
+                        <?php foreach ($properties as $property): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($cat['id']); ?></td>
-                                <td><?php echo htmlspecialchars($cat['name']); ?></td>
-                                <td><?php echo htmlspecialchars($cat['description']); ?></td>
+                                <td><?php echo htmlspecialchars($property['id']); ?></td>
+                                <td><?php echo htmlspecialchars($property['title']); ?></td>
+                                <td><?php echo htmlspecialchars($property['agent_name']); ?></td>
+                                <td><?php echo htmlspecialchars($property['location']); ?></td>
+                                <td>$<?php echo number_format($property['rent_price'], 2); ?></td>
+
                                 <td>
                                     <div class="form-button-action">
-                                        <a href="update-category.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-primary btn-lg ">
+                                        <a href="update-property.php?id=<?php echo htmlspecialchars($property['id']); ?>" class="btn btn-link btn-primary btn-sm ">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <!-- data-bs-toggle="modal"
-                                            data-bs-target="#updateCategory" -->
-                                        <a href="delete-category.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-danger">
+                                        <a href="view-property.php?id=<?php echo htmlspecialchars($property['id']); ?>" class="btn btn-link btn-primary btn-sm ">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        <a href="delete-property.php?id=<?php echo htmlspecialchars($property['id']); ?>" class="btn btn-link btn-sm btn-danger">
                                             <i class="fa fa-times"></i>
                                         </a>
                                     </div>
@@ -73,7 +81,7 @@ require_once "backend/add-category.php"; ?>
 
 <script>
     $(document).ready(function() {
-        $("#categoryTable").DataTable({
+        $("#propertyTable").DataTable({
             pageLength: 10
         });
     });

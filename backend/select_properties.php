@@ -2,7 +2,7 @@
 try {
     $limit = 6;
 
-    if ($limitHomePage):
+    if (isset($limitHomePage)):
         $limit = 3;
     endif;
 

@@ -53,19 +53,21 @@ require_once "backend/single_property.php";
 								<div class="col-md-4">
 									<ul class="features">
 										<li class="check"><span class="ion-ios-checkmark"></span>Lot Area: <?php echo htmlspecialchars($property['area']); ?> SQ FT</li>
+										<li class="check"><span class="ion-ios-checkmark"></span>Floor Area: <?php echo htmlspecialchars($property['area']); ?> SQ FT</li>
 										<li class="check"><span class="ion-ios-checkmark"></span>Bed Rooms: <?php echo htmlspecialchars($property['bedrooms']); ?></li>
 										<li class="check"><span class="ion-ios-checkmark"></span>Bath Rooms: <?php echo htmlspecialchars($property['bathrooms']); ?></li>
-										<li class="check"><span class="ion-ios-checkmark"></span>Luggage</li>
+
 										<li class="check"><span class="ion-ios-checkmark"></span>Garage: 2</li>
 									</ul>
 								</div>
 								<div class="col-md-4">
 									<ul class="features">
-										<li class="check"><span class="ion-ios-checkmark"></span>Floor Area: <?php echo htmlspecialchars($property['area']); ?> SQ FT</li>
+
 										<li class="check"><span class="ion-ios-checkmark"></span>Year Built: 2019</li>
 										<li class="check"><span class="ion-ios-checkmark"></span>Water: Yes</li>
 										<li class="check"><span class="ion-ios-checkmark"></span>Stories: 2</li>
 										<li class="check"><span class="ion-ios-checkmark"></span>Roofing: New</li>
+										<li class="check"><span class="ion-ios-checkmark"></span>Luggage</li>
 									</ul>
 								</div>
 								<div class="col-md-4">
@@ -89,7 +91,17 @@ require_once "backend/single_property.php";
 							<p><?php echo htmlspecialchars($property['description']); ?></p>
 						</div>
 						<div class="tab-pane fade" id="pills-images" role="tabpanel" aria-labelledby="pills-images-tab">
-							<p><?php echo htmlspecialchars($property['description']); ?></p>
+							<div class="gallery">
+								<?php if (!empty($images)): ?>
+									<?php foreach ($images as $img): ?>
+										<div class="gallery-item">
+											<img src="<?php echo htmlspecialchars($img['image_url']); ?>" alt="Property Image">
+										</div>
+									<?php endforeach; ?>
+								<?php else: ?>
+									<p>No images available.</p>
+								<?php endif; ?>
+							</div>
 						</div>
 					</div>
 				</div>

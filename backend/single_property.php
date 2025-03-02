@@ -23,9 +23,12 @@ GROUP BY p.id");
 $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 $stmt->execute();
 $property = $stmt->fetch(PDO::FETCH_ASSOC);
-// echo "<pre>";
-// print_r($property);
-// exit;
+
+$stmtImages = $conn->prepare("SELECT * FROM uploads WHERE property_id = :id");
+$stmtImages->bindParam(':id', $id, PDO::PARAM_INT);
+$stmtImages->execute();
+$images = $stmtImages->fetchAll(PDO::FETCH_ASSOC);
+
 if (!$property) {
     die("Property not found.");
 }

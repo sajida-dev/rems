@@ -3,9 +3,9 @@ $title = "Customers";
 $page = "All";
 $mainPage = "Customers";
 require_once "components/header.php";
+require_once "backend/add-customer.php";
 require_once "new-customer.php";
-require_once "backend/add-customer.php"; ?>
-
+?>
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
@@ -54,13 +54,13 @@ require_once "backend/add-customer.php"; ?>
                                 <td><?php echo htmlspecialchars($cat['contact'] ?? "NILL"); ?></td>
                                 <td>
                                     <div class="form-button-action">
-                                        <a href="update-customer.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-primary btn-lg ">
+                                        <a href="update-customer.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-primary btn-sm ">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <a href="view-customer.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-secondary btn-lg ">
+                                        <a href="view-customer.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-secondary btn-sm ">
                                             <i class="fa fa-eye"></i>
                                         </a>
-                                        <a href="delete-customer.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-danger">
+                                        <a href="delete-customer.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-danger btn-sm">
                                             <i class="fa fa-times"></i>
                                         </a>
                                     </div>
