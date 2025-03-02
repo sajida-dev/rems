@@ -1,5 +1,3 @@
--- create a db schema to include payments details that property agents save / update after registration on profile page that is requirement given from clients and then 
-
 -- 1. Create the Database
 CREATE DATABASE real_estate_db;
 USE real_estate_db;
@@ -24,6 +22,7 @@ CREATE TABLE users (
     contact VARCHAR(15),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 CREATE TABLE agent(
     id INT AUTO_INCREMENT PRIMARY KEY,
