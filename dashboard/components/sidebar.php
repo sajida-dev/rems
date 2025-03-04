@@ -31,15 +31,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="all-properties.php">
-                        <i class="fas fa-home"></i>
-                        <p>Properties</p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="all-amenities.php">
                         <i class="fas fa-concierge-bell"></i>
                         <p>Amenities</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="all-properties.php">
+                        <i class="fas fa-home"></i>
+                        <p>Properties</p>
                     </a>
                 </li>
                 <li class="nav-item">
