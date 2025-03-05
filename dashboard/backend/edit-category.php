@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (count($errors) > 0) {
-        $_SESSION["error_msg"] = implode("<br>", $errors);
+        $_SESSION["error"] = implode("<br>", $errors);
         echo "<script>window.location.href = 'all-categories.php';</script>";
         exit;
     }
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $_SESSION["msg"] = "Category updated successfully.";
     } catch (PDOException $e) {
-        $_SESSION["msg"] = "Database error: " . $e->getMessage();
+        $_SESSION["error"] = "Database error: " . $e->getMessage();
     }
     echo "<script>window.location.href = 'all-categories.php';</script>";
     exit;

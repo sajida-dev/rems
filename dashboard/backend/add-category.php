@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoryName']) && iss
     }
 
     if (count($errors) > 0) {
-        $_SESSION['error_msg'] = implode("<br>", $errors);
+        $_SESSION['error'] = implode("<br>", $errors);
     } else {
         try {
             $stmt = $conn->prepare("INSERT INTO property_categories (name, description, created_at) VALUES (:name, :description, NOW())");
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoryName']) && iss
             echo "<script>window.location.href = 'all-categories.php';</script>";
             exit;
         } catch (PDOException $e) {
-            $_SESSION['msg'] = "Database error: " . $e->getMessage();
+            $_SESSION['error'] = "Database error: " . $e->getMessage();
             echo "<script>window.location.href = 'all-categories.php';</script>";
             exit;
         }

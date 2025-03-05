@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (!empty($errors)) {
-        $_SESSION["error_msg"] = implode("<br>", $errors);
+        $_SESSION["error"] = implode("<br>", $errors);
         header("Location: ../update-customer.php?id=" . $id);
         exit;
     }
@@ -29,12 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
 
-        $_SESSION["success_msg"] = "Customer updated successfully.";
+        $_SESSION["msg"] = "Customer updated successfully.";
         echo "<script>window.location.href = 'all-customers.php';</script>";
         // header("Location: ../all-customers.php");
         exit;
     } catch (PDOException $e) {
-        $_SESSION["error_msg"] = "Database error: " . $e->getMessage();
+        $_SESSION["error"] = "Database error: " . $e->getMessage();
         echo "<script>window.location.href = 'update-customers.php?id='" . $id . ";</script>";
         // header("Location: ../update-customer.php?id=" . $id);
         exit;

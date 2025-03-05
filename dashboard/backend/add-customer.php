@@ -46,13 +46,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 $_SESSION['msg'] = 'Customer added successfully.';
             } catch (PDOException $e) {
-                $_SESSION['msg'] = "Database error: " . $e->getMessage();
+                $_SESSION['error'] = "Database error: " . $e->getMessage();
             }
             echo "<script>window.location.href = 'all-customers.php';</script>";
             exit;
         } else {
             foreach ($errors as $error) {
-                $_SESSION['msg'] .= htmlspecialchars($error) . '<br>';
+                $_SESSION['error'] .= htmlspecialchars($error) . '<br>';
             }
         }
     endif;

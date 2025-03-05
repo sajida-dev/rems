@@ -60,18 +60,19 @@ if (isset($_SESSION['id'])) {
     require_once "backend/login_submit.php";  ?>
     <div class="container">
       <div class="page-inner">
+
         <div class="row justify-content-center align-items-center">
           <div class="col-lg-4 ">
+            <?php
+            if (!empty($msg)) {
+              echo $msg;
+            }
+            ?>
             <div class="card">
 
               <form action="" method="POST">
                 <div class="card-header">
                   <div class="card-title">Login Form</div>
-                  <?php
-                  if (!empty($msg)) {
-                    echo $msg;
-                  }
-                  ?>
                 </div>
                 <div class="card-body">
                   <div class="form-group">
@@ -132,6 +133,12 @@ if (isset($_SESSION['id'])) {
 
   <!-- Kaiadmin JS -->
   <script src="dashboard/assets/js/kaiadmin.min.js"></script>
+  <script>
+    setTimeout(function() {
+      $('.alert').fadeOut(1000);
+
+    }, 3000);
+  </script>
 </body>
 
 </html>

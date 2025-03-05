@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['amenitiesName']) && is
             echo "<script>window.location.href = 'all-amenities.php';</script>";
             exit;
         } catch (PDOException $e) {
-            $_SESSION['msg'] = "Database error: " . $e->getMessage();
+            $_SESSION['error'] = "Database error: " . $e->getMessage();
             echo "<script>window.location.href = 'all-amenities.php';</script>";
             exit;
         }

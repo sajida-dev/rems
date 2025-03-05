@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['property_id'])) {
     }
 
     if (!empty($errors)) {
-        $_SESSION['msg'] = implode("<br>", $errors);
+        $_SESSION['error'] = implode("<br>", $errors);
         echo "<script>window.location.href = 'edit-property.php?id={$propertyId}';</script>";
         exit;
     }
@@ -139,7 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['property_id'])) {
         echo "<script>window.location.href = 'all-properties.php';</script>";
         exit;
     } catch (PDOException $e) {
-        $_SESSION['msg'] = "Database error: " . $e->getMessage();
+        $_SESSION['error'] = "Database error: " . $e->getMessage();
         echo "<script>window.location.href = 'edit-property.php?id={$propertyId}';</script>";
         exit;
     }
@@ -156,7 +156,7 @@ $stmt->bindParam(":id", $id, PDO::PARAM_INT);
 $stmt->execute();
 $property = $stmt->fetch(PDO::FETCH_ASSOC);
 if (!$property) {
-    $_SESSION['msg'] = ("Property not found.");
+    $_SESSION['error'] = ("Property not found.");
     exit;
 }
 

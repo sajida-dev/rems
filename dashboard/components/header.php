@@ -2,7 +2,7 @@
 require_once "components/db_connection.php";
 
 if (session_status() === PHP_SESSION_NONE) {
-    $cookieLifetime = 86400 * 30;
+    $cookieLifetime = 86400 * 5;
     session_set_cookie_params([
         'lifetime' => $cookieLifetime,
         'path'     => '/',
@@ -13,8 +13,8 @@ if (session_status() === PHP_SESSION_NONE) {
     ]);
     session_start();
 }
-
-if (!isset($_SESSION['id']) || ($_SESSION['role'] != 2 && $_SESSION['role'] != 3)) {
+$role = ['2', '3', 'agent', 'admin'];
+if (!isset($_SESSION['id']) || (!in_array($_SESSION['role'], $role))) {
     echo "<script>window.location.href = '../index.php';</script>";
     exit;
 }

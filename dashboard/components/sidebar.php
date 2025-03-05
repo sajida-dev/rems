@@ -48,13 +48,27 @@
                         <p>Customer</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="all-agents.php">
-                        <i class="fas fa-user-tie"></i>
-                        <p>Agents</p>
-                        <span class="badge badge-success">4</span>
-                    </a>
-                </li>
+                <?php
+                try {
+                    // Query to count agents that are not approved
+                    $sql = "SELECT COUNT(*) FROM agent WHERE status = 0";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->execute();
+                    $count = $stmt->fetchColumn();
+                } catch (PDOException $e) {
+                    echo "Error: " . $e->getMessage();
+                    $count = 0; // Default to 0 if there's an error
+                }
+                $role = ['3', 'admin'];
+                if (in_array($_SESSION['role'], $role)): ?>
+                    <li class="nav-item">
+                        <a href="all-agents.php">
+                            <i class="fas fa-user-tie"></i>
+                            <p>Agents</p>
+                            <span class="badge badge-success"><?php echo $count; ?></span>
+                        </a>
+                    </li>
+                <?php endif; ?>
 
 
                 <!-- <li class="nav-item">

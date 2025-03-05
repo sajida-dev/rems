@@ -3,7 +3,7 @@ require_once "components/db_connection.php";
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($id <= 0) {
-    $_SESSION["msg"] = "Invalid or missing property ID.";
+    $_SESSION["error"] = "Invalid or missing property ID.";
     echo "<script>window.location.href = 'all-properties.php';</script>";
     exit;
 }
@@ -28,11 +28,11 @@ try {
         $_SESSION["msg"] = "Property and associated data deleted successfully.";
     } else {
         $conn->rollBack();
-        $_SESSION["msg"] = "No property found with the provided ID or unable to delete.";
+        $_SESSION["error"] = "No property found with the provided ID or unable to delete.";
     }
 } catch (PDOException $e) {
     $conn->rollBack();
-    $_SESSION["msg"] = "Error deleting property: " . $e->getMessage();
+    $_SESSION["error"] = "Error deleting property: " . $e->getMessage();
 }
 
 echo "<script>window.location.href = 'all-properties.php';</script>";

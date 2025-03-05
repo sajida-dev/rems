@@ -15,10 +15,10 @@ if ($id <= 0) {
         if ($stmt->rowCount() > 0) {
             $_SESSION["msg"] = "Agent deleted successfully.";
         } else {
-            $_SESSION["msg"] = "No record found with the provided ID.";
+            $_SESSION["error"] = "No record found with the provided ID.";
         }
     } catch (PDOException $e) {
-        $_SESSION["msg"] = "Error deleting record: " . $e->getMessage();
+        $_SESSION["error"] = "Error deleting record: " . $e->getMessage();
     }
 }
 

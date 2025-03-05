@@ -15,31 +15,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
         $errors[] = "Password is required.";
     }
 
-    // If no errors, attempt login
     if (empty($errors)) {
         try {
-            // Prepare a statement to fetch the user by email
             $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user) {
-                // Verify the password
                 if (password_verify($password, $user['password_hash'])) {
-                    // Set session variables
                     $_SESSION['id'] = $user['id'];
+                    $_SESSION['name'] = $user['name'];
                     $_SESSION['email'] = $user['email'];
                     $_SESSION['role'] = $user['role'];
 
                     $_SESSION['msg'] = "Login successful. Welcome back, " . htmlspecialchars($user['name']) . "!";
 
                     // Redirect based on role
-                    if ($user['role'] === 2) {
-                        echo "<script>window.location.href = '/rems/dashboard';</script>";
+                    $role = ['2', '3', 'agent', 'admin'];
+
+                    if (in_array($_SESSION['role'], $role)) {
+                        echo "<script>window.location.href = 'dashboard/index.php'</script>";
                         exit;
                     } else {
-                        echo "<script>window.location.href = 'index.php';</script>";
+                        echo "<script>window.location.href = 'index.php'</script>";
                         exit;
                     }
                 } else {
@@ -54,10 +53,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
     }
 
     if (!empty($errors)) {
-        $msg = '<div class="alert alert-danger"><ul>';
+        $msg = '<div class="alert alert-danger animate__animated animate__fadeInDown">';
         foreach ($errors as $error) {
-            $msg .= '<li>' . htmlspecialchars($error) . '</li>';
+            $msg .=  htmlspecialchars($error) . '<br>';
         }
-        $msg .= '</ul></div>';
+        $msg .= '</div>';
     }
 }

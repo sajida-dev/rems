@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['delete_images']) && i
     echo "<script>window.location.href = 'update-property.php?id=" . $propertyId . "';</script>";
     exit;
 } else {
-    $_SESSION['msg'] = "No images selected for deletion.";
+    $_SESSION['error'] = "No images selected for deletion.";
     $propertyId = isset($_POST['property_id']) ? intval($_POST['property_id']) : 0;
     echo "<script>window.location.href = 'update-property.php?id=" . $propertyId . "';</script>";
     exit;

@@ -166,7 +166,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"):
         echo "<script>window.location.href = 'all-properties.php';</script>";
         exit;
     } catch (PDOException $e) {
-        $_SESSION['msg'] = "Database error: " . $e->getMessage();
+        $_SESSION['error'] = "Database error: " . $e->getMessage();
         echo "<script>window.location.href = 'new-property.php';</script>";
         exit;
     }

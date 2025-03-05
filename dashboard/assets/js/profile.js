@@ -79,7 +79,7 @@ $(document).ready(function () {
     });
 
     $(".submit").click(function () {
-        return false;
+        return true;
     });
 
 });
@@ -96,11 +96,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // Preview the selected image.
   profilePicInput.addEventListener("change", function (event) {
     if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
+        const reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
       reader.onload = function (e) {
         avatarPreview.setAttribute("src", e.target.result);
       };
-      reader.readAsDataURL(event.target.files[0]);
+      
     }
   });
 });

@@ -18,7 +18,6 @@ CREATE TABLE users (
     password_hash VARCHAR(255) NOT NULL,
     role ENUM('end-user', 'agent', 'admin') NOT NULL,
     profile_pic VARCHAR(255) NULL,
-    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
     contact VARCHAR(15) ,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -30,6 +29,7 @@ CREATE TABLE agent (
     agency VARCHAR(100) NULL,
     experience INT NULL,
     bio TEXT NULL,
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (agent_id) REFERENCES users(id) ON DELETE SET NULL
 );

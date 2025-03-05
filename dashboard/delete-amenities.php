@@ -3,7 +3,7 @@ require_once "components/db_connection.php";
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($id <= 0) {
-    $_SESSION["msg"] = "Invalid or missing ID.";
+    $_SESSION["error"] = "Invalid or missing ID.";
 }
 
 try {
@@ -14,10 +14,10 @@ try {
     if ($stmt->rowCount() > 0) {
         $_SESSION["msg"] = "Amenities deleted successfully.";
     } else {
-        $_SESSION["msg"] = "No record found with the provided ID.";
+        $_SESSION["error"] = "No record found with the provided ID.";
     }
 } catch (PDOException $e) {
-    $_SESSION["msg"] = "Error deleting record: " . $e->getMessage();
+    $_SESSION["error"] = "Error deleting record: " . $e->getMessage();
 }
 
 echo "<script>window.location.href = 'all-amenities.php';</script>";
