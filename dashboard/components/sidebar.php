@@ -24,30 +24,33 @@
                     </span>
                     <h4 class="text-section">Components</h4>
                 </li>
-                <li class="nav-item">
-                    <a href="all-categories.php">
-                        <i class="fas fa-layer-group"></i>
-                        <p>Category</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="all-amenities.php">
-                        <i class="fas fa-concierge-bell"></i>
-                        <p>Amenities</p>
-                    </a>
-                </li>
+                <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == '3'): ?>
+                    <li class="nav-item">
+                        <a href="all-categories.php">
+                            <i class="fas fa-layer-group"></i>
+                            <p>Category</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="all-amenities.php">
+                            <i class="fas fa-concierge-bell"></i>
+                            <p>Amenities</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="all-customers.php">
+                            <i class="fas fa-users"></i>
+                            <p>Customers</p>
+                        </a>
+                    </li>
+                <?php endif; ?>
                 <li class="nav-item">
                     <a href="all-properties.php">
                         <i class="fas fa-home"></i>
                         <p>Properties</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="all-customers.php">
-                        <i class="fas fa-users"></i>
-                        <p>Customer</p>
-                    </a>
-                </li>
+
                 <?php
                 try {
                     // Query to count agents that are not approved

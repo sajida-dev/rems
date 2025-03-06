@@ -3,7 +3,9 @@ $title = "All Agent";
 $page = "All";
 $mainPage = "Agent";
 require_once "components/header.php";
-require_once "backend/add-agent.php"; ?>
+require_once "backend/add-agent.php";
+
+?>
 
 <div class="col-md-12">
     <div class="card">
@@ -28,6 +30,7 @@ require_once "backend/add-agent.php"; ?>
                             <th>Email</th>
                             <th>Agency</th>
                             <th>Experience</th>
+                            <th>Status</th>
                             <th style="width: 10%">Action</th>
                         </tr>
                     </thead>
@@ -38,6 +41,7 @@ require_once "backend/add-agent.php"; ?>
                             <th>Email</th>
                             <th>Agency</th>
                             <th>Experience</th>
+                            <th>Staus</th>
                             <th style="width: 10%">Action</th>
                         </tr>
                     </tfoot>
@@ -46,13 +50,23 @@ require_once "backend/add-agent.php"; ?>
                             <tr>
                                 <td>
                                     <div class="avatar avatar-lg">
-                                        <img src="../<?php echo htmlspecialchars($cat['profile_pic'] ?? "images/avator.png"); ?>" alt="..." class="avatar-img rounded-circle">
+                                        <img src="<?php echo htmlspecialchars($cat['profile_pic'] ?? "../images/avator.png"); ?>" alt="..." class="avatar-img rounded-circle">
                                     </div>
                                 </td>
                                 <td><?php echo htmlspecialchars($cat['name']); ?></td>
                                 <td><?php echo htmlspecialchars($cat['email']); ?></td>
                                 <td><?php echo htmlspecialchars($cat['agency'] ?? "NILL"); ?></td>
                                 <td><?php echo htmlspecialchars($cat['experience'] ?? "NILL"); ?></td>
+                                <td><?php switch ($cat['status']) {
+                                        case '1':
+                                            // echo "<span class='badge bg-success'>Approved</span>";
+                                            echo "<a href='backend/update-agent-status.php?id=" . htmlspecialchars($cat['id']) . "&status=1' class='badge bg-success'>Approved</a>";
+                                            break;
+                                            break;
+                                        case '0':
+                                            echo "<a href='backend/update-agent-status.php?id=" . htmlspecialchars($cat['id']) . "&status=0' class='badge bg-warning'>Pending</a>";
+                                            break;
+                                    } ?></td>
                                 <td>
                                     <div class="form-button-action">
                                         <a href="update-agent.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-primary btn-sm ">

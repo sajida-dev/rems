@@ -1,6 +1,70 @@
 <?php include_once("components/header.php");
 require_once "backend/single_property.php";
 ?>
+<style>
+	.modal-body {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
+
+	}
+
+	.modal-dialog {
+		max-width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.modal-content {
+		width: 100%;
+		height: 100%;
+		border-radius: 0;
+		display: flex;
+		flex-direction: column;
+	}
+
+	#prevBtn,
+	#nextBtn {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 1000;
+		background-color: rgba(0, 0, 0, 0.5);
+		border: none;
+		/* padding: 15px; */
+		/* color: #fff; */
+		font-size: 25px;
+		border-radius: 50%;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+
+
+	#prevBtn {
+		left: 20px;
+	}
+
+	#nextBtn {
+		right: 20px;
+	}
+
+	#prevBtn:hover,
+	#nextBtn:hover {
+		background-color: rgba(0, 0, 0, 0.7);
+	}
+
+	#modalImage {
+		width: 100%;
+		max-height: 100vh;
+		object-fit: contain;
+	}
+</style>
 
 <section class="hero-wrap hero-wrap-2 ftco-degree-bg js-fullheight" style="background-image: url('images/bg_1.jpg');" data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
@@ -20,7 +84,7 @@ require_once "backend/single_property.php";
 			<div class="col-md-12">
 				<div class="property-details">
 					<!-- Display the property image as a background -->
-					<div class="img" style="background-image: url(<?php echo htmlspecialchars($property['image_url']); ?>);"></div>
+					<div class="img" style="background-image: url(<?php echo "dashboard/" . htmlspecialchars($property['image_url']); ?>);"></div>
 					<div class="text text-center">
 						<!-- Display location and title -->
 						<span class="subheading"><?php echo htmlspecialchars($property['location']); ?></span>
@@ -91,17 +155,48 @@ require_once "backend/single_property.php";
 							<p><?php echo htmlspecialchars($property['description']); ?></p>
 						</div>
 						<div class="tab-pane fade" id="pills-images" role="tabpanel" aria-labelledby="pills-images-tab">
+
 							<div class="gallery">
-								<?php if (!empty($images)): ?>
-									<?php foreach ($images as $img): ?>
-										<div class="gallery-item">
-											<img src="<?php echo htmlspecialchars($img['image_url']); ?>" alt="Property Image">
-										</div>
-									<?php endforeach; ?>
-								<?php else: ?>
-									<p>No images available.</p>
-								<?php endif; ?>
+								<div class="row">
+									<?php if (!empty($images)): ?>
+										<?php foreach ($images as $index => $img): ?>
+											<div class="col-6 col-sm-4 col-lg-3 mb-4">
+												<div class="image-container">
+													<a href="#" data-toggle="modal" data-target="#imageModal" class="image-link" data-image="<?php echo "dashboard/" . htmlspecialchars($img['image_url']); ?>" data-index="<?php echo $index; ?>">
+														<img src="<?php echo "dashboard/" . htmlspecialchars($img['image_url']); ?>" alt="Property Image" class="img-fluid rounded">
+													</a>
+												</div>
+											</div>
+										<?php endforeach; ?>
+									<?php else: ?>
+										<p>No images available.</p>
+									<?php endif; ?>
+								</div>
 							</div>
+
+							<!-- Modal for Image View -->
+							<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+									<div class="modal-content">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute; right: 10px; top: 10px; z-index:1000">
+											<span aria-hidden="true">&times;</span>
+										</button>
+
+										<div class="modal-body d-flex justify-content-center align-items-center">
+											<button type="button" class="btn btn-secondary" id="prevBtn" disabled>
+												<i class="ion-ios-arrow-back"></i>
+											</button>
+
+											<img src="" alt="Full Image" id="modalImage" class="img-fluid">
+
+											<button type="button" class="btn btn-secondary" id="nextBtn" disabled>
+												<i class="ion-ios-arrow-forward"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>
@@ -123,6 +218,113 @@ require_once "backend/single_property.php";
 				history.pushState(null, null, hash);
 			} else {
 				window.location.hash = hash;
+			}
+		});
+	});
+	// $(document).ready(function() {
+	// 	$(".image-link").click(function(e) {
+	// 		e.preventDefault();
+	// 		var imageUrl = $(this).data('image');
+	// 		$('#modalImage').attr('src', imageUrl);
+	// 	});
+	// });
+
+	// $(document).ready(function() {
+	// 	let currentIndex = 0;
+	// 	let images = <?php echo json_encode($images); ?>; // Pass images array to JS
+	// 	let totalImages = images.length;
+
+	// 	// When a thumbnail image is clicked, load it in the modal
+	// 	$(".image-link").click(function(e) {
+	// 		e.preventDefault();
+	// 		currentIndex = $(this).data('index'); // Get the clicked image's index
+	// 		loadImage(currentIndex); // Load the image into the modal
+	// 		$('#imageModal').modal('show'); // Show the modal
+	// 	});
+
+	// 	// Function to load the image in the modal
+	// 	function loadImage(index) {
+	// 		const imageUrl = "dashboard/" + images[index].image_url; // Get the image URL
+	// 		$('#modalImage').attr('src', imageUrl); // Set the image in the modal
+
+	// 		// Disable the previous button if it's the first image
+	// 		if (index === 0) {
+	// 			$('#prevBtn').prop('disabled', true);
+	// 		} else {
+	// 			$('#prevBtn').prop('disabled', false);
+	// 		}
+
+	// 		// Disable the next button if it's the last image
+	// 		if (index === totalImages - 1) {
+	// 			$('#nextBtn').prop('disabled', true);
+	// 		} else {
+	// 			$('#nextBtn').prop('disabled', false);
+	// 		}
+	// 	}
+
+	// 	// Event listener for "Next" button
+	// 	$('#nextBtn').click(function() {
+	// 		if (currentIndex < totalImages - 1) {
+	// 			currentIndex++;
+	// 			loadImage(currentIndex); // Load next image
+	// 		}
+	// 	});
+
+	// 	// Event listener for "Previous" button
+	// 	$('#prevBtn').click(function() {
+	// 		if (currentIndex > 0) {
+	// 			currentIndex--;
+	// 			loadImage(currentIndex); // Load previous image
+	// 		}
+	// 	});
+	// });
+
+	$(document).ready(function() {
+		let currentIndex = 0;
+		let images = <?php echo json_encode($images); ?>; // Pass images array to JS
+		let totalImages = images.length;
+
+		// When a thumbnail image is clicked, load it in the modal
+		$(".image-link").click(function(e) {
+			e.preventDefault();
+			currentIndex = $(this).data('index'); // Get the clicked image's index
+			loadImage(currentIndex); // Load the image into the modal
+			$('#imageModal').modal('show'); // Show the modal
+		});
+
+		// Function to load the image in the modal
+		function loadImage(index) {
+			const imageUrl = "dashboard/" + images[index].image_url; // Get the image URL
+			$('#modalImage').attr('src', imageUrl); // Set the image in the modal
+
+			// Disable the previous button if it's the first image
+			if (index === 0) {
+				$('#prevBtn').prop('disabled', true);
+			} else {
+				$('#prevBtn').prop('disabled', false);
+			}
+
+			// Disable the next button if it's the last image
+			if (index === totalImages - 1) {
+				$('#nextBtn').prop('disabled', true);
+			} else {
+				$('#nextBtn').prop('disabled', false);
+			}
+		}
+
+		// Event listener for "Next" button
+		$('#nextBtn').click(function() {
+			if (currentIndex < totalImages - 1) {
+				currentIndex++;
+				loadImage(currentIndex); // Load next image
+			}
+		});
+
+		// Event listener for "Previous" button
+		$('#prevBtn').click(function() {
+			if (currentIndex > 0) {
+				currentIndex--;
+				loadImage(currentIndex); // Load previous image
 			}
 		});
 	});

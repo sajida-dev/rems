@@ -1,9 +1,23 @@
 <?php
 
-if (!isset($_SESSION['id']) || $_SESSION['role'] != 2) {
+if (!isset($_SESSION['id']) || $_SESSION['role'] != '2' || $_SESSION['role'] == 'agent') {
     $_SESSION['msg'] = "You must be logged in as an agent to add a property.";
     echo "<script>window.location.href = '../login.php';</script>";
     exit;
+}
+try {
+    // Fetch the agent's status
+    $stmt = $conn->prepare("SELECT status FROM agent WHERE agent_id = :agent_id");
+    $stmt->bindParam(':agent_id', $_SESSION['id']);
+    $stmt->execute();
+    $agent = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Check if agent is approved
+    if ($agent['status'] != '1') {
+        redirect("all-properties.php", "Your account is not approved. Please wait for approval from the admin.");
+    }
+} catch (PDOException $e) {
+    redirect("all-properties.php", "Error: " . $e->getMessage(), "error");
 }
 if ($_SERVER["REQUEST_METHOD"] === "POST"):
     $title = trim($_POST['title'] ?? '');

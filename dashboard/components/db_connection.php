@@ -10,3 +10,12 @@ try {
 } catch (PDOException $e) {
     $conMessage = "Connection failed: " . $e->getMessage();
 }
+
+function redirect($url, $message = null, $key = 'msg')
+{
+    if ($message !== null) {
+        $_SESSION[$key] = $message;
+    }
+    echo "<script>window.location.href='" . $url . "';</script>";
+    exit;
+}

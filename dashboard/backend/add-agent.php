@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            $_SESSION['msg'] = "Agent registered successfully.";
+            $_SESSION['msg'] = "Agent added successfully.";
             header('Location: all-agents.php');
             exit;
         } catch (PDOException $e) {
@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 try {
     $stmt = $conn->prepare("SELECT u.id, u.name, u.email, u.contact, u.profile_pic, u.created_at,
-                            a.agency, a.experience, a.bio
+                            a.agency, a.experience, a.bio,a.status
                             FROM users u
                             LEFT JOIN agent a ON u.id = a.agent_id
                             WHERE u.role = 2

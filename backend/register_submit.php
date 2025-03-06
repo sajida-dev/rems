@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
 
                 $msg = 'Registration successful, welcome ' . htmlspecialchars($name) . '!';
                 if ($role == 2):
-                    echo "<script>window.location.href = '/rems/dashboard/profile.php';</script>";
+                    echo "<script>window.location.href = 'dashboard/profile.php';</script>";
                     exit;
                 else:
                     echo "<script>window.location.href = 'index.php';</script>";

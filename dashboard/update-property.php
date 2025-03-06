@@ -127,6 +127,7 @@ require_once "backend/edit-property.php";
                                             </figure>
                                         </label>
                                     </div>
+
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <p>No images available.</p>

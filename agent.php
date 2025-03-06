@@ -4,6 +4,13 @@ if ($conMessage):
 endif;
 ?>
 
+<style>
+	.custom-img {
+		height: 300px;
+		overflow: hidden;
+	}
+</style>
+
 <section class="hero-wrap hero-wrap-2 ftco-degree-bg js-fullheight" style="background-image: url('images/bg_1.jpg');" data-stellar-background-ratio="0.5">
 	<div class="overlay"></div>
 	<div class="container">
@@ -23,13 +30,13 @@ endif;
 				<?php foreach ($agents as $agent): ?>
 					<div class="col-md-3">
 						<div class="agent">
-							<div class="img">
-								<img src="<?php echo !empty($agent['profile_pic']) ? $agent['profile_pic'] : 'images/default-agent.jpg'; ?>" class="img-fluid" alt="Agent Image">
+							<div class="img custom-img">
+								<img src="<?php echo !empty($agent['profile_pic']) ? "dashboard/" . $agent['profile_pic'] : 'images/default-agent.jpg'; ?>" class="img-fluid" alt="Agent Image">
 							</div>
 							<div class="desc">
 								<h3>
 									<!-- Link to properties page filtered by agent -->
-									<a href="properties.php?agent_id=<?php echo $agent['id']; ?>">
+									<a href="single-agent.php?agent_id=<?php echo $agent['id']; ?>">
 										<?php echo htmlspecialchars($agent['name']); ?>
 									</a>
 								</h3>

@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
             }
 
             $newFileName = uniqid("agent_", true) . '.' . $ext;
-            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/rems/dashboard/uploads/avatars/";
+            $uploadDir = "uploads/avatars/";
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }

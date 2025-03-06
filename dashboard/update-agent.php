@@ -1,14 +1,14 @@
 <?php
-$title = "New Agent";
-$page = "New";
+$title = "Update Agent";
+$page = "Update";
 $mainPage = "Agent";
 require_once "components/header.php";
-require_once "backend/add-agent.php"; ?>
+require_once "backend/edit-agent.php"; ?>
 
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <h5 class="fw-mediumbold">Add Agent</h5>
+            <h5 class="fw-mediumbold">Update Agent</h5>
         </div>
         <div class="card-body">
             <form action="" method="POST" enctype="multipart/form-data">
@@ -54,7 +54,7 @@ require_once "backend/add-agent.php"; ?>
                         <div class="selectgroup selectgroup-secondary selectgroup-pills">
                             <?php foreach ($categories as $category): ?>
                                 <label class="selectgroup-item">
-                                    <input type="checkbox" name="categories[]" value="<?php echo htmlspecialchars($category['id']); ?>" class="selectgroup-input" />
+                                    <input type="checkbox" name="categories[]" value="<?php echo htmlspecialchars($category['id']); ?>" class="selectgroup-input" <?php echo in_array($category['id'], $selectedCategories) ? 'checked' : ''; ?> />
                                     <span class="selectgroup-button">
                                         <?php echo htmlspecialchars($category['name']); ?>
                                     </span>
@@ -74,6 +74,7 @@ require_once "backend/add-agent.php"; ?>
                     <?php if (isset($agent['profile_pic']) && $agent['profile_pic']): ?>
                         <img src="<?php echo $agent['profile_pic']; ?>" alt="Agent Picture" class="mt-3" style="max-width: 100px;">
                     <?php endif; ?>
+                    <img src="D:/6th_Semester/Xampp/htdocs/rems/dashboard/uploads/avatars/agent_67c8a352148591.14389546.jpeg" alt="">
                 </div>
                 <div class="card-footer text-end">
                     <button type="submit" class="btn btn-primary">Update Agent</button>
