@@ -13,7 +13,8 @@ CREATE TABLE property_categories (
 -- 3. Users Table (End-User, Agent, Admin)
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NULL,
+    username VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     role ENUM('end-user', 'agent', 'admin') NOT NULL,

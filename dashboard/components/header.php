@@ -32,6 +32,10 @@ if (!isset($_SESSION['id']) || (!in_array($_SESSION['role'], $role))) {
         rel="icon"
         href="assets/img/kaiadmin/favicon.ico"
         type="image/x-icon" />
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
+        async
+        defer></script>
 
     <!-- Fonts and icons -->
     <script src="assets/js/plugin/webfont/webfont.min.js"></script>

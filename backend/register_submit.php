@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
                     echo "<script>window.location.href = 'dashboard/profile.php';</script>";
                     exit;
                 else:
-                    echo "<script>window.location.href = 'index.php';</script>";
+                    echo "<script>window.location.href = 'profile.php';</script>";
                     exit;
                 endif;
             }

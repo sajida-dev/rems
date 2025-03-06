@@ -57,11 +57,14 @@ if (session_status() === PHP_SESSION_NONE) {
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a href="index.php" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="profile.php" class="nav-link">Profile</a></li>
                     <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
                     <li class="nav-item"><a href="agent.php" class="nav-link">Agent</a></li>
                     <li class="nav-item"><a href="services.php" class="nav-link">Services</a></li>
                     <li class="nav-item"><a href="properties.php" class="nav-link">Properties</a></li>
                     <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
+
+
                     <?php if (!isset($_SESSION['id'])): ?>
                         <li class="nav-item">
                             <a href="login.php" class="nav-link">Login</a>
@@ -70,6 +73,7 @@ if (session_status() === PHP_SESSION_NONE) {
                             <a href="register.php" class="btn btn-primary nav-link">Register</a>
                         </li>
                     <?php else: ?>
+                        <li class="nav-item"><a href="index.php" class="nav-link"><?php echo htmlspecialchars($_SESSION['name']); ?></a></li>
                         <li class="nav-item text-white">
                             <a href="logout.php" class="btn btn-primary nav-link">Logout</a>
                         </li>

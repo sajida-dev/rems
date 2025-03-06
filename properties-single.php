@@ -2,6 +2,11 @@
 require_once "backend/single_property.php";
 ?>
 <style>
+	#map {
+		height: 400px;
+		width: 100%;
+	}
+
 	.modal-body {
 		position: relative;
 		display: flex;
@@ -149,6 +154,7 @@ require_once "backend/single_property.php";
 									</ul>
 								</div>
 							</div>
+							<div id="map"></div>
 						</div>
 						<!-- Description Tab -->
 						<div class="tab-pane fade" id="pills-manufacturer" role="tabpanel" aria-labelledby="pills-manufacturer-tab">
@@ -221,90 +227,41 @@ require_once "backend/single_property.php";
 			}
 		});
 	});
-	// $(document).ready(function() {
-	// 	$(".image-link").click(function(e) {
-	// 		e.preventDefault();
-	// 		var imageUrl = $(this).data('image');
-	// 		$('#modalImage').attr('src', imageUrl);
-	// 	});
-	// });
 
-	// $(document).ready(function() {
-	// 	let currentIndex = 0;
-	// 	let images = <?php echo json_encode($images); ?>; // Pass images array to JS
-	// 	let totalImages = images.length;
+	let map;
 
-	// 	// When a thumbnail image is clicked, load it in the modal
-	// 	$(".image-link").click(function(e) {
-	// 		e.preventDefault();
-	// 		currentIndex = $(this).data('index'); // Get the clicked image's index
-	// 		loadImage(currentIndex); // Load the image into the modal
-	// 		$('#imageModal').modal('show'); // Show the modal
-	// 	});
-
-	// 	// Function to load the image in the modal
-	// 	function loadImage(index) {
-	// 		const imageUrl = "dashboard/" + images[index].image_url; // Get the image URL
-	// 		$('#modalImage').attr('src', imageUrl); // Set the image in the modal
-
-	// 		// Disable the previous button if it's the first image
-	// 		if (index === 0) {
-	// 			$('#prevBtn').prop('disabled', true);
-	// 		} else {
-	// 			$('#prevBtn').prop('disabled', false);
-	// 		}
-
-	// 		// Disable the next button if it's the last image
-	// 		if (index === totalImages - 1) {
-	// 			$('#nextBtn').prop('disabled', true);
-	// 		} else {
-	// 			$('#nextBtn').prop('disabled', false);
-	// 		}
-	// 	}
-
-	// 	// Event listener for "Next" button
-	// 	$('#nextBtn').click(function() {
-	// 		if (currentIndex < totalImages - 1) {
-	// 			currentIndex++;
-	// 			loadImage(currentIndex); // Load next image
-	// 		}
-	// 	});
-
-	// 	// Event listener for "Previous" button
-	// 	$('#prevBtn').click(function() {
-	// 		if (currentIndex > 0) {
-	// 			currentIndex--;
-	// 			loadImage(currentIndex); // Load previous image
-	// 		}
-	// 	});
-	// });
+	function initMap() {
+		map = new google.maps.Map(document.getElementById("map"), {
+			center: {
+				lat: -34.397,
+				lng: 150.644
+			},
+			zoom: 8,
+		});
+	}
 
 	$(document).ready(function() {
 		let currentIndex = 0;
-		let images = <?php echo json_encode($images); ?>; // Pass images array to JS
+		let images = <?php echo json_encode($images); ?>;
 		let totalImages = images.length;
 
-		// When a thumbnail image is clicked, load it in the modal
 		$(".image-link").click(function(e) {
 			e.preventDefault();
-			currentIndex = $(this).data('index'); // Get the clicked image's index
-			loadImage(currentIndex); // Load the image into the modal
-			$('#imageModal').modal('show'); // Show the modal
+			currentIndex = $(this).data('index');
+			loadImage(currentIndex);
+			$('#imageModal').modal('show');
 		});
 
-		// Function to load the image in the modal
 		function loadImage(index) {
-			const imageUrl = "dashboard/" + images[index].image_url; // Get the image URL
-			$('#modalImage').attr('src', imageUrl); // Set the image in the modal
+			const imageUrl = "dashboard/" + images[index].image_url;
+			$('#modalImage').attr('src', imageUrl);
 
-			// Disable the previous button if it's the first image
 			if (index === 0) {
 				$('#prevBtn').prop('disabled', true);
 			} else {
 				$('#prevBtn').prop('disabled', false);
 			}
 
-			// Disable the next button if it's the last image
 			if (index === totalImages - 1) {
 				$('#nextBtn').prop('disabled', true);
 			} else {
@@ -312,19 +269,17 @@ require_once "backend/single_property.php";
 			}
 		}
 
-		// Event listener for "Next" button
 		$('#nextBtn').click(function() {
 			if (currentIndex < totalImages - 1) {
 				currentIndex++;
-				loadImage(currentIndex); // Load next image
+				loadImage(currentIndex);
 			}
 		});
 
-		// Event listener for "Previous" button
 		$('#prevBtn').click(function() {
 			if (currentIndex > 0) {
 				currentIndex--;
-				loadImage(currentIndex); // Load previous image
+				loadImage(currentIndex);
 			}
 		});
 	});

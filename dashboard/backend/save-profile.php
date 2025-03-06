@@ -127,6 +127,7 @@ if ($agent_id <= 0) {
     exit;
 }
 
+
 try {
     $sqlUser = "SELECT * FROM users WHERE id = :id AND role = 2";
     $stmtUser = $conn->prepare($sqlUser);
