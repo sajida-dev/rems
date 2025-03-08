@@ -54,7 +54,7 @@
                 <?php
                 if ($_SESSION['role'] == 'admin'):
                     try {
-                        $sql = "SELECT COUNT(*) FROM agent WHERE status = 0";
+                        $sql = "SELECT COUNT(*) FROM agent WHERE status = 0 and agent_id != ''";
                         $stmt = $conn->prepare($sql);
                         $stmt->execute();
                         $count = $stmt->fetchColumn();

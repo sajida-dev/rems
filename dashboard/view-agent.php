@@ -12,103 +12,138 @@ require_once "../backend/single_agent.php";
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <style>
-    .agent-details {
-        margin: 20px auto;
-        max-width: 1200px;
-        background: #fff;
+    body {
+        background: #f5f5f5;
+    }
+
+    .container {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    /* Agent Card */
+    .agent-card {
+        margin-bottom: 30px;
         padding: 20px;
+        background: #fff;
         border: 1px solid #ddd;
         border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
-    .contact-details {
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 5px;
-        background: #f8f8f8;
+    .agent-card .card-body {
+        display: flex;
+        align-items: center;
     }
 
-    .transaction-group {
-        margin-bottom: 30px;
-    }
-
-    .transaction-group h5 {
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 5px;
-        margin-bottom: 15px;
-    }
-
-    .table td,
-    .table th {
-        vertical-align: middle;
-    }
-
-    .profile-img {
-        max-width: 150px;
+    .agent-card img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
         border-radius: 50%;
-        margin-bottom: 15px;
+        margin-right: 20px;
+    }
+
+    /* Property Cards */
+    .property-card {
+        margin-bottom: 20px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .property-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .property-card .card-body {
+        padding: 15px;
+    }
+
+    .property-card .card-title {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .property-card .card-text {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .property-card .amenities {
+        margin-top: 10px;
+        font-size: 13px;
+        color: #777;
+    }
+
+    .property-heading {
+        border-bottom: 1px solid gray;
+        padding-bottom: 5px;
     }
 </style>
 
-<div class="col-md-12">
-    <div class="card">
-        <div class="card-header">
-            <h5 class="fw-mediumbold"><?php echo htmlspecialchars($agent['name']); ?></h5>
-        </div>
+<div class="container">
+    <!-- Agent Information Card -->
+    <div class="card agent-card">
         <div class="card-body">
-            <div class="container agent-details">
-                <div class="row">
-                    <!-- Left Column: Agent's Managed Properties -->
-                    <div class="col-md-8">
-                        <h3>Properties Managed by <?php echo htmlspecialchars($agent['name']); ?></h3>
-                        <?php if (!empty($properties)): ?>
-                            <?php foreach ($properties as $property): ?>
-                                <div class="transaction-group">
-                                    <h5><?php echo htmlspecialchars($property['title']); ?></h5>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>Location</th>
-                                                <th>Price</th>
-                                                <th>Status</th>
-                                                <!-- <th>Property Type</th> -->
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><?php echo htmlspecialchars($property['location']); ?></td>
-                                                <td>$<?php echo number_format($property['rent_price'], 2); ?></td>
-                                                <td><?php echo htmlspecialchars($property['status']); ?></td>
-                                                <!-- <td><?php echo htmlspecialchars($property['type']); ?></td> -->
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <p class="mt-4 d-flex justify-content-center">No properties found for this agent.</p>
-                        <?php endif; ?>
-                    </div>
+            <div>
+                <?php if (!empty($agent['profile_pic'])): ?>
+                    <img src="<?php echo htmlspecialchars($agent['profile_pic']); ?>" style="border:1px solid gray" alt="Agent Picture">
+                <?php else: ?>
+                    <img src="assets/img/default-avatar.png" alt="Default Avatar">
+                <?php endif; ?>
+            </div>
+            <div>
+                <h3><?php echo htmlspecialchars($agent['name']); ?></h3>
+                <p><strong>Agency:</strong> <?php echo htmlspecialchars($agent['agency']); ?></p>
+                <p><strong>Experience:</strong> <?php echo htmlspecialchars($agent['experience']); ?> years</p>
+                <p><strong>Contact:</strong> <?php echo htmlspecialchars($agent['contact']); ?></p>
+                <p><strong>Email:</strong> <?php echo htmlspecialchars($agent['email']); ?></p>
+                <p><strong>Bio:</strong> <?php echo htmlspecialchars($agent['bio']); ?></p>
+            </div>
 
-                    <!-- Right Column: Contact Details -->
-                    <div class="col-md-4">
-                        <div class="contact-details">
-                            <h4>Contact Details</h4>
-                            <?php if (!empty($agent['profile_pic'])): ?>
-                                <img src="<?php echo htmlspecialchars($agent['profile_pic']); ?>" alt="Profile Picture" class="profile-img img-fluid">
-                            <?php else: ?>
-                                <img src="assets/img/avatar.png" alt="Default Avatar" class="profile-img img-fluid">
-                            <?php endif; ?>
-                            <p><strong>Name:</strong> <?php echo htmlspecialchars($agent['name']); ?></p>
-                            <p><strong>Email:</strong> <?php echo htmlspecialchars($agent['email']); ?></p>
-                            <p><strong>Contact:</strong> <?php echo htmlspecialchars($agent['contact']); ?></p>
+        </div>
+    </div>
+
+    <!-- Agent Properties Listing -->
+    <div class="card">
+        <div class="card-body">
+            <h4 class="property-heading">Properties by <?php echo htmlspecialchars($agent['name']); ?></h4>
+
+            <div class="row">
+                <?php if (!empty($properties)): ?>
+
+                    <?php foreach ($properties as $property): ?>
+                        <div class="col-md-4">
+                            <div class="card property-card">
+                                <?php if (!empty($property['image_url'])): ?>
+                                    <img src="<?php echo htmlspecialchars($property['image_url']); ?>" class="card-img-top" alt="Property Cover">
+                                <?php endif; ?>
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo htmlspecialchars($property['title']); ?></h5>
+                                    <p class="card-text"><strong>Location:</strong> <?php echo htmlspecialchars($property['location']); ?></p>
+                                    <p class="card-text"><strong>Price:</strong> $<?php echo number_format($property['rent_price'], 2); ?> / mo</p>
+                                    <p class="card-text"><strong>Category:</strong> <?php echo htmlspecialchars($property['category_name']); ?></p>
+                                    <?php if (!empty($property['amenities'])): ?>
+                                        <p class="amenities"><strong>Amenities:</strong> <?php echo htmlspecialchars($property['amenities']); ?></p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
                         </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="col-12">
+                        <p>No properties found for this agent.</p>
                     </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
+
 </div>
 
 <?php require_once "components/footer.php"; ?>

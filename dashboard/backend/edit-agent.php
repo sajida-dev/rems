@@ -4,7 +4,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $agent_id = isset($_POST['agent_id']) ? $_POST['agent_id'] : null; // For updating, we need the agent_id
     $name = trim($_POST['name']);
     $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
     $contact = trim($_POST['contact']);
     $agency = trim($_POST['agency']);
     $experience = intval($_POST['experience']);
@@ -21,9 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = "Email is required.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Invalid email format.";
-    }
-    if (!empty($password) && strlen($password) < 6) {
-        $errors[] = "Password must be at least 6 characters.";
     }
     if (empty($agency)) {
         $errors[] = "Agency name is required.";
@@ -86,15 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->bindParam(':agent_id', $agent_id);
                 $stmt->execute();
 
-                // Only update password if provided
-                if (!empty($password)) {
-                    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-                    $sql = "UPDATE users SET password_hash = :password_hash WHERE id = :agent_id";
-                    $stmt = $conn->prepare($sql);
-                    $stmt->bindParam(':password_hash', $passwordHash);
-                    $stmt->bindParam(':agent_id', $agent_id);
-                    $stmt->execute();
-                }
+
 
                 // Update agent-specific details
                 $sqlAgent = "UPDATE agent SET agency = :agency, experience = :experience, bio = :bio WHERE agent_id = :agent_id";
@@ -129,13 +117,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
             } else {
-                // If no agent_id, insert a new agent (create user)
-                $passwordHash = password_hash($password, PASSWORD_DEFAULT);
                 $role = 2; // assuming 2 is for agent
-                $stmt = $conn->prepare("INSERT INTO users (name, email, password_hash, role, profile_pic, contact, created_at) VALUES (:name, :email, :password_hash, :role, :profile_pic, :contact, NOW())");
+                $stmt = $conn->prepare("INSERT INTO users (name, email, role, profile_pic, contact, created_at) VALUES (:name, :email, :password_hash, :role, :profile_pic, :contact, NOW())");
                 $stmt->bindParam(':name', $name);
                 $stmt->bindParam(':email', $email);
-                $stmt->bindParam(':password_hash', $passwordHash);
                 $stmt->bindParam(':role', $role);
                 $stmt->bindParam(':profile_pic', $profile_pic_path);
                 $stmt->bindParam(':contact', $contact);

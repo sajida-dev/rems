@@ -3,7 +3,7 @@ require_once '../../vendor/autoload.php';
 
 require_once "../components/db_connection.php";
 
-if (isset($_GET['id']) && isset($_GET['status'])) {
+if (isset($_GET['id'])) {
     $agent_id = $_GET['id'];
     $status = 1;
 } else {
@@ -39,6 +39,8 @@ $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
 $mail->Port = 587;
 
 $mail->setFrom('saadzaib1123@gmail.com', 'Your Company');
+
+// add agent_email -> $agent_email
 $mail->addAddress("sajidajavaid640@gmail.com", $agent_name);
 
 

@@ -14,11 +14,16 @@ require_once "backend/edit-agent.php"; ?>
             <form action="" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="agent_id" value="<?php echo htmlspecialchars($agent_id); ?>">
                 <div class="row">
-                    <div class="col-md-6 col-lg-6 col-12">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label for="name">Agent Name</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Enter agent name" required value="<?php echo htmlspecialchars($agent['name'] ?? ''); ?>">
                         </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-12">
 
                         <div class="form-group">
                             <label for="email">Agent Email</label>
@@ -30,13 +35,7 @@ require_once "backend/edit-agent.php"; ?>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6 col-12">
-                        <div class="form-group">
-                            <label for="password">Agent Password</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
-                            <?php if (isset($agent['id'])): ?>
-                                <small class="text-muted">Leave blank to keep the current password.</small>
-                            <?php endif; ?>
-                        </div>
+
 
                         <div class="form-group">
                             <label for="contact">Contact Number</label>

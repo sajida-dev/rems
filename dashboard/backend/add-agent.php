@@ -3,7 +3,6 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name']);
     $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
     $contact = trim($_POST['contact']);
     $agency = trim($_POST['agency']);
     $experience = intval($_POST['experience']);
@@ -22,9 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = "Invalid email format.";
     }
 
-    if (!empty($password) && strlen($password) < 6) {
-        $errors[] = "Password must be at least 6 characters.";
-    }
 
     if (empty($agency)) {
         $errors[] = "Agency name is required.";
@@ -73,10 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
             $role = 2;
-            $stmt = $conn->prepare("INSERT INTO users (name, email, password_hash, role, profile_pic, contact, created_at) VALUES (:name, :email, :password_hash, :role, :profile_pic, :contact, NOW())");
+            $stmt = $conn->prepare("INSERT INTO users (name, email, role, profile_pic, contact, created_at) VALUES (:name, :email,  :role, :profile_pic, :contact, NOW())");
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':password_hash', $passwordHash);
             $stmt->bindParam(':role', $role);
             $stmt->bindParam(':profile_pic', $profile_pic_path);
             $stmt->bindParam(':contact', $contact);

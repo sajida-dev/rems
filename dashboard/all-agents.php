@@ -59,12 +59,11 @@ require_once "backend/add-agent.php";
                                 <td><?php echo htmlspecialchars($cat['experience'] ?? "NILL"); ?></td>
                                 <td><?php switch ($cat['status']) {
                                         case '1':
-                                            // echo "<span class='badge bg-success'>Approved</span>";
-                                            echo "<a href='backend/update-agent-status.php?id=" . htmlspecialchars($cat['id']) . "&status=1' class='badge bg-success'>Approved</a>";
+                                            echo "<a href='#' class='badge bg-success'>Approved</a>";
                                             break;
                                             break;
                                         case '0':
-                                            echo "<a href='backend/update-agent-status.php?id=" . htmlspecialchars($cat['id']) . "&status=0' class='badge bg-warning'>Pending</a>";
+                                            echo "<a href='backend/update-agent-status.php?id=" . htmlspecialchars($cat['id']) . "' class='badge bg-warning'>Pending</a>";
                                             break;
                                     } ?></td>
                                 <td>
