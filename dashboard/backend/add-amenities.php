@@ -1,5 +1,4 @@
 <?php
-// require_once "components/db_connection.php";
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['amenitiesName']) && isset($_POST['amenitiesDescription'])) {
     $amenitiesName = trim($_POST['amenitiesName']);
     $amenitiesDescription = trim($_POST['amenitiesDescription']);

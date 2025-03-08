@@ -1,5 +1,4 @@
 <?php
-// require_once "components/db_connection.php";
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoryName']) && isset($_POST['categoryDescription'])) {
     $categoryName = trim($_POST['categoryName']);
     $categoryDescription = trim($_POST['categoryDescription']);

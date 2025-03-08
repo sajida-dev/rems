@@ -1,18 +1,16 @@
 <?php
 
-if (!isset($_SESSION['id']) || $_SESSION['role'] != '2' || $_SESSION['role'] == 'agent') {
-    $_SESSION['msg'] = "You must be logged in as an agent to add a property.";
-    echo "<script>window.location.href = '../login.php';</script>";
+if (!isset($_SESSION['id']) || $_SESSION['role'] != 'agent') {
+    $_SESSION['msg'] = "You must be logged in as an agent to add a property.    " . $_SESSION['role'];
+    echo "<script>window.location.href = 'all-properties.php';</script>";
     exit;
 }
 try {
-    // Fetch the agent's status
     $stmt = $conn->prepare("SELECT status FROM agent WHERE agent_id = :agent_id");
     $stmt->bindParam(':agent_id', $_SESSION['id']);
     $stmt->execute();
     $agent = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Check if agent is approved
     if ($agent['status'] != '1') {
         redirect("all-properties.php", "Your account is not approved. Please wait for approval from the admin.");
     }
@@ -45,36 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"):
     if (empty($amenities_selected)) {
         $errors[] = "At least one amenity must be selected.";
     }
-
-    // $uploadedFiles = [];
-    // if (isset($_FILES['images']) && count($_FILES['images']['name']) > 0) {
-    //     for ($i = 0; $i < count($_FILES['images']['name']); $i++) {
-    //         if ($_FILES['images']['error'][$i] === 0) {
-    //             $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
-    //             $fileInfo = pathinfo($_FILES['images']['name'][$i]);
-    //             $ext = strtolower($fileInfo['extension']);
-    //             if (!in_array($ext, $allowedExts)) {
-    //                 $errors[] = "Invalid file type for image: " . $_FILES['images']['name'][$i];
-    //             } else {
-    //                 $newFileName = uniqid("property_", true) . '.' . $ext;
-    //                 $uploadDir = "uploads/properties/";
-    //                 if (!is_dir($uploadDir)) {
-    //                     mkdir($uploadDir, 0777, true);
-    //                 }
-    //                 $targetFile = $uploadDir . $newFileName;
-    //                 if (move_uploaded_file($_FILES['images']['tmp_name'][$i], $targetFile)) {
-    //                     $uploadedFiles[] = $targetFile;
-    //                 } else {
-    //                     $errors[] = "Failed to upload image: " . $_FILES['images']['name'][$i];
-    //                 }
-    //             }
-    //         } else {
-    //             $errors[] = "Error uploading image: " . $_FILES['images']['name'][$i];
-    //         }
-    //     }
-    // } else {
-    //     $errors[] = "Main image is required.";
-    // }
 
 
     $mainImage = "";
@@ -153,12 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"):
 
         $propertyId = $conn->lastInsertId();
 
-        // $stmtUpload = $conn->prepare("INSERT INTO uploads (property_id, image_url) VALUES (:property_id, :image_url)");
-        // foreach ($uploadedFiles as $imgFile) {
-        //     $stmtUpload->bindParam(':property_id', $propertyId, PDO::PARAM_INT);
-        //     $stmtUpload->bindParam(':image_url', $imgFile);
-        //     $stmtUpload->execute();
-        // }
+
 
         if (!empty($galleryFiles)) {
             $stmtGallery = $conn->prepare("INSERT INTO uploads (property_id, image_url) VALUES (:property_id, :image_url)");
