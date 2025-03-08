@@ -13,6 +13,7 @@ require_once "backend/save-profile.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/profile.css">
     <link rel="stylesheet" href="assets/css/personalProfile.css">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <script src="assets/js/profile.js"></script>
@@ -38,7 +39,7 @@ require_once "backend/save-profile.php";
 
 
     <div class="row">
-        <div class="col-md-6 col-lg-3 col-6 col-md-offset-3 msform-container">
+        <div class="col-md-6 col-lg-3 col-6 col-md-offset-3 msform-container" style="text-align: center;">
             <?php
             if (isset($_SESSION['msg'])) {
                 echo '<div class="alert alert-success">' . $_SESSION['msg'] . '</div>';
@@ -63,15 +64,15 @@ require_once "backend/save-profile.php";
                     <div class="custom-row">
                         <div class="custom-col custom-col-left">
                             <div class="form-group">
-                                <input type="text" name="phone" id="phone" placeholder="923001235678" class="form-control" maxlength="12" value="<?php echo htmlspecialchars($user['contact'] ?? ''); ?>" required />
+                                <input type="text" name="phone" id="phone" placeholder="+1 (988) 471-92" class="form-control" maxlength="12" value="<?php echo htmlspecialchars($user['contact'] ?? ''); ?>" required />
                             </div>
                             <div class="form-group">
                                 <textarea name="bio" id="bio" placeholder="Write something about yourself..." rows="4" class="form-control"><?php echo htmlspecialchars($agent['bio'] ?? ''); ?></textarea>
                             </div>
                         </div>
                         <div class="custom-col custom-col-right">
-                            <?php if (!empty($agent['profile_pic'])): ?>
-                                <img src="<?php echo htmlspecialchars($agent['profile_pic']); ?>" alt="Profile Avatar" class="avatar img-fluid" id="avatarPreview" />
+                            <?php if (!empty($user['profile_pic'])): ?>
+                                <img src="<?php echo  htmlspecialchars($user['profile_pic']); ?>" alt="Profile Avatar" class="avatar img-fluid" id="avatarPreview" />
                             <?php else: ?>
                                 <img src="assets/img/profile.jpg" alt="Default Avatar" class="custom-avatar img-fluid" id="avatarPreview" />
                             <?php endif; ?>

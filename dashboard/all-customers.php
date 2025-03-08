@@ -46,7 +46,7 @@ require_once "new-customer.php";
                             <tr>
                                 <td>
                                     <div class="avatar avatar-lg">
-                                        <img src="<?php echo htmlspecialchars($cat['profile_pic'] ?? "../images/avator.png"); ?>" alt="..." class="avatar-img rounded-circle">
+                                        <img src="<?php echo htmlspecialchars($cat['profile_pic'] ?? "assets/img/avatar.png"); ?>" alt="..." class="avatar-img rounded-circle">
                                     </div>
                                 </td>
                                 <td><?php echo htmlspecialchars($cat['name']); ?></td>

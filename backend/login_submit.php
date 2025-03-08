@@ -3,13 +3,11 @@ $msg = "";
 $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
-    // Retrieve form values
-    $email = trim($_POST['email'] ?? '');
+    $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
-    // Validate email and password
-    if (empty($email)) {
-        $errors[] = "Email is required.";
+    if (empty($username)) {
+        $errors[] = "Username is required.";
     }
     if (empty($password)) {
         $errors[] = "Password is required.";
@@ -17,8 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
 
     if (empty($errors)) {
         try {
-            $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
-            $stmt->bindParam(':email', $email);
+            $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username LIMIT 1");
+            $stmt->bindParam(':username', $username);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -26,13 +24,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
                 if (password_verify($password, $user['password_hash'])) {
                     $_SESSION['id'] = $user['id'];
                     $_SESSION['name'] = $user['name'];
+                    $_SESSION['username'] = $user['username'];
                     $_SESSION['email'] = $user['email'];
                     $_SESSION['role'] = $user['role'];
 
                     $_SESSION['msg'] = "Login successful. Welcome back, " . htmlspecialchars($user['name']) . "!";
 
-                    // Redirect based on role
-                    $role = ['2', '3', 'agent', 'admin'];
+
+                    $role = ['agent', 'admin'];
 
                     if (in_array($_SESSION['role'], $role)) {
                         echo "<script>window.location.href = 'dashboard/index.php'</script>";

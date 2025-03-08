@@ -76,8 +76,8 @@ if (isset($_SESSION['id'])) {
                 </div>
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" class="form-control" id="email" placeholder="Enter Email" name="email">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="Enter Username" name="username">
                   </div>
                   <div class="form-group">
                     <label for="password">Password</label>

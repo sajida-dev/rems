@@ -119,7 +119,7 @@ endif;
       ?>
         <div class="col-md-4">
           <div class="property-wrap ftco-animate">
-            <a href="properties-single.php?id=<?php echo $property['id']; ?>" class="img" style="background-image: url(<?php echo $property['image_url'] ?>);"></a>
+            <a href="properties-single.php?id=<?php echo $property['id']; ?>" class="img" style="background-image: url(<?php echo "dashboard/" . $property['image_url'] ?>);"></a>
             <div class="text">
               <p class="price"><span class="old-price">$<?php echo number_format($property['old_price']) ?></span><span class="orig-price">$<?php echo number_format($property['rent_price']) ?><small>/mo</small></span></p>
               <ul class="property_list">
@@ -413,11 +413,11 @@ endif;
           <div class="col-md-3">
             <div class="agent">
               <div class="img">
-                <img src="<?php echo !empty($agent['profile_pic']) ? $agent['profile_pic'] : 'images/default-agent.jpg'; ?>" class="img-fluid" alt="Agent Image">
+                <img src="<?php echo !empty($agent['profile_pic']) ? "dashboard/" . $agent['profile_pic'] : 'images/default-agent.jpg'; ?>" class="img-fluid" alt="Agent Image">
               </div>
               <div class="desc">
                 <h3>
-                  <a href="properties.php?agent_id=<?php echo $agent['id']; ?>">
+                  <a href="single-agent.php?agent_id=<?php echo $agent['id']; ?>">
                     <?php echo htmlspecialchars($agent['name']); ?>
                   </a>
                 </h3>

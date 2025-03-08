@@ -58,7 +58,7 @@ if (isset($_SESSION['id'])) {
                                     <img src="images/register.jpg" class="card-img m-2" alt="Register Image">
                                 </div>
                                 <div class="col-md-5">
-                                    <div class="card-body mt-4">
+                                    <div class="card-body mt-5">
                                         <h3 class="card-title">Register</h3>
                                         <?php
                                         if (!empty($msg)) {
@@ -66,7 +66,7 @@ if (isset($_SESSION['id'])) {
                                         }
                                         ?>
                                         <form action="" method="POST">
-                                            <div class="form-group">
+                                            <div class="form-group mt-5">
                                                 <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
                                             </div>
                                             <div class="form-group">
@@ -79,9 +79,7 @@ if (isset($_SESSION['id'])) {
                                             <div class="form-group">
                                                 <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
                                             </div>
-                                            <div class="form-group">
-                                                <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password">
-                                            </div>
+
                                             <div class="card-action">
                                                 <button class="btn btn-success" type="submit" name="register">Register</button>
                                             </div>

@@ -7,7 +7,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
     $name = trim($_POST['name'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $role = isset($_POST['role']) ? intval($_POST['role']) : 0;
-    $password = trim($_POST['password'] ?? '');
 
     if (empty($name)) {
         $errors[] = "Name is required.";
@@ -27,17 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
     } elseif (!in_array($role, $allowedRoles)) {
         $errors[] = "Invalid role selected.";
     }
-    $status = 1;
-    if ($role == 1):
-        $status = 2;
-    endif;
 
-
-    if (empty($password)) {
-        $errors[] = "Password is required.";
-    } elseif (strlen($password) < 6) {
-        $errors[] = "Password must be at least 6 characters long.";
-    }
 
     if (empty($errors)) {
         try {
@@ -47,18 +36,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
             if ($stmt->fetchColumn() > 0) {
                 $errors[] = "Email already exists. Please choose another.";
             } else {
-                $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-                $stmt = $conn->prepare("INSERT INTO users (name, email, password_hash, role, status, created_at) VALUES (:name, :email, :password_hash, :role, $status, NOW())");
+                $stmt = $conn->prepare("INSERT INTO users (name, email,  role,  created_at) VALUES (:name, :email,  :role, NOW())");
                 $stmt->bindParam(':name', $name);
                 $stmt->bindParam(':email', $email);
-                $stmt->bindParam(':password_hash', $passwordHash);
                 $stmt->bindParam(':role', $role);
                 $stmt->execute();
 
                 $newUserId = $conn->lastInsertId();
                 if (session_status() === PHP_SESSION_NONE) {
                     session_start();
+                }
+
+                if ($role == 1) {
+                    $role = "user";
+                } else {
+                    $role = "agent";
                 }
 
                 $_SESSION['id'] = $newUserId;
@@ -76,15 +69,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
                 endif;
             }
         } catch (PDOException $e) {
-            $errors[] = "An error occurred while processing your request. Please try again later.";
+            $_SESSION['error'] = "An error occurred while processing your request. Please try again later.";
         }
     }
 
     if (!empty($errors)) {
-        $msg = '<div class="alert alert-danger"><ul>';
+        $msg = '<div class="alert alert-danger">';
         foreach ($errors as $error) {
-            $msg .= '<li>' . htmlspecialchars($error) . '</li>';
+            $msg .= htmlspecialchars($error) . '<br>';
         }
-        $msg .= '</ul></div>';
+        $msg .= '</div>';
     }
 }

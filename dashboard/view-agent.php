@@ -1,163 +1,118 @@
 <?php
-$title = "Property";
+$title = "Agent Profile";
 $page = "View";
-$mainPage = "Property";
+$mainPage = "Agent";
 require_once "components/header.php";
-require_once "backend/detail-property.php";
+require_once "../backend/single_agent.php";
 ?>
+
 <!-- Include Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<!-- Include Bootstrap CSS (optional) -->
+<!-- Include Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 <style>
-    .property-card {
+    .agent-details {
+        margin: 20px auto;
+        max-width: 1200px;
+        background: #fff;
+        padding: 20px;
         border: 1px solid #ddd;
         border-radius: 8px;
-        overflow: hidden;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        max-width: 800px;
-        margin: 20px auto;
-        background: #fff;
     }
 
-    .property-image {
-        width: 100%;
-        height: 300px;
-        background-size: cover;
-        background-position: center;
-        overflow: hidden;
-    }
-
-    .property-details {
-        padding: 20px;
-    }
-
-    .property-details h2 {
-        margin-top: 0;
-        margin-bottom: 10px;
-    }
-
-    .property-location,
-    .property-price {
-        font-size: 16px;
-        margin: 5px 0;
-        color: #555;
-    }
-
-    .property-description {
-        margin: 15px 0;
-    }
-
-    .property-features span {
-        display: inline-block;
-        margin-right: 15px;
-        font-size: 14px;
-        color: #666;
-    }
-
-    .property-features span i {
-        margin-right: 5px;
-        color: #007bff;
-    }
-
-    .property-amenities h5 {
-        margin-top: 20px;
-        font-size: 18px;
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 5px;
-    }
-
-    .property-amenities ul {
-        list-style: none;
-        padding-left: 0;
-        margin: 10px 0;
-    }
-
-    .property-amenities ul li {
-        display: inline-block;
-        margin-right: 10px;
-        background: #f0f0f0;
-        padding: 5px 10px;
-        border-radius: 4px;
-        font-size: 14px;
-    }
-
-    .property-gallery h5 {
-        margin-top: 20px;
-        font-size: 18px;
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 5px;
-    }
-
-    .gallery {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 10px;
-    }
-
-    .gallery-item {
-        width: calc(33.333% - 10px);
-        height: 150px;
-        overflow: hidden;
+    .contact-details {
         border: 1px solid #ddd;
-        border-radius: 4px;
+        padding: 15px;
+        border-radius: 5px;
+        background: #f8f8f8;
     }
 
-    .gallery-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+    .transaction-group {
+        margin-bottom: 30px;
+    }
+
+    .transaction-group h5 {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+    }
+
+    .table td,
+    .table th {
+        vertical-align: middle;
+    }
+
+    .profile-img {
+        max-width: 150px;
+        border-radius: 50%;
+        margin-bottom: 15px;
     }
 </style>
 
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <h5 class="fw-mediumbold"><?php echo htmlspecialchars($property['title']); ?></h5>
+            <h5 class="fw-mediumbold"><?php echo htmlspecialchars($agent['name']); ?></h5>
         </div>
         <div class="card-body">
-            <div>
-                <div class="property-details">
-                    <h2><?php echo htmlspecialchars($property['title']); ?></h2>
-                    <p class="property-location"><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($property['location']); ?></p>
-                    <p class="property-price">$<?php echo number_format($property['rent_price'], 2); ?> / mo</p>
-                    <div class="property-features">
-                        <span><i class="fas fa-bed"></i> <?php echo htmlspecialchars($property['bedrooms']); ?> Bedrooms</span>
-                        <span><i class="fas fa-bath"></i> <?php echo htmlspecialchars($property['bathrooms']); ?> Bathrooms</span>
-                        <span><i class="fas fa-ruler-combined"></i> <?php echo htmlspecialchars($property['area']); ?> sqft</span>
+            <div class="container agent-details">
+                <div class="row">
+                    <!-- Left Column: Agent's Managed Properties -->
+                    <div class="col-md-8">
+                        <h3>Properties Managed by <?php echo htmlspecialchars($agent['name']); ?></h3>
+                        <?php if (!empty($properties)): ?>
+                            <?php foreach ($properties as $property): ?>
+                                <div class="transaction-group">
+                                    <h5><?php echo htmlspecialchars($property['title']); ?></h5>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Location</th>
+                                                <th>Price</th>
+                                                <th>Status</th>
+                                                <!-- <th>Property Type</th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><?php echo htmlspecialchars($property['location']); ?></td>
+                                                <td>$<?php echo number_format($property['rent_price'], 2); ?></td>
+                                                <td><?php echo htmlspecialchars($property['status']); ?></td>
+                                                <!-- <td><?php echo htmlspecialchars($property['type']); ?></td> -->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p class="mt-4 d-flex justify-content-center">No properties found for this agent.</p>
+                        <?php endif; ?>
                     </div>
-                    <div class="property-description">
-                        <p><?php echo htmlspecialchars($property['description']); ?></p>
+
+                    <!-- Right Column: Contact Details -->
+                    <div class="col-md-4">
+                        <div class="contact-details">
+                            <h4>Contact Details</h4>
+                            <?php if (!empty($agent['profile_pic'])): ?>
+                                <img src="<?php echo htmlspecialchars($agent['profile_pic']); ?>" alt="Profile Picture" class="profile-img img-fluid">
+                            <?php else: ?>
+                                <img src="assets/img/avatar.png" alt="Default Avatar" class="profile-img img-fluid">
+                            <?php endif; ?>
+                            <p><strong>Name:</strong> <?php echo htmlspecialchars($agent['name']); ?></p>
+                            <p><strong>Email:</strong> <?php echo htmlspecialchars($agent['email']); ?></p>
+                            <p><strong>Contact:</strong> <?php echo htmlspecialchars($agent['contact']); ?></p>
+                        </div>
                     </div>
-                    <?php if (!empty($amenityList)): ?>
-                        <div class="property-amenities">
-                            <h5>Amenities</h5>
-                            <ul>
-                                <?php foreach ($amenityList as $amenity): ?>
-                                    <li><?php echo htmlspecialchars($amenity); ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
-                    <?php if (!empty($galleryImages)): ?>
-                        <div class="property-gallery">
-                            <h5>Gallery</h5>
-                            <div class="gallery">
-                                <?php foreach ($galleryImages as $img): ?>
-                                    <div class="gallery-item">
-                                        <img src="<?php echo htmlspecialchars($img['image_url']); ?>" alt="<?php echo htmlspecialchars($property['title']); ?>">
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <?php require_once "components/footer.php"; ?>
+
 <!-- Optional: include jQuery and Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

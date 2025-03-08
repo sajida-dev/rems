@@ -72,7 +72,7 @@ require_once "backend/add-agent.php";
                                         <a href="update-agent.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-primary btn-sm ">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <a href="view-agent.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-primary btn-sm ">
+                                        <a href="view-agent.php?agent_id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-primary btn-sm ">
                                             <i class="fa fa-eye"></i>
                                         </a>
                                         <a href="delete-agent.php?id=<?php echo htmlspecialchars($cat['id']); ?>" class="btn btn-link btn-sm btn-danger">

@@ -18,6 +18,7 @@ if (!isset($_SESSION['id']) || (!in_array($_SESSION['role'], $role))) {
     echo "<script>window.location.href = '../index.php';</script>";
     exit;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

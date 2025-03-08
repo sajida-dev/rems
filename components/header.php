@@ -11,6 +11,7 @@ if (session_status() === PHP_SESSION_NONE) {
     ]);
     session_start();
 }
+echo $_SESSION['role'] ?? "";
 
 ?>
 
@@ -57,7 +58,7 @@ if (session_status() === PHP_SESSION_NONE) {
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a href="index.php" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="profile.php" class="nav-link">Profile</a></li>
+                    <li class="nav-item"><a href="<?php echo "profile.php" ?>" class="nav-link">Profile</a></li>
                     <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
                     <li class="nav-item"><a href="agent.php" class="nav-link">Agent</a></li>
                     <li class="nav-item"><a href="services.php" class="nav-link">Services</a></li>
