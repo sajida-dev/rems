@@ -30,7 +30,8 @@ endif;
 </section>
 
 <section class="ftco-section">
-	<?php include "properties-listing.php" ?>
+	<?php $col = 4;
+	include "properties-listing.php" ?>
 </section>
 
 <?php include_once "components/footer.php" ?>

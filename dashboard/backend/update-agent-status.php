@@ -1,5 +1,4 @@
 <?php
-require_once '../../vendor/autoload.php';
 
 require_once "../components/db_connection.php";
 
@@ -29,14 +28,7 @@ $username = generateUniqueUsername($conn, $agent_name, $agent_email);
 
 $password = generateRandomPassword();
 
-$mail = new PHPMailer\PHPMailer\PHPMailer();
-$mail->isSMTP();
-$mail->Host = 'smtp.gmail.com';
-$mail->SMTPAuth = true;
-$mail->Username = 'sajidajaved604@gmail.com';
-$mail->Password = 'atfm fjfe pmvj rnno';
-$mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
-$mail->Port = 587;
+require_once "../components/config-php-mailer.php";
 
 $mail->setFrom('saadzaib1123@gmail.com', 'Your Company');
 

@@ -4,11 +4,6 @@ if ($id <= 0) {
     die("Invalid property id.");
 }
 
-// Fetch the property record along with its category name (if needed)
-// $stmt = $conn->prepare("SELECT p.*, c.name AS category_name 
-//                         FROM properties p 
-//                         LEFT JOIN property_categories c ON p.category_id = c.id
-//                         WHERE p.id = :id");
 
 $stmt = $conn->prepare("SELECT 
     p.*, 

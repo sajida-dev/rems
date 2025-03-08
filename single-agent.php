@@ -16,49 +16,6 @@ require_once "backend/single_agent.php";
 
 <section class="ftco-section ftco-agent-details">
     <div class="container">
-        <!-- <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="agent-left">
-                    <h3>Agent Information</h3>
-                    <div class="agent-info">
-                        <div class="agent-image">
-                            <img src="<?php echo 'uploads/avatars/' . htmlspecialchars($agent['profile_pic']); ?>" alt="Agent Image" class="img-fluid">
-                        </div>
-                        <div class="agent-details">
-                            <p><strong>Name:</strong> <?php echo htmlspecialchars($agent['name']); ?></p>
-                            <p><strong>Email:</strong> <?php echo htmlspecialchars($agent['email']); ?></p>
-                            <p><strong>Agency:</strong> <?php echo htmlspecialchars($agent['agency']); ?></p>
-                            <p><strong>Experience:</strong> <?php echo htmlspecialchars($agent['experience']); ?> years</p>
-                            <p><strong>Contact Number:</strong> <?php echo htmlspecialchars($agent['contact']); ?></p>
-                            <p><strong>Bio:</strong> <?php echo htmlspecialchars($agent['bio']); ?></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="agent-right">
-                    <h3>Properties Managed by <?php echo htmlspecialchars($agent['name']); ?></h3>
-                    <div class="agent-properties">
-                        <?php if (count($properties) > 0): ?>
-                            <div class="property-list">
-                                <?php foreach ($properties as $property): ?>
-                                    <div class="property-item">
-                                        <div class="property-image" style="background-image: url('<?php echo 'dashboard/' . htmlspecialchars($property['image_url']); ?>');"></div>
-                                        <div class="property-info">
-                                            <h5><a href="property-details.php?property_id=<?php echo htmlspecialchars($property['property_id']); ?>"><?php echo htmlspecialchars($property['title']); ?></a></h5>
-                                            <p><?php echo htmlspecialchars($property['location']); ?></p>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                        <?php else: ?>
-                            <p>This agent doesn't manage any properties yet.</p>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-        </div> -->
 
         <div class="row">
             <div class="col-md-12 pills">
@@ -90,6 +47,7 @@ require_once "backend/single_agent.php";
                                     <p><strong>Agency:</strong> <?php echo htmlspecialchars($agent['agency']); ?></p>
                                     <p><strong>Experience:</strong> <?php echo htmlspecialchars($agent['experience']); ?> years</p>
                                     <p><strong>Bio:</strong> <?php echo htmlspecialchars($agent['bio']); ?></p>
+                                    <a href="request-services.php" class="btn btn-lg btn-danger">Hire Now</a>
 
                                 </div>
                                 <div class="col-md-4 m-0" style="height: 370px; overflow:hidden;">

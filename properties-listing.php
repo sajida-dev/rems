@@ -1,15 +1,14 @@
 <div class="container">
     <?php if (isset($message) && $message): ?>
         <div class="row">
-
             <?php
-
             foreach ($properties as $property):
             ?>
-                <div class="col-md-4">
+                <div class="col-md-<?php echo $col; ?>">
                     <div class="property-wrap ftco-animate">
                         <a href="properties-single.php?id=<?php echo $property['id']; ?>" class="img" style="background-image: url(<?php echo "dashboard/" . $property['image_url'] ?>);"></a>
-                        <div class="text">
+                        <div class="text position-relative">
+                            <a href="properties.php?category_id=<?php echo $property['category_id'] ?>" class="badge badge-info position-absolute" style="top: 10px; right: 10px;"><?php echo htmlspecialchars($property['category_name']) ?></a>
                             <p class="price"><span class="old-price">$<?php echo number_format($property['old_price']) ?></span><span class="orig-price">$<?php echo number_format($property['rent_price']) ?><small>/mo</small></span></p>
                             <ul class="property_list">
                                 <li>

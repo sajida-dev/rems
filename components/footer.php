@@ -59,9 +59,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 text-center">
-                <!-- ../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js -->
-                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+                <p>Copyright &copy;
                     <script>
                         document.write(new Date().getFullYear());
                     </script> All rights reserved <i class="icon-heart color-danger" aria-hidden="true"></i>
