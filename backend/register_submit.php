@@ -37,10 +37,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
                 $errors[] = "Email already exists. Please choose another.";
             } else {
 
-                $stmt = $conn->prepare("INSERT INTO users (name, email,  role,  created_at) VALUES (:name, :email,  :role, NOW())");
+                $url = ($role == 2) ? "assets/img/avatar.png" : "images/avatar.png";
+                $stmt = $conn->prepare("INSERT INTO users (name, email,  role, profile_pic,  created_at) VALUES (:name, :email,  :role, :url, NOW())");
                 $stmt->bindParam(':name', $name);
                 $stmt->bindParam(':email', $email);
                 $stmt->bindParam(':role', $role);
+                $stmt->bindParam(':url', $url);
                 $stmt->execute();
 
                 $newUserId = $conn->lastInsertId();
@@ -59,11 +61,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
                 $_SESSION['role'] = $role;
                 $_SESSION['email'] = $email;
 
+
                 $msg = 'Registration successful, welcome ' . htmlspecialchars($name) . '!';
-                if ($role == 2):
+                if ($role == 'agent'):
+                    $_SESSION['url'] = 'assets/img/avatar.png';
                     echo "<script>window.location.href = 'dashboard/profile.php';</script>";
                     exit;
                 else:
+                    $_SESSION['url'] = 'images/avatar.png';
                     echo "<script>window.location.href = 'profile.php';</script>";
                     exit;
                 endif;

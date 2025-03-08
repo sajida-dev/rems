@@ -39,9 +39,9 @@
                     </form>
                 </ul>
             </li>
-            <?php require_once "messageDropdown.php"; ?>
-            <?php require_once "notifDropdown.php"; ?>
-            <?php require_once "quick-actions-dropdown.php"; ?>
+            <!-- <?php require_once "messageDropdown.php"; ?> -->
+            <!-- <?php require_once "notifDropdown.php"; ?> -->
+            <!-- <?php require_once "quick-actions-dropdown.php"; ?> -->
             <li class="nav-item topbar-user dropdown hidden-caret">
                 <a
                     class="dropdown-toggle profile-pic"
@@ -50,7 +50,7 @@
                     aria-expanded="false">
                     <div class="avatar-sm">
                         <img
-                            src="assets/img/profile.jpg"
+                            src="<?php echo $_SESSION['url']; ?>"
                             alt="..."
                             class="avatar-img rounded-circle" />
                     </div>

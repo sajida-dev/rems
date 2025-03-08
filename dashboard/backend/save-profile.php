@@ -37,8 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
                 $errors[] = "Failed to upload profile picture.";
             }
         }
-    } elseif (empty($profile_pic)) {
-        $errors[] = "Profile picture is required.";
+    } else {
+        $newProfilePic = $_SESSION['url'];
     }
 
     if (!empty($errors)) {
@@ -48,11 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     }
 
     try {
-        $sqlUser = "SELECT * FROM users WHERE id = :id AND role = 2";
-        $stmtUser = $conn->prepare($sqlUser);
-        $stmtUser->bindParam(':id', $agent_id, PDO::PARAM_INT);
-        $stmtUser->execute();
-        $user = $stmtUser->fetch(PDO::FETCH_ASSOC);
+
 
         // Update the user's profile 
         $sql = "UPDATE users
@@ -63,6 +59,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
         $stmt->bindParam(':profile_pic', $newProfilePic);
         $stmt->bindParam(':id', $agent_id, PDO::PARAM_INT);
         $stmt->execute();
+
+        $sqlUser = "SELECT * FROM users WHERE id = :id AND role = 2";
+        $stmtUser = $conn->prepare($sqlUser);
+        $stmtUser->bindParam(':id', $agent_id, PDO::PARAM_INT);
+        $stmtUser->execute();
+        $user = $stmtUser->fetch(PDO::FETCH_ASSOC);
+
+        $_SESSION['url'] = $user['profile_pic'];
+        $_SESSION['username'] = $user['username'];
 
         // Check if agent data exists
         $sqlAgent = "SELECT * FROM agent WHERE agent_id = :agent_id";
