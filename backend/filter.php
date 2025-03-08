@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 $search       = trim($_POST['search'] ?? '');
 $category_id  = intval($_POST['category_id'] ?? 0);

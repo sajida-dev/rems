@@ -1,7 +1,9 @@
 <?php require_once("components/header.php");
 if ($conMessage):
-	require_once("backend/select_properties.php");
-	require_once "backend/search_filter.php";
+	// require_once("backend/select_properties.php");
+	// require_once "backend/search_filter.php";
+	require_once "backend/filter.php";
+
 endif;
 ?>
 
@@ -12,7 +14,7 @@ endif;
 			<div class="col-md-9 ftco-animate pb-5 text-center">
 				<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Properties <i class="ion-ios-arrow-forward"></i></span></p>
 				<h1 class="mb-3 bread">Choose <br>Your Desired Home</h1>
-				<form action="properties.php" method="GET" class="search-location mt-md-5">
+				<form action="filter-properties.php" method="POST" class="search-location mt-md-5">
 					<div class="row justify-content-center">
 						<div class="col-lg-10 align-items-end">
 							<div class="form-group">
@@ -31,6 +33,7 @@ endif;
 
 <section class="ftco-section">
 	<?php $col = 4;
+	$message = true;
 	include "properties-listing.php" ?>
 </section>
 

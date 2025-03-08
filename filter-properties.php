@@ -41,7 +41,7 @@ require_once("components/header.php"); ?>
                         <select name="category_id" id="category" class="form-control form-control-sm">
                             <option value="">All Categories</option>
                             <?php foreach ($categories as $cat): ?>
-                                <option value="<?php echo htmlspecialchars($cat['id']); ?>"><?php echo htmlspecialchars($cat['name']); ?></option>
+                                <option <?php echo ($category_id == $cat['id']) ? 'selected' : ''  ?> value="<?php echo htmlspecialchars($cat['id']); ?>"><?php echo htmlspecialchars($cat['name']); ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -49,7 +49,7 @@ require_once("components/header.php"); ?>
                     <!-- Location Input -->
                     <div class="form-group mb-3">
                         <label for="location" class="small">Location</label>
-                        <input type="text" name="location" id="location" class="form-control form-control-sm" placeholder="Enter location">
+                        <input type="text" name="location" id="location" value="<?php echo $location ?>" class="form-control form-control-sm" placeholder="Enter location">
                     </div>
 
                     <!-- Price Range -->
@@ -57,36 +57,34 @@ require_once("components/header.php"); ?>
                         <div class="col-6">
                             <div class="form-group mb-3">
                                 <label for="min_price" class="small">Min Price($)</label>
-                                <input type="number" name="min_price" id="min_price" class="form-control form-control-sm" placeholder="0">
+                                <input type="number" name="min_price" value="<?php echo $min_price ?>" id="min_price" class="form-control form-control-sm" placeholder="0">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group mb-3">
                                 <label for="max_price" class="small">Max Price($)</label>
-                                <input type="number" name="max_price" id="max_price" class="form-control form-control-sm" placeholder="500000">
+                                <input type="number" name="max_price" value="<?php echo $max_price ?>" id="max_price" class="form-control form-control-sm" placeholder="500000">
                             </div>
                         </div>
                     </div>
-
                     <!-- Bedrooms -->
                     <div class="form-group mb-3">
                         <label for="bedrooms" class="small">Bedrooms</label>
                         <select name="bedrooms" id="bedrooms" class="form-control form-control-sm">
-                            <option value="">Any</option>
-                            <option value="1">1+</option>
-                            <option value="2">2+</option>
-                            <option value="3">3+</option>
-                            <option value="4">4+</option>
+                            <option <?php echo ($bedrooms == 0) ? 'selected' : '' ?> value="">Any</option>
+                            <option <?php echo ($bedrooms == 1) ? 'selected' : '' ?> value="1">1+</option>
+                            <option <?php echo ($bedrooms == 2) ? 'selected' : '' ?> value="2">2+</option>
+                            <option <?php echo ($bedrooms == 3) ? 'selected' : '' ?> value="3">3+</option>
+                            <option <?php echo ($bedrooms == 4) ? 'selected' : '' ?> value="4">4+</option>
                         </select>
                     </div>
-
                     <!-- Amenities (Checkbox Group) -->
                     <div class="form-group mb-3">
                         <label class="small">Amenities</label>
                         <div class="d-flex flex-wrap">
-                            <?php foreach ($amenities as $amenity): ?>
+                            <?php foreach ($allAmenities as $amenity): ?>
                                 <div class="form-check mr-2">
-                                    <input class="form-check-input form-check-input-sm" type="checkbox" name="amenities[]" value="<?php echo htmlspecialchars($amenity['id']); ?>" id="amenity-<?php echo htmlspecialchars($amenity['id']); ?>">
+                                    <input class="form-check-input form-check-input-sm" <?php echo (in_array($amenity['id'], $amenities)) ? 'checked' : '' ?> type="checkbox" name="amenities[]" value="<?php echo htmlspecialchars($amenity['id']); ?>" id="amenity-<?php echo htmlspecialchars($amenity['id']); ?>">
                                     <label class="form-check-label small" for="amenity-<?php echo htmlspecialchars($amenity['id']); ?>">
                                         <?php echo htmlspecialchars($amenity['name']); ?>
                                     </label>
@@ -94,8 +92,6 @@ require_once("components/header.php"); ?>
                             <?php endforeach; ?>
                         </div>
                     </div>
-
-
                     <!-- Submit Button -->
                     <button type="submit" name="filter" class="btn btn-primary btn-sm">Apply Filters</button>
                 </form>
@@ -110,7 +106,6 @@ require_once("components/header.php"); ?>
                     <?php
                     $col = 6;
                     $message = true;
-                    // require_once("backend/filter_properties.php");
                     require_once "properties-listing.php";
                     ?>
                 </div>
@@ -122,31 +117,3 @@ require_once("components/header.php"); ?>
 <?php require_once("components/footer.php"); ?>
 
 <script src="js/jquery.min.js"></script>
-<script>
-    // $(document).ready(function() {
-    //     $('#filter-form input[type="text"]').on('keyup', function() {
-    //         updateProperties();
-    //     });
-    //     $('#filter-form input[type="number"], #filter-form select, #filter-form input[type="checkbox"]').on('change', function() {
-    //         updateProperties();
-    //     });
-
-    //     function updateProperties() {
-    //         var formData = $('#filter-form').serialize();
-    //         $.ajax({
-    //             url: '',
-    //             type: 'POST',
-    //             data: formData,
-    //             dataType: 'html',
-    //             success: function(response) {
-    //                 console.log("AJAX Response:", response);
-    //                 // document.getElementById("properties-listing").innerHTML = response;
-    //                 // $('#properties-listing').html("<p>testing response filter properties</p>" + response);
-    //             },
-    //             error: function(xhr, status, error) {
-    //                 console.error("Error: " + error);
-    //             }
-    //         });
-    //     }
-    // });
-</script>

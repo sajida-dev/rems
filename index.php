@@ -17,7 +17,7 @@ endif;
         <div class="text text-center">
           <h1 class="mb-4">The Simplest <br>Way to Find Property</h1>
           <p style="font-size: 18px;">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts</p>
-          <form action="pro.php" method="POST" class="search-location mt-md-5">
+          <form action="filter-properties.php" method="POST" class="search-location mt-md-5">
             <div class="row justify-content-center">
               <div class="col-lg-10 align-items-end">
                 <div class="form-group">
@@ -31,18 +31,7 @@ endif;
               </div>
             </div>
           </form>
-          <!-- <form action="properties.php" method="GET" class="search-location mt-md-5">
-            <div class="row justify-content-center">
-              <div class="col-lg-10 align-items-end">
-                <div class="form-group">
-                  <div class="form-field">
-                    <input type="text" class="form-control" name="search" placeholder="Search location">
-                    <button type="submit"><span class="ion-ios-search"></span></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form> -->
+
         </div>
       </div>
     </div>
