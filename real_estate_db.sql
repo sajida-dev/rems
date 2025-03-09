@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2025 at 06:06 AM
+-- Generation Time: Mar 09, 2025 at 04:47 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -103,7 +103,9 @@ INSERT INTO `hiring_requests` (`id`, `user_id`, `agent_id`, `transaction_type`, 
 (1, 29, 7, 'rent', 2, 'Quia omnis esse lab', 15.00, 63.00, 3, 'Tempore doloribus e', '2025-03-09 02:50:52'),
 (2, 29, 8, 'sell', 2, 'Consequatur Tempora', 86.00, 85.00, 3, 'Corporis mollit enim', '2025-03-09 03:31:07'),
 (3, 29, 8, 'buy', 1, 'Quo ut ex sed laboru', 2.00, 3.00, 4, 'Soluta vitae et id e', '2025-03-09 03:32:56'),
-(4, 24, 15, 'buy', 3, 'Modi fugiat velit p', 79.00, 19.00, 4, 'Harum quam non commo', '2025-03-09 03:35:23');
+(4, 24, 15, 'buy', 3, 'Modi fugiat velit p', 79.00, 19.00, 4, 'Harum quam non commo', '2025-03-09 03:35:23'),
+(5, 30, 8, 'buy', 2, 'In dolor eveniet ni', 95.00, 46.00, 3, 'Vitae sed ullamco qu', '2025-03-09 10:27:50'),
+(6, 30, 14, 'rent', 2, 'Magnam excepteur qui', 30.00, 63.00, 3, 'Hic expedita sint pa', '2025-03-09 10:29:33');
 
 -- --------------------------------------------------------
 
@@ -116,9 +118,18 @@ CREATE TABLE `payments` (
   `transaction_id` int(11) NOT NULL,
   `amount` decimal(10,2) NOT NULL,
   `payment_method` enum('credit_card','bank_transfer','paypal') NOT NULL,
+  `stripe_payment_id` varchar(255) DEFAULT NULL,
   `status` enum('pending','completed','failed') DEFAULT 'pending',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`id`, `transaction_id`, `amount`, `payment_method`, `stripe_payment_id`, `status`, `created_at`) VALUES
+(1, 1, 721.00, 'credit_card', 'pi_3R0lrICmRIcgkVt91TuICTXW', 'completed', '2025-03-09 15:33:45'),
+(2, 2, 721.00, 'credit_card', 'pi_3R0m28CmRIcgkVt91YCm4N5c', 'completed', '2025-03-09 15:44:57');
 
 -- --------------------------------------------------------
 
@@ -243,6 +254,14 @@ CREATE TABLE `transactions` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `user_id`, `property_id`, `transaction_type`, `status`, `created_at`) VALUES
+(1, 24, 1, 'buy', 'pending', '2025-03-09 15:33:45'),
+(2, 24, 1, 'buy', 'completed', '2025-03-09 15:44:57');
+
 -- --------------------------------------------------------
 
 --
@@ -313,7 +332,8 @@ INSERT INTO `users` (`id`, `name`, `username`, `email`, `password_hash`, `role`,
 (26, 'Nomlanga Golden', 'kanimicab', 'pekejolyj@mailinator.com', '$2y$10$jZARsmPLpB63Zv0/78L2n.sm/n4WOjg0sme93raXs7sdnoPAsRkry', 'end-user', 'uploads/avatars/user_67ccf0243155e0.02890189.png', '+1 (455) 707-94', '2025-03-09 01:34:03'),
 (27, 'Jasper Parker', 'neqoly', 'wokis@mailinator.com', '$2y$10$BDifDn2JNgmShaFm9h7J4e6KXRf./X2Eo59M46JRDY2RFzJGaWMi6', 'end-user', 'uploads/avatars/user_67ccf1122e5cb3.36425163.png', '+1 (711) 106-37', '2025-03-09 01:36:49'),
 (28, 'Autumn Morrow', 'tujakewev', 'huwezusug@mailinator.com', '$2y$10$UbDFM.glqb1tbg3yTuUAGeBTBXgHT9IwhxcjxXknTaauJtepQvjAC', 'end-user', 'images/avatar.png', '+1 (905) 302-42', '2025-03-09 01:42:07'),
-(29, 'Hanna Richardson', 'jihyt', 'hefe@mailinator.com', '$2y$10$9mN28phIdG0HYrRIw2ttZeewP68e9zCjCZDSDuS9okmSDTNlwLlIC', 'end-user', 'images/avatar.png', '+1 (753) 289-55', '2025-03-09 01:45:46');
+(29, 'Hanna Richardson', 'jihyt', 'hefe@mailinator.com', '$2y$10$9mN28phIdG0HYrRIw2ttZeewP68e9zCjCZDSDuS9okmSDTNlwLlIC', 'end-user', 'images/avatar.png', '+1 (753) 289-55', '2025-03-09 01:45:46'),
+(30, 'Wang Cervantes', 'xybihaju', 'kejak@mailinator.com', '$2y$10$pk8xn8YQ9kl3.eOxwoPDMOffi4hHYCtrZttCwPicE7nA5Mg1HNl0.', 'end-user', 'images/avatar.png', '+1 (744) 936-43', '2025-03-09 10:17:15');
 
 --
 -- Indexes for dumped tables
@@ -417,13 +437,13 @@ ALTER TABLE `amenities`
 -- AUTO_INCREMENT for table `hiring_requests`
 --
 ALTER TABLE `hiring_requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `properties`
@@ -447,7 +467,7 @@ ALTER TABLE `specializations_agent_categories`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `uploads`
@@ -459,7 +479,7 @@ ALTER TABLE `uploads`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- Constraints for dumped tables
