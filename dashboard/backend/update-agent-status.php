@@ -28,6 +28,8 @@ $username = generateUniqueUsername($conn, $agent_name, $agent_email);
 
 $password = generateRandomPassword();
 
+require_once '../../vendor/autoload.php';
+
 require_once "../components/config-php-mailer.php";
 
 $mail->setFrom('saadzaib1123@gmail.com', 'Your Company');

@@ -2,6 +2,33 @@
 require_once "backend/single_property.php";
 ?>
 <style>
+	.btn-custom {
+		display: inline-block;
+		padding: 10px 20px;
+		text-decoration: none;
+		font-size: 16px;
+		border-radius: 4px;
+		transition: background-color 0.3s ease, transform 0.2s ease;
+		font-weight: 600;
+	}
+
+	.btn-custom i {
+		margin-right: 8px;
+	}
+
+	/* Buy Now Button Styles */
+	.btn-buy {
+		background-color: rgb(255, 97, 221);
+		color: #fff;
+		border: none;
+	}
+
+	.btn-buy:hover {
+		transform: scale(1.03);
+		border: 1px solid rgb(255, 97, 221);
+		background: none;
+	}
+
 	#map {
 		height: 400px;
 		width: 100%;
@@ -94,6 +121,9 @@ require_once "backend/single_property.php";
 						<!-- Display location and title -->
 						<span class="subheading"><?php echo htmlspecialchars($property['location']); ?></span>
 						<h2><?php echo htmlspecialchars($property['title']); ?></h2>
+						<a href="request-services.php?id=<?= $property['id'] ?>" class="btn-custom btn-buy">
+							<i class="fas fa-shopping-cart"></i> Buy Now
+						</a>
 					</div>
 				</div>
 			</div>

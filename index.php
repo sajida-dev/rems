@@ -4,7 +4,6 @@ if ($conMessage):
   $limitHomePage = true;
   require_once "backend/select_properties.php";
   require_once "backend/select_agents.php";
-  require_once "backend/search_filter.php";
 endif;
 // require_once "components/notification.php";
 

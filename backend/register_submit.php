@@ -62,15 +62,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
                 $_SESSION['email'] = $email;
 
 
-                $msg = 'Registration successful, welcome ' . htmlspecialchars($name) . '!';
                 if ($role == 'agent'):
                     $_SESSION['url'] = 'assets/img/avatar.png';
-                    echo "<script>window.location.href = 'dashboard/profile.php';</script>";
-                    exit;
+                    redirect('dashboard/profile.php', 'Registration successful, welcome ' . htmlspecialchars($name) . '!');
+
                 else:
                     $_SESSION['url'] = 'images/avatar.png';
-                    echo "<script>window.location.href = 'profile.php';</script>";
-                    exit;
+                    if (isset($_GET['page']) && $_GET['agent_id']) {
+                        redirect(
+                            "profile.php?page=" . $_GET['page'] . "&agent_id=" . $_GET['agent_id'],
+                            'Registration successful, welcome ' . htmlspecialchars($name) . '!'
+                        );
+                    }
+                    redirect("profile.php", 'Registration successful, welcome ' . htmlspecialchars($name) . '!');
+
                 endif;
             }
         } catch (PDOException $e) {

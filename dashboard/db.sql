@@ -113,6 +113,23 @@ CREATE TABLE payments (
     FOREIGN KEY (transaction_id) REFERENCES transactions(id) ON DELETE CASCADE
 );
 
+CREATE TABLE hiring_requests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    agent_id INT NOT NULL,
+    transaction_type ENUM('rent', 'buy', 'sell') NOT NULL,
+    property_category INT NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    min_budget DECIMAL(10,2) DEFAULT NULL,
+    max_budget DECIMAL(10,2) DEFAULT NULL,
+    bedrooms INT DEFAULT NULL,
+    requirements TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (agent_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (property_category) REFERENCES property_categories(id) ON DELETE SET NULL
+);
+
 
 
 INSERT INTO property_categories (name, description) VALUES

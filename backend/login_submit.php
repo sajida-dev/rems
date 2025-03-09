@@ -38,6 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
                         echo "<script>window.location.href = 'dashboard/index.php'</script>";
                         exit;
                     } else {
+                        if (isset($_GET['page']) && isset($_GET['agent_id'])) {
+                            redirect($_GET['page'] . '?agent_id=' . $_GET['agent_id']);
+                        }
                         echo "<script>window.location.href = 'index.php'</script>";
                         exit;
                     }

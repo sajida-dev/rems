@@ -82,9 +82,10 @@ if (isset($_SESSION['id'])) {
 
                                             <div class="card-action">
                                                 <button class="btn btn-success" type="submit" name="register">Register</button>
+                                                <?php (isset($_GET['page'])) ? $page = "login.php?page=" . $_GET['page'] . '.php&agent_id=' . $_GET['agent_id'] : $page = "login.php" ?>
+                                                <span class="container"><a href="<?php echo $page; ?>">Login Here</a></span>
                                             </div>
                                         </form>
-
                                     </div>
                                 </div>
                             </div>
