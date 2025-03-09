@@ -1,4 +1,7 @@
-<?php require_once("components/header.php");
+<?php
+$title = "Agent";
+
+require_once("components/header.php");
 if ($conMessage):
 	require_once("backend/select_agents.php");
 endif;

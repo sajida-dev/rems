@@ -1,5 +1,7 @@
-<?php include_once("components/header.php");
+<?php
 require_once "backend/single_agent.php";
+$title = htmlspecialchars($agent['name']);
+include_once("components/header.php");
 ?>
 <style>
     /* Common button styling */

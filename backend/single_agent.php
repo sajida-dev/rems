@@ -1,4 +1,6 @@
 <?php
+
+include "components/db_connection.php";
 $agent_id = $_GET['agent_id'];
 
 $sql = "SELECT a.*, u.name, u.email, u.contact, u.profile_pic 

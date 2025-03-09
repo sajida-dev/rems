@@ -18,7 +18,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <html lang="en">
 
 <head>
-    <title>Uptown</title>
+    <title><?php echo ($title ?? 'Uptown') ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 

@@ -1,5 +1,7 @@
-<?php include_once("components/header.php");
+<?php
 require_once "backend/single_property.php";
+$title = htmlspecialchars($property['title']);
+include_once("components/header.php");
 ?>
 <style>
 	.btn-custom {
@@ -121,7 +123,7 @@ require_once "backend/single_property.php";
 						<!-- Display location and title -->
 						<span class="subheading"><?php echo htmlspecialchars($property['location']); ?></span>
 						<h2><?php echo htmlspecialchars($property['title']); ?></h2>
-						<a href="request-services.php?id=<?= $property['id'] ?>" class="btn-custom btn-buy">
+						<a href="request-property-buy.php?id=<?= $property['id'] ?>" class="btn-custom btn-buy">
 							<i class="fas fa-shopping-cart"></i> Buy Now
 						</a>
 					</div>

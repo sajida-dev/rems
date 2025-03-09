@@ -1,4 +1,6 @@
-<?php include_once("components/header.php");
+<?php
+$title = "Request Services | Hire Now";
+include_once("components/header.php");
 require_once "backend/get_categories.php";
 require_once "backend/save-hiring-request.php";
 ?>

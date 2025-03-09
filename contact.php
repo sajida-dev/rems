@@ -1,4 +1,5 @@
 <?php
+$title = "Contact";
 require_once("components/header.php");
 if ($conMessage):
   require_once "backend/submit_contact.php";

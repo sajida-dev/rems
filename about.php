@@ -1,4 +1,5 @@
 <?php
+$title = "About";
 require_once("components/header.php");
 if ($conMessage):
   require_once "backend/about_section_counter.php";

@@ -1,4 +1,5 @@
 <?php
+include "components/db_connection.php";
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 if ($id <= 0) {
     die("Invalid property id.");

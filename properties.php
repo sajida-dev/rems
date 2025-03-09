@@ -1,4 +1,6 @@
-<?php require_once("components/header.php");
+<?php
+$title = "Properties";
+require_once("components/header.php");
 if ($conMessage):
 	// require_once("backend/select_properties.php");
 	// require_once "backend/search_filter.php";
