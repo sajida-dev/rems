@@ -2,6 +2,7 @@
 require_once "backend/single_property.php";
 $title = htmlspecialchars($property['title']);
 include_once("components/header.php");
+
 ?>
 <style>
 	.btn-custom {
@@ -123,9 +124,11 @@ include_once("components/header.php");
 						<!-- Display location and title -->
 						<span class="subheading"><?php echo htmlspecialchars($property['location']); ?></span>
 						<h2><?php echo htmlspecialchars($property['title']); ?></h2>
-						<a href="request-property-buy.php?id=<?= $property['id'] ?>" class="btn-custom btn-buy">
-							<i class="fas fa-shopping-cart"></i> Buy Now
-						</a>
+						<?php if ($property['status'] == 'available'): ?>
+							<a href="request-property-buy.php?id=<?= $property['id'] ?>" class="btn-custom btn-buy">
+								<i class="fas fa-shopping-cart"></i> Buy Now
+							</a>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>

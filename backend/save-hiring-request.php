@@ -52,6 +52,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         $stmt->bindParam(":requirements", $requirements);
         $stmt->execute();
 
+        $sql = "SELECT `name` FROM `property_categories` WHERE id=:property_category";
+        $statement = $conn->prepare($sql);
+        $statement->bindParam('property_category', $property_category, PDO::PARAM_INT);
+        $statement->execute();
+        $category = $statement->fetch(PDO::FETCH_ASSOC)['name'];
+
+        $sql = "SELECT `name`, `email`  FROM `users` WHERE id=:agent_id";
+        $statement = $conn->prepare($sql);
+        $statement->bindParam('agent_id', $agent_id, PDO::PARAM_INT);
+        $statement->execute();
+        $agent = $statement->fetch(PDO::FETCH_ASSOC);
+
+        $user_name = $_SESSION['name'];
+
         require_once 'vendor/autoload.php';
 
         require_once "dashboard/components/config-php-mailer.php";
@@ -60,16 +74,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         $mail->CharSet = 'UTF-8';
 
         // Sender and recipient
+        $agent_name = $agent['name'];
+        $agent_email = $agent['email'];
         $mail->setFrom('saadzaib1123@gmail.com', 'Real Estate Website');
-        $mail->addAddress('sajidajavaid640@gmail.com', 'Agent Name'); // Get agent email from your database if necessary
+        $mail->addAddress('saadzaib1123@gmail.com' ?? $agent_email, "$agent_name");
+        // $agent['email']
 
-        // Subject and body
-        $mail->Subject = "New Hiring Request from User #$user_id";
+        $mail->Subject = "New Hiring Request from User #$user_name";
 
         $mail->Body    = "
             <p>A new hiring request has been submitted:</p>
             <p><strong>Transaction Type:</strong> $transaction_type</p>
-            <p><strong>Property Category:</strong> $property_category</p>
+            <p><strong>Property Category:</strong> $category</p>
             <p><strong>Location:</strong> $location</p>
             <p><strong>Budget Range:</strong> $min_budget - $max_budget</p>
             <p><strong>Bedrooms:</strong> $bedrooms</p>

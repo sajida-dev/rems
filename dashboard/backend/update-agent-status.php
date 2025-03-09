@@ -35,7 +35,7 @@ require_once "../components/config-php-mailer.php";
 $mail->setFrom('saadzaib1123@gmail.com', 'Your Company');
 
 // add agent_email -> $agent_email
-$mail->addAddress("sajidajavaid640@gmail.com", $agent_name);
+$mail->addAddress("saadzaib1123@gmail.com", $agent_name);
 
 
 $mail->isHTML(true);

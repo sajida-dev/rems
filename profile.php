@@ -65,7 +65,7 @@ require_once "backend/save-profile.php";
                         </div>
                         <div class="custom-col custom-col-right">
                             <?php if (!empty($user['profile_pic'])): ?>
-                                <img src="<?php echo  htmlspecialchars($user['profile_pic']); ?>" alt="<?php echo  htmlspecialchars($user['name']); ?>" class="avatar custom-avatar img-fluid" id="avatarPreview" />
+                                <img src="<?php echo ($user['profile_pic'] ?? "images/avator.png"); ?>" alt="<?php echo  htmlspecialchars($user['name']); ?>" class="avatar custom-avatar img-fluid" id="avatarPreview" />
                             <?php else: ?>
                                 <img src="dashboard/assets/img/profile.jpg" alt="Default Avatar" class="custom-avatar img-fluid" id="avatarPreview" />
                             <?php endif; ?>

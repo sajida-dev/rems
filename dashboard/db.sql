@@ -130,6 +130,18 @@ CREATE TABLE hiring_requests (
     FOREIGN KEY (property_category) REFERENCES property_categories(id) ON DELETE SET NULL
 );
 
+CREATE TABLE payments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    property_id INT NOT NULL,
+    stripe_payment_id VARCHAR(255) DEFAULT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    status VARCHAR(50) NOT NULL DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    -- additional columns if needed
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (property_id) REFERENCES properties(id) ON DELETE CASCADE
+);
 
 
 INSERT INTO property_categories (name, description) VALUES
