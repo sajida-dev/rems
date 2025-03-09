@@ -41,6 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
                         if (isset($_GET['page']) && isset($_GET['agent_id'])) {
                             redirect($_GET['page'] . '?agent_id=' . $_GET['agent_id']);
                         }
+                        if (isset($_GET['id'])) {
+                            redirect('request-property-buy.php?id=' . $_GET['id']);
+                        }
                         echo "<script>window.location.href = 'index.php'</script>";
                         exit;
                     }

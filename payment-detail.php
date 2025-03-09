@@ -26,7 +26,7 @@
 
          <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 ">
              <dt class="text-base font-bold text-gray-900 ">Total</dt>
-             <dd class="text-base font-bold text-gray-900 ">$<?php echo $property['rent_price'] * 100 ?></dd>
+             <dd class="text-base font-bold text-gray-900 ">$<?php echo $amount ?></dd>
          </dl>
      </div>
 

@@ -1,7 +1,22 @@
 <?php
 $title = "Request Buy";
+
 require_once "backend/save-payment.php";
+if (session_status() === PHP_SESSION_NONE) {
+    $cookieLifetime = 86400 * 30;
+    session_set_cookie_params([
+        'lifetime' => $cookieLifetime,
+        'path'     => '/',
+        'domain'   => '',
+        'secure'   => false,
+        'httponly' => true,
+        'samesite' => 'strict'
+    ]);
+    session_start();
+}
+require_once "components/notification.php";
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

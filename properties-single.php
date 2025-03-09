@@ -128,7 +128,10 @@ include_once("components/header.php");
 							<a href="request-property-buy.php?id=<?= $property['id'] ?>" class="btn-custom btn-buy">
 								<i class="fas fa-shopping-cart"></i> Buy Now
 							</a>
-						<?php endif; ?>
+						<?php
+						else:
+							echo "Sold out";
+						endif; ?>
 					</div>
 				</div>
 			</div>

@@ -4,6 +4,14 @@ require_once 'vendor/autoload.php';
 require_once 'components/db_connection.php';
 require_once "components/notification.php";
 \Stripe\Stripe::setApiKey('sk_test_51R0gnMCmRIcgkVt93JTky9fZMgslreOAdSw0GL2VeANrXGYZJaA6KjRvtIAStPMgvkg0KoVkK2s5M1DfjgtSio4R00SZwauCqW');
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+
+    if (!isset($_SESSION['id'])) {
+        redirect('register.php?id=' . $_GET['id'], 'Please log in before making a payment.', 'error');
+        exit;
+    }
+}
 
 $propertyId = (isset($_GET['id'])) ? intval($_GET['id']) : 0;
 
@@ -17,14 +25,8 @@ $statement = $conn->prepare($sql);
 $statement->bindParam(':propertyId', $propertyId, PDO::PARAM_INT);
 $statement->execute();
 $property = $statement->fetch(PDO::FETCH_ASSOC);
-
+$amount = (int)($property['rent_price'] * 99);
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    session_start();
-
-    if (!isset($_SESSION['id'])) {
-        redirect('login.php', 'Please log in before making a payment.', 'error');
-        exit;
-    }
 
     $user_id = intval($_SESSION['id']);
     $full_name = trim($_POST['full_name'] ?? '');
@@ -69,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
         $paymentIntent = \Stripe\PaymentIntent::create([
-            'amount' => (int)($property['rent_price'] * 100),
+            'amount' => $amount,
             'currency' => 'usd',
             'payment_method_types' => ['card'],
             'confirm' => false,

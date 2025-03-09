@@ -86,6 +86,7 @@ if (isset($_SESSION['id'])) {
                 </div>
                 <div class="card-action">
                   <button class="btn btn-sm btn-success" type="submit" name="login">Login</button>
+
                   <span class="container"><a href="register.php">Register Here</a></span>
                 </div>
               </form>

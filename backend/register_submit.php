@@ -74,6 +74,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['register'])) {
                             'Registration successful, welcome ' . htmlspecialchars($name) . '!'
                         );
                     }
+                    if (isset($_GET['id'])) {
+                        redirect('request-property-buy.php?id=' . $_GET['id']);
+                    }
                     redirect("profile.php", 'Registration successful, welcome ' . htmlspecialchars($name) . '!');
 
                 endif;

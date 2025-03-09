@@ -68,10 +68,10 @@ if (isset($_POST['submit'])) {
 
             $newFileName = uniqid("user_", true) . '.' . $ext;
             $uploadDir = "uploads/avatars/";
-            if (!is_dir($uploadDir)) {
+            if (!is_dir("dashboard/" . $uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
-            $profile_pic = $uploadDir . $newFileName;
+            $profile_pic = "dashboard/" . $uploadDir . $newFileName;
             if (!move_uploaded_file($_FILES['profile_pic']['tmp_name'], $profile_pic)) {
                 $errors[] = "Failed to upload profile picture.";
             }
