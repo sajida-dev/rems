@@ -1,4 +1,6 @@
 <?php
+include "components/db_connection.php";
+
 require_once "backend/single_agent.php";
 $title = htmlspecialchars($agent['name']);
 include_once("components/header.php");

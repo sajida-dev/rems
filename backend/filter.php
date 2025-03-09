@@ -1,5 +1,4 @@
 <?php
-
 $search       = trim($_POST['search'] ?? '');
 $category_id  = intval($_POST['category_id'] ?? 0);
 $location     = trim($_POST['location'] ?? '');
@@ -7,6 +6,7 @@ $min_price    = floatval($_POST['min_price'] ?? 0);
 $max_price    = floatval($_POST['max_price'] ?? 0);
 $bedrooms     = intval($_POST['bedrooms'] ?? 0);
 $amenities    = $_POST['amenities'] ?? [];
+$agent_id     = isset($_GET['agent_id']) ? intval($_GET['agent_id']) : 0;
 
 $sql = "SELECT DISTINCT p.*, c.name AS category_name
         FROM properties p
@@ -19,6 +19,7 @@ if (!empty($amenities)) {
 $sql .= "WHERE 1=1 ";
 
 $params = [];
+
 
 if (!empty($search)) {
     $sql .= "AND (p.title LIKE :search OR p.description LIKE :search OR p.location LIKE :search) ";
@@ -35,6 +36,9 @@ if (!empty($location)) {
     $params[':location'] = "%" . $location . "%";
 }
 
+
+
+
 if ($min_price > 0) {
     $sql .= "AND p.rent_price >= :min_price ";
     $params[':min_price'] = $min_price;
@@ -48,6 +52,12 @@ if ($max_price > 0) {
 if ($bedrooms > 0) {
     $sql .= "AND p.bedrooms >= :bedrooms ";
     $params[':bedrooms'] = $bedrooms;
+}
+
+
+if ($agent_id > 0) {
+    $sql .= "AND p.agent_id = :agent_id ";
+    $params[':agent_id'] = $agent_id;
 }
 
 if (!empty($amenities)) {
